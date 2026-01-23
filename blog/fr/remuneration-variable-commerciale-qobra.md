@@ -3,12 +3,9 @@ title: 'Rémunération variable commerciale : la success story Qobra'
 author: benjamin
 description: Découvrez comment Antoine Fort a bâti Qobra en faisant de la rémunération variable commerciale un levier de croissance SaaS inspirant.
 exerpt: |
-  *La **rémunération variable commerciale** reste souvent sous-estimée dans les stratégies de croissance. Pourtant, elle constitue un levier déterminant pour **motiver les équipes**, **contrôler les coûts d'acquisition** et **assurer la performance financière**. C'est parce qu'ils en étaient convaincus qu'[Antoine Fort](https://www.linkedin.com/in/antoine-fort/en) et ses associés ont fondé **[Qobra](https://www.qobra.co/fr)** en 2020.*
-  
-  *Aujourd'hui, **Qobra** accompagne des centaines d'entreprises et affiche une **très belle croissance**.*
-  
-  *Retour sur le parcours de son fondateur et sur la manière dont la startup a su transformer un irritant organisationnel en véritable **moteur de développement**.*
-
+  La rémunération variable commerciale reste souvent sous-estimée dans les stratégies de croissance. Pourtant, elle constitue un levier déterminant pour motiver les équipes, contrôler les coûts d'acquisition et assurer la performance financière. C'est parce qu'ils en étaient convaincus qu'Antoine Fort et ses associés ont fondé Qobra en 2020.
+  Aujourd'hui, Qobra accompagne des centaines d'entreprises et affiche une très belle croissance.
+  Retour sur le parcours de son fondateur et sur la manière dont la startup a su transformer un irritant organisationnel en véritable moteur de développement.
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-12/cover-2.png
 date: 2025-12-12
@@ -138,12 +135,12 @@ Maintenant que Qobra a atteint un stade de maturité significatif, l'entreprise 
 
 ## Conclusion
 
-*L'histoire de Qobra représente un modèle pour les startups SaaS. En cinq ans, Antoine Fort et son équipe ont prouvé qu'un sujet aussi technique et méconnu que la rémunération variable commerciale pouvait devenir le socle d'une success story SaaS. Leur parcours illustre l'importance de :*
+L'histoire de Qobra représente un modèle pour les startups SaaS. En cinq ans, Antoine Fort et son équipe ont prouvé qu'un sujet aussi technique et méconnu que la rémunération variable commerciale pouvait devenir le socle d'une success story SaaS. Leur parcours illustre l'importance de :
 
-1. *Partir d'un problème réel*
-2. *Valider son marché par l'action*
-3. *Structurer ses équipes progressivement*
-4. *Rester concentré sur une niche avant d'élargir.*
+1. Partir d'un problème réel
+2. Valider son marché par l'action
+3. Structurer ses équipes progressivement
+4. Rester concentré sur une niche avant d'élargir
 
 **Envie d'aller plus loin ? Écoutez l'épisode complet de Revenue Echoes avec Antoine Fort sur toutes les plateformes.**
 
