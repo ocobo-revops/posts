@@ -9,7 +9,7 @@ exerpt: |
 
   À partir de l'exemple de Surfe, découvrez un framework concret pour structurer votre moteur revenu : langage commun, donnée fiable, priorisation commerciale, rituels de pilotage et discipline opérationnelle.
 read: 6 min
-image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop
+image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-14/cover-2.png
 date: 2026-02-12
 tags:
   - podcast
