@@ -1,7 +1,7 @@
 ---
 name: ekodev
 date: 2026-02-16
-title: Accompagner la création d'une business unit durabilité : comment ekodev a structuré son organisation commerciale et déployé HubSpot
+title: "Accompagner la création d'une business unit durabilité : comment ekodev a structuré son organisation commerciale et déployé HubSpot"
 subtitle: ekodev by EPSA Sustainability est une entreprise spécialisée dans les solutions de durabilité et de transition énergétique.
 description: ekodev by EPSA Sustainability accompagne les entreprises dans leur transition énergétique et leur stratégie de durabilité en proposant des solutions sur mesure pour optimiser leur impact environnemental et leur performance énergétique.
 speaker: Benjamin DEKESTER

@@ -7,7 +7,7 @@ exerpt: |
   Aujourd'hui, Qobra accompagne des centaines d'entreprises et affiche une très belle croissance.
   Retour sur le parcours de son fondateur et sur la manière dont la startup a su transformer un irritant organisationnel en véritable moteur de développement.
 read: 5 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-12/cover-2.png
+image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-13/cover-1.png
 date: 2025-12-12
 tags:
   - organisation-revops
@@ -70,7 +70,7 @@ Antoine insiste sur une règle clé : prouver par l'exemple.
 
 Chez Qobra, les Account Executives (AE) travaillent sur un full cycle : **prospection, gestion du cycle de vente et closing**. Pour Antoine, cette gestion de tout le cycle de vente par les AE présente beaucoup de vertus.
 
-Les Customer Success Managers (CSM) prennent le relais ensuite. Cette approche permet de préserver les compétences de prospection tout en **[structurant clairement](https://www.ocobo.co/blog/structurer-equipes-vente-complexe)** le passage des client vers les CSM après signature de la vente.
+Les Customer Success Managers (CSM) prennent le relais ensuite. Cette approche permet de préserver les compétences de prospection tout en **[structurant clairement](https://www.ocobo.co/blog/structurer-equipes-vente-complexe)** le passage des clients vers les CSM après signature de la vente.
 
 ### Le rôle stratégique du RevOps
 
@@ -100,7 +100,7 @@ Antoine cite le livre *Crossing the Chasm* de Geoffrey Moore pour expliquer ce t
 
 ### Comprendre le ratio CAC, quota et OTE
 
-Antoine Fort explique une règle courante, qui veut que le quota corresponde à cinq fois L'OTE. Mais cette règle n'est pas une formule magique sortie du chapeau : le calcul du quota doit se faire à partir du **coût d'acquisition client.**
+Antoine Fort explique une règle courante, qui veut que le quota corresponde à cinq fois l'OTE. Mais cette règle n'est pas une formule magique sortie du chapeau : le calcul du quota doit se faire à partir du **coût d'acquisition client.**
 
 C'est ce qui permet de définir des **plans qui soient à la fois réalistes** et qui **motivent les vendeurs**.
 
@@ -144,6 +144,6 @@ L'histoire de Qobra représente un modèle pour les startups SaaS. En cinq ans, 
 
 **Envie d'aller plus loin ? Écoutez l'épisode complet de Revenue Echoes avec Antoine Fort sur toutes les plateformes.**
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="LxV1VtZ1a9zz" title="13-transformer-la-remuneration-variable-en-levier-de-croissance-le-retour-d-experience-d-antoine-fort-ceo-de-qobra" %}{% /aushaPlayer %}
+{% aushaPlayer showId="wN6XqFGL519L" podcastId="GZ9n9tvNLKLv" title="13-transformer-la-remuneration-variable-en-levier-de-croissance-le-retour-d-experience-d-antoine-fort-ceo-de-qobra" %}{% /aushaPlayer %}
 
 Vous cherchez à structurer vos processus, fiabiliser vos données et aligner vos équipes revenues autour d'indicateurs communs ? Découvrez [notre méthode](https://www.ocobo.co/fr/strategies-revenue-operations) d'accompagnement et [prenez rendez-vous](https://www.ocobo.co/fr/contact) en ligne pour un premier échange.

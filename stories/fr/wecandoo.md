@@ -1,7 +1,7 @@
 ---
 name: Wecandoo
 date: 2026-02-16
-title: Optimiser la stratégie d'expansion et la gestion des artisans pour maximiser les revenus : comment Wecandoo a structuré son parcours artisan avec une approche data-driven
+title: "Optimiser la stratégie d'expansion et la gestion des artisans pour maximiser les revenus : comment Wecandoo a structuré son parcours artisan avec une approche data-driven"
 subtitle: Wecandoo est une plateforme qui connecte les entreprises aux meilleurs artisans et créateurs locaux pour des expériences sur mesure.
 description: Wecandoo est une plateforme SaaS qui permet aux entreprises de découvrir et réserver des expériences créatives et artisanales auprès de professionnels locaux. La plateforme facilite la connexion entre les entreprises et les artisans pour des événements d'entreprise, des team building et des expériences client sur mesure.
 speaker: Oriane Fargier
@@ -28,7 +28,7 @@ deliverables:
   - Roadmap de transformation RevOps priorisée (vision 12 mois)
   - Cadre de segmentation des artisans (tiering + matrice Revenue x Potentiel) et règles d'affectation des portefeuilles AM
   - Définition des phases du cycle de vie artisan avec objectifs, critères d'entrée/sortie, touchpoints, ownerships et KPIs
-  - Cadre de Customer Success data-driven : définition des principaux KPIs d'usage, d'un score de potentiel, du health score et du système d'alertes opérationnelles (Sales, AM, Support, Contenu)
+  - "Cadre de Customer Success data-driven : définition des principaux KPIs d'usage, d'un score de potentiel, du health score et du système d'alertes opérationnelles (Sales, AM, Support, Contenu)"
 ---
 
 ## La mission

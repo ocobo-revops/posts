@@ -1,15 +1,15 @@
 ---
-title: Structurer la croissance pour liberer la vente : l'exemple de Surfe
+title: "Structurer la croissance pour libérer la vente : l'exemple de Surfe"
 author: benjamin
 description: |
-  Dans les scale-ups SaaS, la croissance peut vite devenir difficile a piloter sans cadre commun.
-  Dans cet article, Eric Didier (Head of Sales chez Surfe) partage une methode en 5 axes pour rendre les ventes previsibles, aligner les equipes et transformer la donnee en levier de performance.
+  Dans les scale-ups SaaS, la croissance peut vite devenir difficile à piloter sans cadre commun.
+  Dans cet article, Éric Didier (Head of Sales chez Surfe) partage une méthode en 5 axes pour rendre les ventes prévisibles, aligner les équipes et transformer la donnée en levier de performance.
 exerpt: |
-  Dans les scale-ups SaaS, la croissance peut vite devenir difficile a piloter sans cadre commun.
+  Dans les scale-ups SaaS, la croissance peut vite devenir difficile à piloter sans cadre commun.
 
-  A partir de l'exemple de Surfe, decouvrez un framework concret pour structurer votre moteur revenu : langage commun, donnee fiable, priorisation commerciale, rituels de pilotage et discipline operationnelle.
+  À partir de l'exemple de Surfe, découvrez un framework concret pour structurer votre moteur revenu : langage commun, donnée fiable, priorisation commerciale, rituels de pilotage et discipline opérationnelle.
 read: 6 min
-image:
+image: https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop
 date: 2026-02-12
 tags:
   - podcast
@@ -21,9 +21,9 @@ tags:
 
 *Mais pour passer d’une dynamique opportuniste à une machine de revenus maîtrisée, il faut un cadre.*
 
-***Structurer la croissance SaaS**, c’est rendre les **ventes prévisibles**, **aligner les équipes** et **transformer la donnée en levier de performance**.*
+**Structurer la croissance SaaS**, c’est rendre les **ventes prévisibles**, **aligner les équipes** et **transformer la donnée en levier de performance**.
 
-*C'est le sujet que nous avons aborde dans le dernier episode de [Revenue Echoes](https://podcast.ausha.co/revenue-echoes) avec Eric Didier, Head of Sales et investisseur de la premiere heure chez [Surfe](https://www.surfe.com/).*
+*C'est le sujet que nous avons abordé dans le dernier épisode de [Revenue Echoes](https://podcast.ausha.co/revenue-echoes) avec Éric Didier, Head of Sales et investisseur de la première heure chez [Surfe](https://www.surfe.com/).*
 
 *Avec son équipe, il a vécu toutes les étapes de ce passage à l’échelle : de la traction produit à la structuration du modèle commercial.*
 
@@ -31,11 +31,11 @@ tags:
 
 ## Pourquoi structurer la croissance est devenu vital en SaaS B2B
 
-La promesse du SaaS, c'est la vitesse : **lancer vite, iterer, croitre**. Mais cette rapidite cree un risque structurel : la desorganisation du revenu. Les commerciaux passent encore pres de [60 % de leur temps a des taches non commerciales](https://blog.hubspot.com/sales/sales-statistics?utm_source=chatgpt.com). Les outils s'empilent, les donnees se fragmentent et la performance devient difficile a suivre.
+La promesse du SaaS, c'est la vitesse : **lancer vite, itérer, croître**. Mais cette rapidité crée un risque structurel : la désorganisation du revenu. Les commerciaux passent encore près de [60 % de leur temps à des tâches non commerciales](https://blog.hubspot.com/sales/sales-statistics?utm_source=chatgpt.com). Les outils s'empilent, les données se fragmentent et la performance devient difficile à suivre.
 
 > *« Les CRM sont essentiels, mais souvent vécus comme des outils de reporting, pas d’action. »* explique Éric Didier.
 
-Chez Surfe, ce constat a ete le point de depart. Les fondateurs [David Chevalier](https://fr.linkedin.com/in/david-maurice-chevalier) et [Romain Ginestou](https://fr.linkedin.com/in/romain-ginestou) ont cherche a eliminer la friction du quotidien commercial en creant une extension Chrome reliant LinkedIn a HubSpot, Salesforce ou Pipedrive.
+Chez Surfe, ce constat a été le point de départ. Les fondateurs [David Chevalier](https://fr.linkedin.com/in/david-maurice-chevalier) et [Romain Ginestou](https://fr.linkedin.com/in/romain-ginestou) ont cherché à éliminer la friction du quotidien commercial en créant une extension Chrome reliant LinkedIn à HubSpot, Salesforce ou Pipedrive.
 
 **Leur intuition** : la productivité ne vient pas d’une accumulation d’outils, mais d’une meilleure circulation de la donnée. Autrement dit, structurer la croissance SaaS commence généralement par réduire les frictions qui freinent la vente.
 
@@ -88,7 +88,7 @@ C’est la logique qu’a adoptée Surfe avec sa **Revenue Review hebdomadaire**
 Cette cadence crée un réflexe de mesure continue : on ajuste avant que les signaux faibles ne deviennent des problèmes.
 
 {% callout %}
-💡 A retenir : piloter regulierement, c'est eviter les corrections brutales.
+💡 À retenir : piloter régulièrement, c'est éviter les corrections brutales.
 {% /callout %}
 
 ### 5. Faire de la rigueur un avantage compétitif
@@ -100,7 +100,7 @@ La rigueur chez Surfe n’est pas une contrainte : c’est une forme de liberté
 En s’appuyant sur la donnée pour comprendre plutôt que de vérifier, **les équipes gagnent en autonomie et en sérénité.**
 
 {% callout %}
-💡 **A retenir :** la rigueur partagee transforme la croissance en systeme maitrise.
+💡 **À retenir :** la rigueur partagée transforme la croissance en système maîtrisé.
 {% /callout %}
 
 Cette méthode, appliquée chez Surfe, s’adapte à toute organisation SaaS confrontée au même défi : **croître en restant alignée**.
@@ -135,8 +135,9 @@ Structurer la croissance n’est pas une question de taille, mais de méthode. V
 
 *Quand les données, la clarté et la rigueur deviennent des réflexes, la performance commerciale suit naturellement.*
 
-*Rendez-vous sur toutes les plateformes d'ecoute* : [Revenue Echoes](https://podcast.ausha.co/revenue-echoes) pour decouvrir notre conversation avec Eric Didier, Head of Sales chez Surfe.
+*Rendez-vous sur toutes les plateformes d'écoute* : [Revenue Echoes](https://podcast.ausha.co/revenue-echoes) pour découvrir notre conversation avec Éric Didier, Head of Sales chez Surfe.
 
-*Un episode a mettre entre les oreilles de toutes celles et ceux qui veulent comprendre comment la methode peut liberer la performance commerciale.*
+*Un épisode à mettre entre les oreilles de toutes celles et ceux qui veulent comprendre comment la méthode peut libérer la performance commerciale.*
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="0kWv1JdXq2b3" title="Revenue echoes #10" %}{% /aushaPlayer %}
+{% aushaPlayer showId="wN6XqFGL519L" podcastId="GZ9n9tgO81K9" title="Revenue echoes #10" %}{% /aushaPlayer %}
+
