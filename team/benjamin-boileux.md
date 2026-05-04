@@ -1,0 +1,15 @@
+---
+name: Benjamin Boileux
+role:
+  fr: Associé
+  en: Partner
+track: architecte
+linkedin: https://www.linkedin.com/in/benjaminboileux/
+avatar: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/team/benjamin-boileux.jpg
+displayOrder: 1
+active: true
+featuredOnAboutUs: true
+bio:
+  fr: 12+ ans en Ops, CRM, Product et Revenue Operations (TheFork, Tripadvisor, Yousign). Spécialiste des systèmes et du pilotage opérationnel.
+  en: 12+ years in Ops, CRM, Product and Revenue Operations (TheFork, Tripadvisor, Yousign). Systems and operational management specialist.
+---
