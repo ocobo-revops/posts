@@ -3,7 +3,7 @@ name: Benjamin Boileux
 role:
   fr: Associé
   en: Partner
-track: architecte
+track: architect
 linkedin: https://www.linkedin.com/in/benjaminboileux/
 avatar: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/team/benjamin-boileux.jpg
 displayOrder: 1

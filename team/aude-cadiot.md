@@ -3,7 +3,7 @@ name: Aude Cadiot
 role:
   fr: Associée
   en: Partner
-track: architecte
+track: architect
 linkedin: https://www.linkedin.com/in/aude-cadiot-9597096b/
 avatar: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/team/aude-cadiot.jpg
 displayOrder: 2
