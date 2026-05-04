@@ -5,7 +5,7 @@ contractType: CDI
 seniority: 1-3 ans
 location: Paris (On site)
 startDate: 2026-06-01
-hiringContact: aude
+hiringContact: aude-cadiot
 applyEmail: recrutement@ocobo.co
 tallyFormId: 3E0zYA
 status: published

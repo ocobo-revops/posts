@@ -5,7 +5,7 @@ contractType: CDI
 seniority: 1-3 ans
 location: Paris (On site)
 startDate: 2026-05-04
-hiringContact: benjamin
+hiringContact: benjamin-boileux
 applyEmail: recrutement@ocobo.co
 tallyFormId: kdYr11
 status: published
