@@ -9,6 +9,7 @@ avatar: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/team/aud
 displayOrder: 2
 active: true
 featuredOnAboutUs: true
+color: coral
 bio:
   fr: Référence française du Revenue Operations (TheFork, Spendesk). Experte du customer journey, des organisations GTM, du scaling d'équipes RevOps.
   en: France's Revenue Operations reference (TheFork, Spendesk). Expert in customer journey, GTM organisations, and scaling RevOps teams.
