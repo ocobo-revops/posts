@@ -1,6 +1,6 @@
 ---
 title: "Stratégie RevOps : repenser la rémunération variable pour booster la performance"
-author: benjamin
+author: benjamin-boileux
 description: Dans de nombreuses entreprises B2B, la rémunération variable est encore perçue comme un sujet administratif, parfois secondaire. On la réduit à une prime versée pour « motiver » les commerciaux, sans forcément la relier à une logique de performance globale.
 exerpt: |
   Dans de nombreuses entreprises B2B, la rémunération variable est encore perçue comme un sujet administratif, parfois secondaire. On la réduit à une prime versée pour « motiver » les commerciaux, sans forcément la relier à une logique de performance globale.

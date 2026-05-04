@@ -1,7 +1,7 @@
 ---
 title: |
   Le virage stratégique de Diffusely : comment devenir une vraie tech company
-author: benjamin
+author: benjamin-boileux
 description: |
   Transformer une société de services en entreprise technologique, c'est opérer une révolution culturelle, organisationnelle et technologique.
   Dans un épisode de Revenue Echoes, Fanny Kauffer, CRO de Diffusely, partage son retour d'expérience sur un changement audacieux : abandonner une activité rentable pour développer une offre SaaS scalable.

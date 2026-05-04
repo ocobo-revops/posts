@@ -1,6 +1,6 @@
 ---
 title: 'Rémunération variable commerciale : la success story Qobra'
-author: benjamin
+author: benjamin-boileux
 description: Découvrez comment Antoine Fort a bâti Qobra en faisant de la rémunération variable commerciale un levier de croissance SaaS inspirant.
 exerpt: |
   La rémunération variable commerciale reste souvent sous-estimée dans les stratégies de croissance. Pourtant, elle constitue un levier déterminant pour motiver les équipes, contrôler les coûts d'acquisition et assurer la performance financière. C'est parce qu'ils en étaient convaincus qu'Antoine Fort et ses associés ont fondé Qobra en 2020.

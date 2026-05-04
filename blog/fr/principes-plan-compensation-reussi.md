@@ -1,6 +1,6 @@
 ---
 title: Les grands principes d’un plan de compensation réussi
-author: corentin
+author: corentin-guerin
 description: Ces dernières années, plusieurs facteurs ont amené la rémunération variable des équipes commerciales à être pensée et conçue de manière plus scientifique par les équipes Ops. Cet article vous explique de manière succincte les grands principes qui vous amèneront à mettre en place des plans de compensations efficaces en termes de résultats, motivants pour les équipes, et contrôlables pour l’organisation.
 read: 6 min
 image: https://images.unsplash.com/photo-1601067179601-37820bd0339a?&w=1200&h=800&fit=crop

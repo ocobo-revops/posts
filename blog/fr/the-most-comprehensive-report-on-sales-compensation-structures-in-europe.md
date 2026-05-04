@@ -1,6 +1,6 @@
 ---
 title: The Most Comprehensive Report on Sales Compensation Structures in Europe
-author: aude
+author: aude-cadiot
 description: Ce rapport fournit une analyse approfondie des pratiques du marché européen en matière de rémunération des commerciaux.
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/9/cover.png
 read: 1 min

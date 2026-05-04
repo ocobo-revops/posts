@@ -1,6 +1,6 @@
 ---
 title: "Entre “Run” et gestion de projet : comment orchestrer ses talents RevOps ?"
-author: ethel
+author: ethel-gosset
 description: "Orchestrez vos RevOps: équilibre run et projets, priorisation des demandes, roadmap claire et organisation en spécialités, métiers ou focus teams pour scaler."
 read: 7 min
 image: https://images.unsplash.com/photo-1612385763901-68857dd4c43c?w=1200&h=800&fit=crop

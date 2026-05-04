@@ -1,6 +1,6 @@
 ---
 title: "Faire cohabiter une stratégie PLG et sales-led : les tips de Gilles, CEO de Livestorm"
-author: benjamin
+author: benjamin-boileux
 description: "Gilles et ses cofondateurs partagent la même vision de la stratégie de vente, une approche product-led growth, c'est-à-dire un produit optimisé qui « se vend sans commercial». Mais en 2020, le contexte sanitaire et économique redistribuent les cartes. Ce virage stratégique, il le partage au micro de Revenue Echoes."
 excerpt: |
   Livestorm est fondée en 2008 par 3 passionnés de la tech. L'objectif est clair : proposer une **plateforme de webinar simple à utiliser** et qui répond parfaitement aux besoins des Grands Comptes et des commerciaux.

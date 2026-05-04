@@ -1,6 +1,6 @@
 ---
 title: "Structurer la croissance pour libérer la vente : l'exemple de Surfe"
-author: benjamin
+author: benjamin-boileux
 description: |
   Dans les scale-ups SaaS, la croissance peut vite devenir difficile à piloter sans cadre commun.
   Dans cet article, Éric Didier (Head of Sales chez Surfe) partage une méthode en 5 axes pour rendre les ventes prévisibles, aligner les équipes et transformer la donnée en levier de performance.

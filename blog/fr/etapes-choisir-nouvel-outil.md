@@ -1,6 +1,6 @@
 ---
 title: Les 3 étapes pour choisir un nouvel outil
-author: aude
+author: aude-cadiot
 description: Face à un éco-système d’outils de plus en plus vaste, il est difficile de savoir quel outil choisir et de s’assurer qu’il répondra le mieux au besoin de votre business. Nous vous proposons trois étapes clés pour vous accompagner dans cette démarche.
 read: 6 min
 image: https://images.unsplash.com/photo-1569803903286-eb86d49af323?&w=1200&h=800&fit=crop

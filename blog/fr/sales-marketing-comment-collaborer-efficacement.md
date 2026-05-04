@@ -1,7 +1,7 @@
 ---
 title: |
   Équipes sales et marketing, comment créer un langage commun ?
-author: benjamin
+author: benjamin-boileux
 description: Avec Emmanuel Chaumeau, CRO chez Ringover, explorons quelques pistes pour connecter les départements sales et marketing.
 exerpt: |
   Dans une grande structure, les équipes sales et marketing évoluent souvent comme 2 départements indépendants. Ces pôles poursuivent pourtant la même mission: convaincre les leads que le produit proposé répond spécifiquement à leurs besoins.

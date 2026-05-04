@@ -1,6 +1,6 @@
 ---
 title: 'Marketing Ops : le maillon indispensable pour scaler efficacement'
-author: benjamin
+author: benjamin-boileux
 description: Pour scaler son entreprise, investir dans un nouveau CRM ou multiplier les campagnes marketing n'est pas suffisant. Il faut repenser la gouvernance de la donnée, et surtout la manière dont les équipes marketing et sales collaborent.
 exerpt: |
   Pour scaler son entreprise, investir dans un nouveau CRM ou multiplier les campagnes marketing n'est pas suffisant. Il faut repenser la gouvernance de la donnée, et surtout la manière dont les équipes marketing et sales collaborent.

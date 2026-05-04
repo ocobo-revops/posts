@@ -1,6 +1,6 @@
 ---
 title: "Livestorm : +4000 clients en Europe, les grandes étapes racontées par son CEO"
-author: benjamin
+author: benjamin-boileux
 description: Livestorm compte une centaine de collaborateurs, et plus de 4000 clients en France et à l'international. Son CEO Gilles Bertaux est revenu sur la trajectoire si singulière de Livestorm au micro de Revenue Echoes.
 exerpt: |
   Livestorm : +4000 clients en Europe, les grandes étapes racontées par son CEO

@@ -1,6 +1,6 @@
 ---
 title: L’agence de conseil en Revenue Operations, un vrai "Business Partner" externalisé
-author: aude
+author: aude-cadiot
 description: Avec cet article, nous vous expliquons concrètement le fonctionnement et l’organisation d’une agence de conseil experte en Business Operations et comment, chez Ocobo, nous accompagnons nos clients au quotidien.
 read: 4 min
 image: https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-4.0.3&q=85&fm=jpg&cs=srgb&w=1200&h=800&fit=crop

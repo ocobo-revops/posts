@@ -1,7 +1,7 @@
 ---
 title: |
   Quand l'expérience utilisateur prime sur la rentabilité, la stratégie d'Alan par son CRO Ludovic Bauplé
-author: benjamin
+author: benjamin-boileux
 description: |
   Alan est connu dans l'univers de la tech pour sa culture d'entreprise singulière et sa stratégie revenue innovante, qui fait passer la rentabilité au second plan.
   Ludovic Bauplé est venu raconter les coulisses de l'entreprise, dans Revenue Echoes.

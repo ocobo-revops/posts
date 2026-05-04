@@ -1,7 +1,7 @@
 ---
 title: |
   Le rôle du CRO dans une startup en hypercroissance : le cas Ringover
-author: benjamin
+author: benjamin-boileux
 description: Les insights concrets de Rodolphe Ardant pour structurer une bonne équipe commerciale à ses débuts.
 exerpt: |
   Ringover, c’est la référence incontournable de la communication d’entreprise. Depuis plus de 20 ans, la plateforme SaaS développe des solutions pour dématérialiser les échanges essentiels entre les entreprises et leurs prestataires extérieurs.

@@ -1,6 +1,6 @@
 ---
 title: NRR - La ‘North star’ des équipes Client
-author: aude
+author: aude-cadiot
 description: Cette article vous donnera les clés pour mieux appréhender le Net Retention Rate (NRR). Il vous aidera à mieux comprendre son calcul, son impact et son importance auprès des investisseurs. Vous y trouverez également des stratégies pratiques afin de mettre en œuvre le NRR au sein de votre entreprise, en surmontant les défis potentiels de l’organisation des équipes à la collecte et l'analyse des données.
 read: 8 min
 image: https://images.unsplash.com/photo-1515890435782-59a5bb6ec191

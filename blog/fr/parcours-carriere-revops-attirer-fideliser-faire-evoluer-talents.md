@@ -1,6 +1,6 @@
 ---
 title: "Les parcours de carrière RevOps : attirer, fidéliser et faire évoluer les talents"
-author: ethel
+author: ethel-gosset
 description: "Découvrez comment structurer les parcours de carrière RevOps pour attirer et fidéliser les meilleurs talents. Stratégies RH, évolutions possibles et rémunérations 2025."
 read: 13 min
 image: https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1200&h=800&fit=crop

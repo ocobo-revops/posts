@@ -6,7 +6,7 @@ date: "2025-08-28"
 tags:
   - podcast
   - revenue-echoes
-author: benjamin
+author: benjamin-boileux
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-11/cover.png
 ---

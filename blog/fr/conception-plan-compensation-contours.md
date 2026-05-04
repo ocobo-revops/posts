@@ -1,6 +1,6 @@
 ---
 title: Les étapes de conception d’un plan de compensation • les contours
-author: corentin
+author: corentin-guerin
 description: La conception d’un plan de compensation repose sur des étapes indispensables. En effet, nombreux sont les plans imparfaits voire inefficaces qui ont négligé certaines règles, ou qui sont fondés sur des schémas inadaptés. Voici donc une série d’articles qui vous permettra de comprendre en détail ces étapes. Dans ce premier article, on aborde le sujet des contours du plan de compensation ; le salaire variable cible, et les limites basse et haute.
 read: 7 min
 image: https://images.unsplash.com/photo-1472070153210-15e27d938957?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1200

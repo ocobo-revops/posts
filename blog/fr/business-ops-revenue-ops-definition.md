@@ -1,7 +1,7 @@
 ---
 title: Business Ops, Revenue Ops, qu’est ce que c’est ?
 date: 2023-01-30
-author: benjamin
+author: benjamin-boileux
 description: On ne pouvait pas commencer cette partie Articles ☕️, sans vous exposer notre vision de la notion de Business Operations (aka BizOps) et de ses différentes itérations, notamment celle qui nous intéresse le plus, la partie Revenue Operations (aka RevOps).
 read: 5 min
 image: https://images.unsplash.com/photo-1493476523860-a6de6ce1b0c3?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1200

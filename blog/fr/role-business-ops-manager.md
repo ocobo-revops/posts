@@ -1,6 +1,6 @@
 ---
 title: Le rôle de Business Ops Manager
-author: benjamin
+author: benjamin-boileux
 description: Sales Ops Manager, Revenue Ops Manager, Business Ops Manager, Growth Hacker, Sales Enablement, Performance Manager… on voit émerger depuis quelques années de nouveaux intitulés de poste qui restent difficiles à appréhender même quand on gravite dans le milieu. Cette série d’articles a été pensée pour vous aider à y voir plus clair et mieux comprendre leurs rôles et missions. Aujourd’hui, on vous explique le rôle du Business Ops Manager.
 read: 4 min
 image: https://images.unsplash.com/photo-1543269865-cbf427effbad?&w=1200

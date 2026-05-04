@@ -1,7 +1,7 @@
 ---
 title: |
   Comment structurer progressivement son équipe Revenue - les conseils des Rodolphe
-author: benjamin
+author: benjamin-boileux
 description: Les insights concrets de Rodolphe Ardant pour structurer une bonne équipe commerciale à ses débuts.
 exerpt: |
   En quelques années, spendesk est devenu un leader des solutions de paiement pour les entreprises. Une ascension qui s’explique notamment par une stratégie commerciale bien rodée. Au micro de Revenue Echoes, Rodolphe Ardant, cofondateur de Spendesk, raconte comment il a fait de son produit le nouveau standard de la gestion des paiements.

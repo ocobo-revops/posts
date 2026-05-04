@@ -1,6 +1,6 @@
 ---
 title: Les étapes de conception d’un plan de compensation • le contenu
-author: corentin
+author: corentin-guerin
 description: La conception d’un plan de compensation repose sur des étapes indispensables. En effet, nombreux sont les plans imparfaits voire inefficaces qui ont négligé certaines règles, ou qui sont fondés sur des schémas inadaptés. Voici donc une série d’articles qui vous permettra de comprendre en détail ces étapes. Dans ce second article, on aborde le sujet du contenu du plan de compensation ; les indicateurs, les méthodes de rétribution, les mécanismes de courbes, et bien d’autres sujets.
 read: 6 min
 image: https://images.unsplash.com/photo-1522826657326-0466ba28c41f?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200

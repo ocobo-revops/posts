@@ -1,7 +1,7 @@
 ---
 title: |
   Passer au SaaS : les piliers d'une Business Unit performante
-author: benjamin
+author: benjamin-boileux
 description: |
   Créer une nouvelle verticale produit au sein d'une organisation centrée sur le service, c'est plus qu'un lancement produit. C'est un changement de culture, de rythme, et de mindset. Objectifs long terme, gestion de l'ARR, nouveaux interlocuteurs, process à inventer… tout change.
 exerpt: |

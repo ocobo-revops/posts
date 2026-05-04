@@ -1,7 +1,7 @@
 ---
 title: En 2023, comment reprendre le contrôle de vos dépenses de logiciels SaaS ?
 description: Avec le contexte économique actuel, l’optimisation des coûts est devenue une priorité pour chaque entreprise en 2023. Un centre de coût important à analyser en priorité est l’abonnement aux logiciels SaaS. A travers cet article, nous vous proposons ainsi une méthodologie en 3 étapes afin de mieux contrôler la gestion de ces dépenses.
-author: aude
+author: aude-cadiot
 read: 4 min
 image: https://images.unsplash.com/photo-1579621970795-87facc2f976d
 date: 2023-02-06

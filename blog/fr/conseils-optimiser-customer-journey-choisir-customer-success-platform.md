@@ -1,6 +1,6 @@
 ---
 title: 'Customer Journey : comment l’optimiser et  choisir sa Customer Success Platform ?'
-author: benjamin
+author: benjamin-boileux
 description: Découvrez comment choisir une Customer Success Platform idéale pour optimiser votre Customer Journey et améliorer l’expérience client de bout en bout.
 exerpt: |
   Maîtriser son cycle de vie client et choisir une Customer Success Platform peut jouer un rôle clé dans le pilotage et l’amélioration de l’expérience client. Encore faut-il savoir comment faire. Dans cet article, nous explorons l’importance de repenser son Customer Journey, les moments propices pour le faire, et les critères pour choisir la plateforme idéale.

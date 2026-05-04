@@ -1,7 +1,7 @@
 ---
 title: |
   Vente complexe : structurer vos équipes pour tenir sur un long cycle de vente
-author: benjamin
+author: benjamin-boileux
 description: |
   Quand les cycles de vente s'étirent sur 12 à 18 mois, la vente B2B devient une expédition exigeante. La vente, complexe, est alors souvent ponctuée par des silences radio côté prospect et plusieurs comités d'achat à convaincre.
   Dans ce contexte, tenir la distance dépend de l'organisation, des rôles (bien) découpés, et d'un suivi rigoureux du pipeline.

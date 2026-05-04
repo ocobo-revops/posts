@@ -1,6 +1,6 @@
 ---
 title: 'Structurer votre équipe marketing : profils, phases, KPI clés'
-author: benjamin
+author: benjamin-boileux
 description: Lors de la structuration de son équipe marketing, que ce soit dans une entreprise en croissance ou une scale-up, il est difficile de savoir par où commencer et plusieurs questions se posent. Quel profil recruter en premier ? Comment organiser l'équipe dans le temps ? Et surtout, comment s'assurer que le marketing contribue au pipeline, sans investir dans des actions branding déconnectées des ventes ?
 exerpt: |
   Lors de la structuration de son équipe marketing, que ce soit dans une entreprise en croissance ou une scale-up, il est difficile de savoir par où commencer et plusieurs questions se posent. Quel profil recruter en premier ? Comment organiser l'équipe dans le temps ? Et surtout, comment s'assurer que le marketing contribue au pipeline, sans investir dans des actions branding déconnectées des ventes ?

@@ -1,6 +1,6 @@
 ---
 title: Se faire une place sur le marché du CRM face à Hubspot et Salesforce
-author: benjamin
+author: benjamin-boileux
 description: Découvrez le trajectoire Sellsy, racontée par Maxime Videmann, son CRO.
 exerpt: |
   Les TPE et PME sont confrontés aux mêmes enjeux : collecter une donnée fiable pour optimiser les process et augmenter leur taux de conversion.

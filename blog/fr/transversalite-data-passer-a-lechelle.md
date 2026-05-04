@@ -1,7 +1,7 @@
 ---
 title: |
   Les leviers pour passer à l’échelle : le cas Sellsy
-author: benjamin
+author: benjamin-boileux
 description: Maxime Videmann, CRO chez Sellsy, nous livre ses conseils très concrets pour réorganiser ses ressources internes.
 exerpt: |
   Comment organiser ses ressources internes pour faire décoller son entreprise ? Process, culture, outils, gouvernance, recrutement… autant de moyens à la disposition des équipes dirigeantes pour repenser l’organisation de leur entreprise et atteindre leurs objectifs.

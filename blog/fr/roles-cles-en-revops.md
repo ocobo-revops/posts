@@ -1,6 +1,6 @@
 ---
 title: "Les rôles clés en RevOps : qui fait quoi dans une équipe Revenue Operations complète ?"
-author: ethel
+author: ethel-gosset
 description: "Rôles RevOps expliqués: missions clés, profils et organisation pour aligner Marketing, Sales et CS, fiabiliser la data et scaler vos revenus B2B."
 read: 7 min
 image: https://images.unsplash.com/photo-1566140967404-b8b3932483f5?w=1200&h=800&fit=crop

@@ -1,6 +1,6 @@
 ---
 title: Déployer son business modèle à l’international, le cas TheFork
-author: benjamin
+author: benjamin-boileux
 description: Bertrand, fondateur de TheFork est venu nous livrer des conseils pratiques pour déployer son business model.
 exerpt: |
   Qui n’a jamais entendu parler de TheFork ? Anciennement connue sous le nom de LaFourchette, cette plateforme de réservation en ligne cartonne en France. Elle est le résultat d’une collaboration de 3 passionnés d’entrepreneuriat : Bertrand Jelensperger, Denis Fayolle et Patrick Dalsace.

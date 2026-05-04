@@ -1,7 +1,7 @@
 ---
 title: |
   La stratégie Sales de Partoo : fusionner AE et KAM, par Vincent Coirier, Chief Sales Officer
-author: benjamin
+author: benjamin-boileux
 description: Vincent Coirier, Chief Sales Officer depuis 8 ans, a détaillé l'évolution de la stratégie commerciale de Partoo. À la tête d'une équipe de plus de 100 collaborateurs dédiés aux revenus, il a récemment initié une transformation majeure - fusionner les rôles d'Account Executives (AE) et de Key Account Managers (KAM).
 exerpt: |
   Partoo, partenaire des entreprises pour leur stratégie digitale, propose une solution centralisée pour renforcer leur visibilité et optimiser la gestion client. Avec un ARR de plus de 35 millions d'euros et des clients dans une cinquantaine de pays, Partoo incarne une véritable success story.

@@ -1,7 +1,7 @@
 ---
 title: |
   Les différentes phases de croissance, le cas Spendesk
-author: benjamin
+author: benjamin-boileux
 description: Rodolphe Ardant revient sur les différentes phases de croissance qui ont jalonné l’ascension de Spendesk.
 exerpt: |
   Spendesk, c’est le SaaS qui a révolutionné les solutions de paiement en entreprise. Co-fondée par Rodolphe Ardant en 2016, la plateforme a pour mission de libérer les entreprises et les collaborateurs du processus complexe de gestion des dépenses au travail tout en fournissant 100 % de contrôle aux équipes financières.

@@ -1,6 +1,6 @@
 ---
 title: 'Target Setting : le guide complet pour fixer vos objectifs commerciaux'
-author: corentin
+author: corentin-guerin
 description: Le target setting est un élément crucial de la réussite commerciale d’une entreprise. Dans cet article, nous abordons le concept de comment mettre en place un process efficace de définition et de suivi des objectifs commerciaux.
 exerpt: |
   Le target setting est un élément crucial de la réussite commerciale d’une entreprise. Dans cet article, nous abordons le concept de comment mettre en place un process efficace de définition et de suivi des objectifs commerciaux.

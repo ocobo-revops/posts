@@ -1,7 +1,7 @@
 ---
 title: |
   Comment Partoo a atteint 35 millions d'ARR: trajectoire de croissance par Vincent Coiriez, CSO
-author: benjamin
+author: benjamin-boileux
 description: L'entreprise Partoo est passée de 7 employés générant 300 000 euros d'ARR à une organisation mondiale de 400 collaborateurs opérant dans plus de 50 pays. Découvrez les choix stratégiques et les enseignements tirés de l'expérience de Vincent, CSO chez Partoo.
 exerpt: |
   Partoo, une entreprise spécialisée dans la génération de trafic local pour les commerces, a connu une transformation spectaculaire depuis ses débuts. Vincent, consultant en méthodologie commerciale et Chief Sales Officer (CSO) de Partoo depuis huit ans, est un acteur clé de cette évolution.

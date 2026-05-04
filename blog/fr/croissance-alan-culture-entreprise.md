@@ -1,7 +1,7 @@
 ---
 title: |
   La culture Alan, véritable levier de succès, racontée par son CRO Ludovic Bauplé
-author: benjamin
+author: benjamin-boileux
 description: |
   Si Alan a déjà largement convaincu par l'excellence de ses services, elle est aussi reconnue pour sa culture d'entreprise singulière et sa capacité à sortir des schémas de croissance classiques dans l'univers des startups.
 exerpt: |

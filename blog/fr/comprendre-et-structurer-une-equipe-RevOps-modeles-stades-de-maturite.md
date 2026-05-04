@@ -1,7 +1,7 @@
 ---
 title: |
   Comprendre et structurer une équipe RevOps : modèles & stades de maturité
-author: ethel
+author: ethel-gosset
 description: Découvrez comment constituer et faire évoluer votre équipe RevOps en fonction de votre maturité. 
 excerpt: |
   Comment constituer et faire évoluer une équipe RevOps stratégique ? De la phase de lancement à celle de productivité, découvrez les rôles clés à recruter, les modèles d'organisation (centralisé, décentralisé, hybride) et les critères pour adapter votre structure à votre croissance. Cet article explore les 5 stades de développement d'une équipe RevOps et vous guide pour maintenir l'équilibre entre cohérence opérationnelle et agilité, en fonction de la maturité et des enjeux de votre organisation.

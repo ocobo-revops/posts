@@ -1,6 +1,6 @@
 ---
 title: Pourquoi la plupart des plans de compensation ne fonctionnent pas ?
-author: corentin
+author: corentin-guerin
 description: La compensation est une discipline à part entière au sein d’une direction commerciale, et pourtant on ne compte plus les fois où elle est sous-estimée. C’est à ce moment là qu’elle commence à produire des effets indésirables,manque d’efficacité, perte de motivation, incompréhension… les symptômes sont nombreux. Dans cet article, vous apprendrez à mettre en place des choses simples afin de rendre vos plans efficaces au long cours.
 read: 8 min
 image: https://images.unsplash.com/photo-1590333748338-d629e4564ad9?ixlib=rb-4.0.3&q=85&fm=jpg&cs=srgb&w=1200&h=800&fit=crop

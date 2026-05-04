@@ -1,7 +1,7 @@
 ---
 title: |
   Comment réussir son implémentation HubSpot en 2025 ?
-author: ethel
+author: ethel-gosset
 description: |
   En 2025, implémenter HubSpot va bien au-delà du simple déploiement technique. Découvrez notre méthodologie éprouvée pour transformer votre CRM en véritable moteur de croissance : approche progressive, adoption garantie et innovations IA. Un guide essentiel pour les dirigeants qui veulent maximiser leur ROI dès le départ.
 excerpt: |
