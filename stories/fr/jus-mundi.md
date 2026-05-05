@@ -12,11 +12,6 @@ scopes:
   - Demande
   - Découverte
   - Négociation
-tags:
-  - Data & Performance
-  - Exécution
-  - Process & Outils
-  - Stratégie
 tools:
   - hubspot
   - hyperline

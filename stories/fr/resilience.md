@@ -10,11 +10,6 @@ duration: 6 mois
 scopes:
   - Customer Success
   - Onboarding
-tags:
-  - Stratégie
-  - Data & Performance
-  - Process & Outils
-  - Équipe & Planification
 tools:
   - hubspot
   - vitally

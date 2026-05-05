@@ -14,10 +14,6 @@ scopes:
   - Expansion
   - Négociation
   - Onboarding
-tags:
-  - Data & Performance
-  - Exécution
-  - Process & Outils
 tools:
   - hubspot
 quotes:

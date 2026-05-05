@@ -11,12 +11,6 @@ scopes:
   - Acquisition
   - Demande
   - Découverte
-tags:
-  - Stratégie
-  - Exécution
-  - Équipe & Planification
-  - Process & Outils
-  - Data & Performance
 tools:
   - hubspot
   - outreach

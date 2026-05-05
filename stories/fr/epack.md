@@ -9,10 +9,6 @@ role: Chief Sales Officer
 duration: 3 mois
 scopes:
   - Acquisition
-tags:
-  - Stratégie
-  - Compensation
-  - Process & Outils
 tools:
   - odoo
   - qobra

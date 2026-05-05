@@ -11,11 +11,6 @@ scopes:
   - Contract Management
   - Customer Success
   - Onboarding
-tags:
-  - Data & Performance
-  - Équipe & Planification
-  - Process & Outils
-  - Stratégie
 tools:
   - salesforce
 quotes:

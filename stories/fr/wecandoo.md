@@ -11,11 +11,6 @@ scopes:
   - Customer Success
   - Onboarding
   - Acquisition
-tags:
-  - Stratégie
-  - Data & Performance
-  - Process & Outils
-  - Équipe & Planification
 tools:
   - hubspot
   - salesforce

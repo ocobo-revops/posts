@@ -10,9 +10,6 @@ duration: 12 months
 scopes:
   - Expansion
   - Onboarding
-tags:
-  - Exécution
-  - Process & Outils
 tools:
   - bigquery
   - modjo

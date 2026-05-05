@@ -12,9 +12,6 @@ scopes:
   - Demande
   - Découverte
   - Négociation
-tags:
-  - Stratégie
-  - Exécution
 tools:
   - hubspot
   - aircall

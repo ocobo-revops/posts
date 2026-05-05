@@ -13,11 +13,6 @@ scopes:
   - Découverte
   - Négociation
   - Expansion
-tags:
-  - Data & Performance
-  - Équipe & Planification
-  - Process & Outils
-  - Data & Performance
 tools:
   - hubspot
   - lemlist

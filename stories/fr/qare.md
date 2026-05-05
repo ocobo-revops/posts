@@ -10,9 +10,6 @@ duration: 1 mois
 scopes:
   - Customer Service
   - Expansion
-tags:
-  - Exécution
-  - Process & Outils
 tools:
   - aircall
   - salesforce

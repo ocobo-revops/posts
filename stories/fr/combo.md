@@ -9,8 +9,6 @@ role: VP Operations
 duration: 4 mois
 scopes:
   - Customer Success
-tags:
-  - Process & Outils
 tools:
   - planhat
 quotes:

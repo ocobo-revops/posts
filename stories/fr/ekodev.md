@@ -10,11 +10,6 @@ duration: 6 mois
 scopes:
   - Acquisition
   - Expansion
-tags:
-  - Stratégie
-  - Process & Outils
-  - Équipe & Planification
-  - Exécution
 tools:
   - hubspot
 quotes:
