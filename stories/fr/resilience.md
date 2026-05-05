@@ -13,6 +13,7 @@ scopes:
 tools:
   - hubspot
   - vitally
+featuredTool: planhat
 quotes:
   - C'est la valeur de "on l'a déjà vu ou fait ailleurs" qui a vraiment fait la différence.
   - L'équipe a fait des recommandations sur notre organisation et nos outils de travail, notamment la mise en place d'une customer platform. Ils nous ont ensuite accompagnés dans la mise en place de ce nouvel outil jusqu'à la formation des équipes.

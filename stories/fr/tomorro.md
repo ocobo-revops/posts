@@ -15,6 +15,7 @@ tools:
   - hubspot
   - gsheet
   - lemlist
+featuredTool: hubspot
 quotes:
   - Ocobo nous a aidé à prendre du recul sur notre organisation, nos process et nos outils pour prendre les bonnes décisions business.
   - Ocobo a insufflé une vraie culture Ops transverse, pour aider Tomorro à mieux suivre les performances de ses équipes et optimiser ses résultats.

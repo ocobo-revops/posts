@@ -13,6 +13,7 @@ tools:
   - gsheet
   - salesforce
   - tableau
+featuredTool: salesforce
 quotes:
   - Nous avons fait appel à Ocobo afin de bénéficier de leur expertise sur le sujet du Finance Management et du cycle de vie du client dans l’optique de nous fournir des recommandations sur comment adapter notre organisation et processus internes à ce nouvel enjeu.
   - Ocobo a analysé l’organisation actuelle de notre équipe KAM à travers des interviews, des workshops et l’analyse de nos process et données afin d’en sortir des livrables (process mapping, customer journey) et des recommandations actionnables.

@@ -14,6 +14,7 @@ scopes:
 tools:
   - hubspot
   - salesforce
+featuredTool: hubspot
 quotes:
   - "Notre équipe Sales et Account Managers commençait à être bien structurée, nous avions recruté un Sales Ops Manager depuis 1 an et avions besoin de passer à l'échelle dans la gestion de nos artisans (nouveaux et existants) pour augmenter et optimiser nos revenus, tout en gardant un haut niveau de qualité de service."
   - "Ocobo a adressé 3 grandes problématiques : optimiser la segmentation de nos artisans pour concentrer nos efforts sur les artisans best‑sellers et les futurs artisans à haut potentiel ; identifier rapidement et au bon moment les artisans en perte de vitesse et mettre en place les actions correctives pour réduire notre churn ; mais aussi identifier ceux à fort potentiel pour aller développer leurs revenus ; mieux structurer le cycle de vie de l'artisan pour lui apporter le bon niveau de service au bon moment, de l'onboarding à l'offboarding."

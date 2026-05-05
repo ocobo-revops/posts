@@ -14,6 +14,7 @@ tools:
   - aircall
   - salesforce
   - zendesk
+featuredTool: zendesk
 quotes:
   - Nous avons fait appel à Ocobo pour nous permettre de reparamétrer le nouveau parcours afin de pouvoir gérer les flux sans baisser la qualité de notre service.
   - Ocobo nous a apporté une nouvelle façon d’aborder la solution en prenant en compte le besoin, l’organisation et l’expérience client dans son ensemble.

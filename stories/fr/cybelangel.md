@@ -13,6 +13,7 @@ scopes:
   - Onboarding
 tools:
   - salesforce
+featuredTool: salesforce
 quotes:
   - Ocobo nous a apporté des idées et des bonnes pratiques d’autres organisations, rendant un sujet complexe plus accessible.
   - Ocobo nous a d’abord offert un regard extérieur sur nos outils et processus, avant de nous accompagner directement dans l’intégration de ses solutions au sein de notre environnement Salesforce.

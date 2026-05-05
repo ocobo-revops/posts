@@ -16,6 +16,7 @@ scopes:
   - Onboarding
 tools:
   - hubspot
+featuredTool: hubspot
 quotes:
   - Il était essentiel de fiabiliser notre CRM et de structurer nos processus pour accompagner cette phase d'hypercroissance et garantir la performance de nos équipes Revenue.
   - "Leur approche a été très méthodique : audit complet de nos process, standardisation de notre cycle de vente dans HubSpot, et accompagnement opérationnel pour former et faire monter en compétence nos équipes sur les bons outils et KPIs."

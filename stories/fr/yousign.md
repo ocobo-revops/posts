@@ -16,6 +16,7 @@ tools:
   - aircall
   - modjo
   - salesforce
+featuredTool: salesforce
 quotes:
   - "Ocobo nous a permis de mettre en place une organisation Customer Experience beaucoup plus efficace, avec une segmentation claire de nos clients en trois tiers et des niveaux de service adaptés."
   - "Leur approche s'est structurée en deux phases : d'abord une segmentation précise de notre base clients et la définition des rôles des équipes, puis la cartographie complète de notre parcours client avec des recommandations concrètes d'amélioration."

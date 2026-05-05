@@ -18,6 +18,7 @@ tools:
   - lemlist
   - gsheet
   - notion
+featuredTool: hubspot
 quotes:
   - Ocobo nous a aidés à passer le cap de startup à proptech de 130 personnes, avec une approche commerciale data-driven, des processus fluidifiés et une capacité de prospection décuplée.
   - Ocobo a débuté son accompagnement chez Citron par un audit qui nous a permis de conforter leur expertise à travers l’identification des sujets que nous jugions prioritaires, et la détection d’opportunités de croissance complémentaires. Par la suite, l’audit a découlé sur un accompagnement long (12 mois) pour la mise en oeuvre du plan d’action.

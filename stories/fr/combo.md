@@ -11,6 +11,7 @@ scopes:
   - Customer Success
 tools:
   - planhat
+featuredTool: planhat
 quotes:
   - L'expérience d'Ocobo et de Clara, tant sur Planhat que sur les enjeux Customer Success, a permis d'avancer rapidement et d'obtenir des recommandations claires ainsi qu'une priorisation efficace des actions.
   - Leur capacité d'écoute auprès des différentes parties prenantes a été particulièrement appréciée. Par ailleurs, la gestion de projet et la communication étaient structurées, claires et régulières.
