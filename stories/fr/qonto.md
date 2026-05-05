@@ -10,9 +10,9 @@ duration: 5 semaines
 scopes:
   - Expansion
 tools:
-  - Gsheet
-  - Salesforce
-  - Tableau
+  - gsheet
+  - salesforce
+  - tableau
 tags:
   - Stratégie
   - Équipe & Planification

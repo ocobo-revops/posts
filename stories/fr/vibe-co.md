@@ -14,10 +14,10 @@ tags:
   - Exécution
   - Process & Outils
 tools:
-  - BigQuery
-  - Modjo
-  - Planhat
-  - Salesforce
+  - bigquery
+  - modjo
+  - planhat
+  - salesforce
 quotes:
   - Ocobo was able to help us go from vision to concrete deliverable in a matter of weeks.
   - Ocobo helped us move from 0 to 1 on implementing broad changes for our Customer Success motion, which gave us a solid foundation for iteration.

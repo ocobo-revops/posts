@@ -18,9 +18,9 @@ tags:
   - Process & Outils
   - Stratégie
 tools:
-  - HubSpot
-  - Hyperline
-  - Salesforce
+  - hubspot
+  - hyperline
+  - salesforce
 quotes:
   - "Nous avons fait appel à Ocobo à un moment clé de notre croissance, alors que nous nous préparions à accélérer notre développement international tout en optimisant l'efficacité de notre organisation commerciale."
   - "Leur intervention nous a permis de gagner en clarté, en efficacité et en agilité. Nous avons aujourd'hui des process optimisés et des outils adaptés à notre croissance."

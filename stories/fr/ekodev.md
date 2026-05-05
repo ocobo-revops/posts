@@ -16,7 +16,7 @@ tags:
   - Équipe & Planification
   - Exécution
 tools:
-  - Hubspot
+  - hubspot
 quotes:
   - "Dans une période de forte croissance et de rapprochement avec deux autres entités suite à de la croissance externe, nous avions besoin de structurer, d'homogénéiser et d'outiller les fonctions d'inbound marketing, commerciales, de suivi de la production et de facturation. Nous avons fait appel à Ocobo, qui nous a été recommandé par un partenaire qui avait été confronté à une situation similaire et s'était fait accompagner avec succès par Ocobo."
   - "Ocobo est intervenu d'une part en conseil afin de nous aider dans la formalisation de nos processus d'inbound marketing et commerciaux, notamment la catégorisation de nos prospects, la segmentation de nos clients, ainsi que la définition des rôles et responsabilités de l'acquisition à l'expansion et dans la refonte de notre modèle de rémunération. Ocobo nous a également accompagnés dans l'implémentation du CRM HubSpot et sa connexion avec l'outil de gestion des temps de production que nous avons retenu."

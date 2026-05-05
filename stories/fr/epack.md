@@ -14,9 +14,9 @@ tags:
   - Compensation
   - Process & Outils
 tools:
-  - Odoo
-  - Qobra
-  - Salesforce
+  - odoo
+  - qobra
+  - salesforce
 quotes:
   - Nous avons fait appel à Ocobo dans notre seconde phase d’hypercroissance afin de réinventer notre modèle de commissionnement
   - Ocobo est intervenu à nos côtés sur une première phase d’audit de l’existant en vue d’en tirer suffisamment de finesse et de fiabilité des données pour en sortir plusieurs recommandations de modèles de commissionnement pour soutenir nos objectifs ambitieux.

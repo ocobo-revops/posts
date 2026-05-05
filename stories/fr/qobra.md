@@ -18,9 +18,9 @@ tags:
   - Process & Outils
   - Data & Performance
 tools:
-  - Hubspot
-  - Outreach
-  - Salesforce
+  - hubspot
+  - outreach
+  - salesforce
 quotes:
   - Nous avons fait appel à Ocobo pour la refonte de notre cycle de vente, l’optimisation de nos processus Salesforce et la construction de nos analytics afin d’avoir les meilleures armes pour notre croissance de demain.
   - Ocobo a su apporter une approche pertinente pour adapter le framework du MEDDIC à nos besoins et à notre “buyer journey”.

@@ -1,0 +1,4 @@
+---
+name: Lemlist
+category: Prospection
+---

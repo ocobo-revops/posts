@@ -13,9 +13,9 @@ scopes:
   - Customer Success
   - Onboarding
 tools:
-  - Aircall
-  - Modjo
-  - Salesforce
+  - aircall
+  - modjo
+  - salesforce
 tags:
   - Data & Performance
   - Équipe & Planification

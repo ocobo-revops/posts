@@ -16,8 +16,8 @@ tags:
   - Stratégie
   - Exécution
 tools:
-  - Hubspot
-  - Aircall
+  - hubspot
+  - aircall
 quotes:
   - Nous souhaitions mettre en place une équipe RevOps depuis quelques mois mais on a eu besoin de se faire accompagner par Ocobo qui avait une réelle expertise métier que nous n’avions pas encore en interne
   - Ocobo nous a apporté analyse pertinente de nos process & de l’architecture de notre CRM ainsi que de l’organisation de notre pôle; une expertise technique autour du CRM et une méthodologie
