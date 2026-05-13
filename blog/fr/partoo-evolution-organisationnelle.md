@@ -12,8 +12,8 @@ exerpt: |
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-6/cover-1.png
 date: 2025-03-22
+podcastId: VdlGlt86AeVk
 tags:
-  - podcast
   - revenue-echoes
 ---
 
@@ -156,4 +156,3 @@ Pour la mettre en œuvre, Partoo s'engage à former l'ensemble de ses équipes d
 
 *Pour écouter l'entièreté de notre échange avec Vincent, rendez-vous sur vos plateformes d'écoute et pensez à **suivre "Revenue Echoes"** pour ne rien rater des futures publications.*
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="VdlGlt86AeVk" title="Revenue echoes #6" %}{% /aushaPlayer %}
