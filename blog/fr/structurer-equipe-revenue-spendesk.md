@@ -8,8 +8,8 @@ exerpt: |
 read: 6 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-3/cover-2.png
 date: 2024-11-12
+podcastId: 60gKgHxYePlz
 tags:
-  - podcast
   - revenue-echoes
 ---
 
@@ -149,4 +149,3 @@ Pour analyser plus finement **la performance de vos RevOps**, tournez-vous vers 
 
 *Pour découvrir notre échange complet avec Rodolphe Ardant, rendez-vous sur toutes les plateformes d’écoute.*
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="60gKgHxYePlz" title="Revenue echoes #3" %}{% /aushaPlayer %}

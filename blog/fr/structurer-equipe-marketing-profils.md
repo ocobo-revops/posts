@@ -9,6 +9,7 @@ exerpt: |
 read: 7 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-12/cover-1.png
 date: 2025-09-18
+podcastId: pJGvGSAlZv72
 tags:
   - revenue-echoes
   - strategie-revenue-ops
@@ -155,6 +156,5 @@ Structurer une équipe marketing alignée avec la réalité du terrain est un ex
 
 Retrouvez l'épisode complet avec Domitille, CMO de Lemlist, pour un retour d'expérience riche en insights actionnables.
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="pJGvGSAlZv72" title="12-structurer-son-marketing-et-faire-de-la-brand-un-levier-de-revenu-raconte-par-domitille-cmo-de-lemlist" %}{% /aushaPlayer %}
 
 Si vous avez besoin de conseils pour structurer vos équipes revenue, faites confiance aux experts d'Ocobo. Découvrez [notre méthode](https://www.ocobo.co/fr/strategies-revenue-operations) d'accompagnement et [prenez rendez-vous](https://www.ocobo.co/fr/contact) en ligne pour un premier échange.

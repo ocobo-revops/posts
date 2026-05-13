@@ -9,8 +9,8 @@ exerpt: |
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-1/cover-1.png
 date: 2024-09-16
+podcastId: 4Pg3gfj8z0gx
 tags:
-  - podcast
   - revenue-echoes
 ---
 
@@ -99,7 +99,6 @@ Bertrand nous a livré les enseignements tirés de son parcours entrepreneurial 
 
 Rendez-vous sur toutes les plateformes d’écoute pour découvrir notre conversation avec Bertrand.
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="4Pg3gfj8z0gx" title="Revenue echoes #1" %}{% /aushaPlayer %}
 
 ### **Conclusion**
 

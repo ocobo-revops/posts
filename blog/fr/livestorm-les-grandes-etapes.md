@@ -9,8 +9,8 @@ exerpt: |
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-5/cover-1.png
 date: 2025-01-19
+podcastId: OdDpDtzpVl3W
 tags:
-  - podcast
   - revenue-echoes
 ---
 
@@ -133,4 +133,3 @@ Grâce à ces insights, l'équipe peut ajuster sa stratégie pour optimiser l'ac
 
 *Rendez-vous ici pour découvrir en détail la stratégie Revenue de Livestorm.*
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="OdDpDtzpVl3W" title="Revenue echoes #4" %}{% /aushaPlayer %}

@@ -11,8 +11,8 @@ excerpt: |
 read: "5 min"
 image: "https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-5/cover-2.png"
 date: 2025-01-20
+podcastId: OdDpDtzpVl3W
 tags:
-  - podcast
   - revenue-echoes
 ---
 
@@ -157,4 +157,3 @@ Livestorm a su tirer parti des deux approches, self-service et sales-led, pour r
 
 *Découvrez l'interview complète de Gilles, CEO de Livestorm, sur les étapes et les conseils pour réussir cette transition.*
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="OdDpDtzpVl3W" title="Revenue echoes #4" %}

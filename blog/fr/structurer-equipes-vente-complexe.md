@@ -14,8 +14,8 @@ exerpt: |
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-8/cover-1.png
 date: 2025-04-15
+podcastId: XL3g3HNdwJlR
 tags:
-  - podcast
   - revenue-echoes
   - planning-organisation
   - les-profils
@@ -286,4 +286,3 @@ Découvrez notre échange complet avec **Romain Lopez, CRO de LittleBig Rise**, 
 
 *Si vous avez besoin d'un éclairage stratégique pour structurer vos équipes revenues, faites confiance aux experts d'Ocobo. Découvrez [notre méthode](https://www.ocobo.co/fr/strategies-revenue-operations) d'accompagnement et [prenez rendez-vous](https://www.ocobo.co/fr/contact) en ligne pour un premier échange.*
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="XL3g3HNdwJlR" title="Revenue echoes #8" %}{% /aushaPlayer %}

@@ -12,8 +12,8 @@ exerpt: |
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-2/cover-1.png
 date: 2024-10-14
+podcastId: b2P707f2zk8o
 tags:
-  - podcast
   - revenue-echoes
 ---
 
@@ -98,4 +98,3 @@ _Vous en savez plus sur les bonnes pratiques et les écueils d’un CRO dans une
 
 _Curieux de découvrir les coulisses de la stratégie Sellsy ? Ne manquez pas notre échange exclusif avec Maxime Videmann. L’épisode est disponible en intégralité sur toutes les plateformes d'écoute._
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="b2P707f2zk8o" title="Revenue echoes #2" %}{% /aushaPlayer %}

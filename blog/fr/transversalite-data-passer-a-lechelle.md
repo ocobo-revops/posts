@@ -10,8 +10,8 @@ exerpt: |
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-2/cover-2.png
 date: 2024-10-15
+podcastId: b2P707f2zk8o
 tags:
-  - podcast
   - revenue-echoes
 ---
 
@@ -93,4 +93,3 @@ _Vous avez désormais une vue d’ensemble sur la stratégie du CRO pour gérer 
 
 _Pour découvrir notre entretien complet avec Maxime Videmann, rendez-vous sur notre podcast Revenue Echoes, disponible sur toutes les plateformes d’écoute._
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="b2P707f2zk8o" title="Revenue echoes #2" %}{% /aushaPlayer %}

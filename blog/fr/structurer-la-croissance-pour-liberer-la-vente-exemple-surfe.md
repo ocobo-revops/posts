@@ -11,8 +11,8 @@ exerpt: |
 read: 6 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-14/cover-2.png
 date: 2026-02-12
+podcastId: GZ9n9tgO81K9
 tags:
-  - podcast
   - revenue-echoes
   - planning-organisation
 ---
@@ -139,5 +139,4 @@ Structurer la croissance n’est pas une question de taille, mais de méthode. V
 
 *Un épisode à mettre entre les oreilles de toutes celles et ceux qui veulent comprendre comment la méthode peut libérer la performance commerciale.*
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="GZ9n9tgO81K9" title="Revenue echoes #10" %}{% /aushaPlayer %}
 

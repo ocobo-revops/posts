@@ -12,8 +12,8 @@ exerpt: |
 read: 7 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-9/cover.png
 date: 2025-05-28
+podcastId: PdrZrt57gYa2
 tags:
-  - podcast
   - revenue-echoes
   - planning-organisation
 ---
@@ -167,4 +167,3 @@ Découvrez notre échange complet avec Fanny Kauffer, CRO de Diffusely, pour com
 
 *Si vous avez besoin d'un éclairage stratégique pour structurer vos équipes revenues, faites confiance aux experts d'Ocobo. Découvrez [notre méthode](https://www.ocobo.co/fr/strategies-revenue-operations) d'accompagnement et [prenez rendez-vous](https://www.ocobo.co/fr/contact) en ligne pour un premier échange.*
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="PdrZrt57gYa2" title="Revenue echoes #9" %}{% /aushaPlayer %}

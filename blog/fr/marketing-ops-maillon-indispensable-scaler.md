@@ -11,6 +11,7 @@ exerpt: |
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-12/cover-2.png
 date: 2025-09-18
+podcastId: pJGvGSAlZv72
 tags:
   - organisation-revops
   - revenue-echoes
@@ -105,6 +106,5 @@ Domitille insiste :
 
 Découvrez notre échange complet avec [Domitille](https://www.linkedin.com/in/domitilledesaintexupery/?originalSubdomain=fr), CMO de [Lemlist](https://www.lemlist.com/fr?r=0), pour plonger au cœur des enjeux d'organisation marketing.
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="pJGvGSAlZv72" title="12-structurer-son-marketing-et-faire-de-la-brand-un-levier-de-revenu-raconte-par-domitille-cmo-de-lemlist" %}{% /aushaPlayer %}
 
 Vous cherchez à structurer vos processus, fiabiliser vos données et aligner vos équipes revenues autour d'indicateurs communs ? Vous souhaitez un accompagnement stratégique pour intégrer le Marketing Ops et renforcer votre organisation RevOps ? Faites confiance aux experts d'Ocobo. Découvrez [notre méthode](https://www.ocobo.co/fr/strategies-revenue-operations) d'accompagnement et [prenez rendez-vous](https://www.ocobo.co/fr/contact) en ligne pour un premier échange.

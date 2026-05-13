@@ -9,8 +9,8 @@ exerpt: |
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-3/cover-1.png
 date: 2024-11-11
+podcastId: 60gKgHxYePlz
 tags:
-  - podcast
   - revenue-echoes
 ---
 ## Spendesk en bref
@@ -125,4 +125,3 @@ Une excellente ligne de conduite pour pour garder le cap au quotidien entre deux
 *Vous en savez un peu plus sur **l’ascension de Spendesk** et l’état d’esprit des co-fondateurs. On se donne rendez-vous sur toutes les plateformes d’écoute pour découvrir l’intervention complète de Rodolphe Ardant.*
 
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="60gKgHxYePlz" title="Revenue echoes #3" %}{% /aushaPlayer %}

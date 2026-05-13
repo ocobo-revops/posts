@@ -14,8 +14,8 @@ exerpt: |
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-7/cover-1.png
 date: 2025-04-02
+podcastId: 78gqghxMEYLl
 tags:
-  - podcast
   - revenue-echoes
 ---
 
@@ -116,4 +116,3 @@ Ludovic résume ainsi l'apport des équipes RevOps :
 
 *Envie d'en savoir plus sur les coulisses de cette approche ? Écoutez l'épisode complet avec Ludovic Bauplé sur toutes les plateformes d'écoute !*
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="78gqghxMEYLl" title="Revenue echoes #7" %}{% /aushaPlayer %}
