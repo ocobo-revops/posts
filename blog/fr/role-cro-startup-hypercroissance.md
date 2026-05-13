@@ -10,8 +10,8 @@ exerpt: |
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-4/cover-1.png
 date: 2024-12-16
+podcastId: 4Pg3gfnVJEwr
 tags:
-  - podcast
   - revenue-echoes
 ---
 
@@ -130,4 +130,3 @@ Les conférences Ted sont les meilleures ressources pour **approcher des concept
 
 *Vous en savez un peu plus sur l’ascension Ringover et le rôle du CRO en entreprise. Pour découvrir en entier notre échange avec Emmanuel, rendez-vous sur toutes les plateformes d’écoute.*
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="4Pg3gfnVJEwr" title="Revenue echoes #4" %}{% /aushaPlayer %}

@@ -13,8 +13,8 @@ exerpt: |
 read: 6 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-7/cover-2.png
 date: 2025-04-03
+podcastId: 78gqghxMEYLl
 tags:
-  - podcast
   - revenue-echoes
 ---
 
@@ -156,4 +156,3 @@ Ce cadre donne aux Sales une **vision claire de leur carrière**, un indispensab
 
 *Pour écouter cet échange complet avec Ludovic, rendez-vous sur toutes les plateformes d'écoute.*
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="78gqghxMEYLl" title="Revenue echoes #7" %}{% /aushaPlayer %}

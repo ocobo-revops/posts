@@ -9,6 +9,7 @@ exerpt: |
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-13/cover-1.png
 date: 2025-12-12
+podcastId: GZ9n9tvNLKLv
 tags:
   - organisation-revops
   - revenue-echoes
@@ -144,6 +145,5 @@ L'histoire de Qobra représente un modèle pour les startups SaaS. En cinq ans, 
 
 **Envie d'aller plus loin ? Écoutez l'épisode complet de Revenue Echoes avec Antoine Fort sur toutes les plateformes.**
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="GZ9n9tvNLKLv" title="13-transformer-la-remuneration-variable-en-levier-de-croissance-le-retour-d-experience-d-antoine-fort-ceo-de-qobra" %}{% /aushaPlayer %}
 
 Vous cherchez à structurer vos processus, fiabiliser vos données et aligner vos équipes revenues autour d'indicateurs communs ? Découvrez [notre méthode](https://www.ocobo.co/fr/strategies-revenue-operations) d'accompagnement et [prenez rendez-vous](https://www.ocobo.co/fr/contact) en ligne pour un premier échange.

@@ -6,8 +6,8 @@ exerpt: Une entreprise, c’est avant tout une vision, un service ou un produit 
 read: 5 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-1/cover-2.png
 date: 2024-09-16
+podcastId: 4Pg3gfj8z0gx
 tags:
-  - podcast
   - revenue-echoes
 ---
 
@@ -125,7 +125,6 @@ En revanche, votre responsable risque de prendre des décisions qui ne sont pas 
 
 {% /callout %}
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="4Pg3gfj8z0gx" title="Revenue echoes #1" %}{% /aushaPlayer %}
 
 **Conclusion**
 

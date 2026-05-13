@@ -10,8 +10,8 @@ exerpt: |
 read: 7 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-4/cover-2.png
 date: 2024-12-17
+podcastId: 4Pg3gfnVJEwr
 tags:
-  - podcast
   - revenue-echoes
 ---
 
@@ -148,4 +148,3 @@ Commencez par **définir clairement le périmètre d’intervention de chaque é
 
 Pour aller plus loin, découvrez notre échange complet avec Emmanuel pour entendre son retour d’expérience au sein de Ringover.
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="4Pg3gfnVJEwr" title="Revenue echoes #4" %}{% /aushaPlayer %}

@@ -3,8 +3,8 @@ title: "Le guide pour (re)structurer votre équipe RevOps en 90 jours"
 description: "Quand on prend la tête d'une équipe RevOps, que ce soit dans une entreprise en croissance ou une organisation en cours de structuration, les 90 premiers jours sont décisifs. Mais par où commencer ? Quels aspects prioriser ? Et surtout, comment créer de la valeur visible sans se perdre dans des projets trop longs à déployer ?"
 excerpt: "Quand on prend la tête d'une équipe RevOps, que ce soit dans une entreprise en croissance ou une organisation en cours de structuration, les 90 premiers jours sont décisifs. Mais par où commencer ? Quels aspects prioriser ? Et surtout, comment créer de la valeur visible sans se perdre dans des projets trop longs à déployer ?"
 date: "2025-08-28"
+podcastId: 3qglgfP6j3Vd
 tags:
-  - podcast
   - revenue-echoes
 author: benjamin-boileux
 read: 5 min
@@ -197,6 +197,5 @@ Structurer une organisation RevOps est un travail de fond, qui demande autant de
 
 Découvrez notre échange complet avec **Lida Laisné, VP Revenue Operation chez Dataiku**, pour plonger dans les coulisses de cette structuration et découvrir des insights pour votre propre organisation.
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="3qglgfP6j3Vd" title="Comprendre, structurer et faire grandir son équipe RevOps - le retour d'expérience de Lida Laisné chez Dataiku" %}{% /aushaPlayer %}
 
 *Si vous avez besoin de conseils pour structurer vos équipes revenue, faites confiance aux experts d'Ocobo. Découvrez [notre méthode](https://www.ocobo.co/fr/strategies-revenue-operations) d'accompagnement et [prenez rendez-vous](https://www.ocobo.co/fr/contact) en ligne pour un premier échange.*

@@ -10,8 +10,8 @@ exerpt: |
 read: 6 min
 image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-6/cover-2.png
 date: 2025-03-23
+podcastId: VdlGlt86AeVk
 tags:
-  - podcast
   - revenue-echoes
 ---
 
@@ -108,4 +108,3 @@ Cette approche encourage la collaboration et **évite la concurrence interne.**
 
 *Retrouvez notre échange complet avec Vincent Coirier sur toutes les plateformes d'écoute.*
 
-{% aushaPlayer showId="wN6XqFGL519L" podcastId="VdlGlt86AeVk" title="Revenue echoes #6" %}{% /aushaPlayer %}
