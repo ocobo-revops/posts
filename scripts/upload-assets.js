@@ -104,23 +104,47 @@ const VALID_TARGETS = new Set(['legacy', 'new']);
 
 export const parseArgs = (argv) => {
   const args = argv.slice(2);
-  const targetIdx = args.indexOf('--target');
+  let help = false;
+  let all = false;
+  let force = false;
+  let noVerify = false;
   let target = 'legacy';
-  if (targetIdx !== -1) {
-    const raw = args[targetIdx + 1];
-    if (!VALID_TARGETS.has(raw)) {
-      throw new Error(`Invalid --target value: ${raw} (expected 'legacy' or 'new')`);
+
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    switch (arg) {
+      case '--help':
+      case '-h':
+        help = true;
+        break;
+      case '--all':
+      case '-a':
+        all = true;
+        break;
+      case '--force':
+        force = true;
+        break;
+      case '--no-verify':
+        noVerify = true;
+        break;
+      case '--target': {
+        const raw = args[++i];
+        if (!VALID_TARGETS.has(raw)) {
+          throw new Error(`Invalid --target value: ${raw} (expected 'legacy' or 'new')`);
+        }
+        target = raw;
+        break;
+      }
+      default:
+        throw new Error(`Unknown argument: ${arg}`);
     }
-    target = raw;
   }
-  return {
-    help: args.includes('--help') || args.includes('-h'),
-    all: args.includes('--all') || args.includes('-a'),
-    force: args.includes('--force'),
-    noVerify: args.includes('--no-verify'),
-    target,
-  };
+
+  return { help, all, force, noVerify, target };
 };
+
+export const sanitizeMessage = (msg) =>
+  String(msg ?? '').replace(/vercel_blob_rw_[A-Za-z0-9_]+/g, 'vercel_blob_rw_[REDACTED]');
 
 export const resolveToken = (target, env = process.env) => {
   if (target === 'new') {
@@ -131,23 +155,38 @@ export const resolveToken = (target, env = process.env) => {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export const verifyUrls = async (uploaded, { fetchFn = globalThis.fetch } = {}) => {
+export const verifyUrls = async (
+  uploaded,
+  { fetchFn = globalThis.fetch, retries = 2, retryDelayMs = 500 } = {},
+) => {
   const failures = [];
+
+  const verifyOne = async (item) => {
+    let last = { item, status: 0, ok: false };
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        const res = await fetchFn(item.url, { method: 'HEAD', redirect: 'follow' });
+        last = { item, status: res.status, ok: res.ok };
+        if (last.ok) return last;
+      } catch (err) {
+        last = { item, status: 0, ok: false, error: err.message ?? String(err) };
+      }
+      if (attempt < retries) await sleep(retryDelayMs);
+    }
+    return last;
+  };
+
   for (let i = 0; i < uploaded.length; i += BATCH_SIZE) {
     const batch = uploaded.slice(i, i + BATCH_SIZE);
-    const results = await Promise.all(
-      batch.map(async (item) => {
-        try {
-          const res = await fetchFn(item.url, { method: 'HEAD' });
-          return { item, status: res.status, ok: res.ok };
-        } catch (err) {
-          return { item, status: 0, ok: false, error: err.message ?? String(err) };
-        }
-      }),
-    );
+    const results = await Promise.all(batch.map(verifyOne));
     for (const r of results) {
       if (!r.ok) {
-        failures.push({ url: r.item.url, blobPath: r.item.blobPath, status: r.status, error: r.error });
+        failures.push({
+          url: r.item.url,
+          blobPath: r.item.blobPath,
+          status: r.status,
+          error: r.error,
+        });
       }
     }
   }
@@ -161,6 +200,9 @@ export const run = async ({
   log = console.log,
   warn = console.warn,
   batchDelayMs = BATCH_DELAY_MS,
+  fetchFn,
+  retries,
+  retryDelayMs,
 }) => {
   const opts = parseArgs(argv);
 
@@ -212,16 +254,32 @@ export const run = async ({
   log(`Uploading ${files.length} file(s) (${formatBytes(totalSize)})`);
 
   const uploaded = [];
+  const uploadFailures = [];
   for (let i = 0; i < files.length; i += BATCH_SIZE) {
     const batch = files.slice(i, i + BATCH_SIZE);
-    const results = await Promise.all(batch.map((f) => uploadFile(f, { token: effectiveToken })));
-    uploaded.push(...results);
-    for (const r of results) {
-      log(`  ${r.blobPath} → ${r.url}`);
+    const results = await Promise.allSettled(
+      batch.map((f) => uploadFile(f, { token: effectiveToken })),
+    );
+    for (let j = 0; j < results.length; j++) {
+      const r = results[j];
+      if (r.status === 'fulfilled') {
+        uploaded.push(r.value);
+        log(`  ${r.value.blobPath} → ${r.value.url}`);
+      } else {
+        const reason = sanitizeMessage(r.reason?.message ?? r.reason);
+        uploadFailures.push({ blobPath: batch[j].blobPath, error: reason });
+        warn(`  ✗ ${batch[j].blobPath} — ${reason}`);
+      }
     }
     if (i + BATCH_SIZE < files.length && batchDelayMs > 0) {
       await sleep(batchDelayMs);
     }
+  }
+
+  if (uploadFailures.length > 0) {
+    throw new Error(
+      `Upload failed: ${uploadFailures.length}/${files.length} file(s) errored, ${uploaded.length} succeeded. Re-running is safe (idempotent).`,
+    );
   }
 
   if (opts.noVerify) {
@@ -230,10 +288,15 @@ export const run = async ({
   }
 
   log(`Verifying ${uploaded.length} uploaded URL(s) via HEAD...`);
-  const { failures } = await verifyUrls(uploaded);
+  const verifyOpts = {};
+  if (fetchFn) verifyOpts.fetchFn = fetchFn;
+  if (retries !== undefined) verifyOpts.retries = retries;
+  if (retryDelayMs !== undefined) verifyOpts.retryDelayMs = retryDelayMs;
+  const { failures } = await verifyUrls(uploaded, verifyOpts);
   if (failures.length > 0) {
     for (const f of failures) {
-      warn(`  ✗ ${f.blobPath} → HTTP ${f.status}${f.error ? ` (${f.error})` : ''}`);
+      const detail = f.error ? ` (${sanitizeMessage(f.error)})` : '';
+      warn(`  ✗ ${f.blobPath} → HTTP ${f.status}${detail}`);
     }
     throw new Error(`Verification failed: ${failures.length}/${uploaded.length} URL(s) unreachable.`);
   }
@@ -272,7 +335,7 @@ if (isMainModule()) {
   try {
     await run({ rootDir, argv: process.argv });
   } catch (err) {
-    console.error(`Upload failed: ${err.message ?? err}`);
+    console.error(`Upload failed: ${sanitizeMessage(err.message ?? err)}`);
     process.exit(1);
   }
 }

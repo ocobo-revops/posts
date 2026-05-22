@@ -2,8 +2,15 @@ import { execSync } from 'node:child_process';
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import {
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('@vercel/blob', () => ({
+  put: vi.fn(),
+}));
+
+const { put } = await import('@vercel/blob');
+
+const {
   findAssetFiles,
   formatBytes,
   getChangedAssets,
@@ -11,8 +18,10 @@ import {
   isImageFile,
   parseArgs,
   resolveToken,
+  run,
+  sanitizeMessage,
   verifyUrls,
-} from '../upload-assets.js';
+} = await import('../upload-assets.js');
 
 describe('isImageFile', () => {
   it('accepts allowlisted image extensions (case-insensitive)', () => {
@@ -102,6 +111,34 @@ describe('parseArgs', () => {
 
   it('throws when --target is passed without a value', () => {
     expect(() => parseArgs(['node', 'script', '--target'])).toThrow(/Invalid --target/);
+  });
+
+  it('throws on unknown flag (typo detection)', () => {
+    expect(() => parseArgs(['node', 'script', '--targt', 'new'])).toThrow(/Unknown argument: --targt/);
+    expect(() => parseArgs(['node', 'script', '--verify'])).toThrow(/Unknown argument: --verify/);
+  });
+});
+
+describe('sanitizeMessage', () => {
+  it('redacts vercel_blob_rw_ tokens', () => {
+    const msg = 'request to https://x with token vercel_blob_rw_abc123_DEF456 failed';
+    expect(sanitizeMessage(msg)).toBe(
+      'request to https://x with token vercel_blob_rw_[REDACTED] failed',
+    );
+  });
+
+  it('redacts multiple tokens in one string', () => {
+    const msg = 'old=vercel_blob_rw_aaa new=vercel_blob_rw_bbb';
+    expect(sanitizeMessage(msg)).toBe('old=vercel_blob_rw_[REDACTED] new=vercel_blob_rw_[REDACTED]');
+  });
+
+  it('returns input unchanged when no token is present', () => {
+    expect(sanitizeMessage('plain error')).toBe('plain error');
+  });
+
+  it('coerces null/undefined to empty string', () => {
+    expect(sanitizeMessage(null)).toBe('');
+    expect(sanitizeMessage(undefined)).toBe('');
   });
 });
 
@@ -220,17 +257,21 @@ describe('getChangedAssets', () => {
 
 describe('verifyUrls', () => {
   const mkUploaded = (urls) => urls.map((url, i) => ({ url, blobPath: `path/${i}.png` }));
+  const noRetry = { retries: 0, retryDelayMs: 0 };
 
   it('returns no failures when every HEAD responds ok', async () => {
     const fetchFn = async () => ({ status: 200, ok: true });
-    const { failures } = await verifyUrls(mkUploaded(['u1', 'u2', 'u3']), { fetchFn });
+    const { failures } = await verifyUrls(mkUploaded(['u1', 'u2', 'u3']), { fetchFn, ...noRetry });
     expect(failures).toEqual([]);
   });
 
   it('collects non-ok responses as failures with status code', async () => {
     const fetchFn = async (url) =>
       url === 'bad' ? { status: 404, ok: false } : { status: 200, ok: true };
-    const { failures } = await verifyUrls(mkUploaded(['ok1', 'bad', 'ok2']), { fetchFn });
+    const { failures } = await verifyUrls(mkUploaded(['ok1', 'bad', 'ok2']), {
+      fetchFn,
+      ...noRetry,
+    });
     expect(failures).toHaveLength(1);
     expect(failures[0]).toMatchObject({ url: 'bad', status: 404 });
   });
@@ -239,28 +280,175 @@ describe('verifyUrls', () => {
     const fetchFn = async () => {
       throw new Error('network down');
     };
-    const { failures } = await verifyUrls(mkUploaded(['u1']), { fetchFn });
+    const { failures } = await verifyUrls(mkUploaded(['u1']), { fetchFn, ...noRetry });
     expect(failures).toHaveLength(1);
     expect(failures[0]).toMatchObject({ url: 'u1', status: 0, error: 'network down' });
   });
 
-  it('issues one HEAD request per uploaded item', async () => {
+  it('issues one HEAD request per uploaded item when no retries', async () => {
     let calls = 0;
     const fetchFn = async () => {
       calls += 1;
       return { status: 200, ok: true };
     };
-    await verifyUrls(mkUploaded(['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7']), { fetchFn });
+    await verifyUrls(mkUploaded(['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7']), {
+      fetchFn,
+      ...noRetry,
+    });
     expect(calls).toBe(7);
   });
 
-  it('uses the HEAD method', async () => {
-    const methods = [];
+  it('uses HEAD with redirect: follow', async () => {
+    const calls = [];
     const fetchFn = async (_url, init) => {
-      methods.push(init?.method);
+      calls.push({ method: init?.method, redirect: init?.redirect });
       return { status: 200, ok: true };
     };
-    await verifyUrls(mkUploaded(['u1', 'u2']), { fetchFn });
-    expect(methods).toEqual(['HEAD', 'HEAD']);
+    await verifyUrls(mkUploaded(['u1', 'u2']), { fetchFn, ...noRetry });
+    expect(calls).toEqual([
+      { method: 'HEAD', redirect: 'follow' },
+      { method: 'HEAD', redirect: 'follow' },
+    ]);
+  });
+
+  it('retries transient failures and reports ok if a later attempt succeeds', async () => {
+    let attempt = 0;
+    const fetchFn = async () => {
+      attempt += 1;
+      if (attempt === 1) return { status: 404, ok: false };
+      return { status: 200, ok: true };
+    };
+    const { failures } = await verifyUrls(mkUploaded(['u1']), {
+      fetchFn,
+      retries: 2,
+      retryDelayMs: 0,
+    });
+    expect(failures).toEqual([]);
+    expect(attempt).toBe(2);
+  });
+
+  it('reports a failure only after exhausting all retries', async () => {
+    let attempt = 0;
+    const fetchFn = async () => {
+      attempt += 1;
+      return { status: 404, ok: false };
+    };
+    const { failures } = await verifyUrls(mkUploaded(['u1']), {
+      fetchFn,
+      retries: 2,
+      retryDelayMs: 0,
+    });
+    expect(failures).toHaveLength(1);
+    expect(attempt).toBe(3);
+  });
+});
+
+describe('run (integration via vi.mock)', () => {
+  let rootDir;
+  const okFetch = async () => ({ status: 200, ok: true });
+  const logs = [];
+  const warns = [];
+  const log = (m) => logs.push(String(m));
+  const warn = (m) => warns.push(String(m));
+
+  beforeEach(async () => {
+    rootDir = await mkdtemp(join(tmpdir(), 'upload-assets-run-'));
+    await mkdir(join(rootDir, 'assets', 'posts', 'slug-a'), { recursive: true });
+    await writeFile(join(rootDir, 'assets', 'posts', 'slug-a', 'cover.png'), 'png-bytes');
+    await writeFile(join(rootDir, 'assets', 'posts', 'slug-a', 'hero.jpg'), 'jpg-bytes');
+    logs.length = 0;
+    warns.length = 0;
+    put.mockReset();
+  });
+
+  afterEach(async () => {
+    await rm(rootDir, { recursive: true, force: true });
+  });
+
+  it('throws a clear error when --target new is used without NEW_BLOB_READ_WRITE_TOKEN', async () => {
+    const prev = process.env.NEW_BLOB_READ_WRITE_TOKEN;
+    delete process.env.NEW_BLOB_READ_WRITE_TOKEN;
+    try {
+      await expect(
+        run({
+          rootDir,
+          argv: ['node', 'script', '--all', '--target', 'new'],
+          log,
+          warn,
+        }),
+      ).rejects.toThrow(/NEW_BLOB_READ_WRITE_TOKEN/);
+    } finally {
+      if (prev !== undefined) process.env.NEW_BLOB_READ_WRITE_TOKEN = prev;
+    }
+  });
+
+  it('uploads all assets and verifies URLs when token + --all are passed', async () => {
+    put.mockImplementation((path) => Promise.resolve({ url: `https://new.example/${path}` }));
+    const result = await run({
+      rootDir,
+      argv: ['node', 'script', '--all'],
+      token: 'tok',
+      log,
+      warn,
+      batchDelayMs: 0,
+      fetchFn: okFetch, // unused but harmless
+    });
+    expect(result.uploaded).toHaveLength(2);
+    expect(put).toHaveBeenCalledTimes(2);
+    for (const call of put.mock.calls) {
+      const [path, _body, opts] = call;
+      expect(path.startsWith('content/posts/slug-a/')).toBe(true);
+      expect(opts).toMatchObject({
+        access: 'public',
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        token: 'tok',
+      });
+    }
+  });
+
+  it('preserves partial successes and throws aggregate when one upload fails mid-batch', async () => {
+    put.mockImplementation((path) => {
+      if (path.endsWith('hero.jpg')) {
+        return Promise.reject(new Error('boom for hero with vercel_blob_rw_secret123'));
+      }
+      return Promise.resolve({ url: `https://new.example/${path}` });
+    });
+
+    await expect(
+      run({
+        rootDir,
+        argv: ['node', 'script', '--all', '--no-verify'],
+        token: 'tok',
+        log,
+        warn,
+        batchDelayMs: 0,
+      }),
+    ).rejects.toThrow(/1\/2 file\(s\) errored/);
+
+    // The redacted reason must appear in warnings and never leak the token
+    const warnText = warns.join('\n');
+    expect(warnText).toContain('hero.jpg');
+    expect(warnText).toContain('vercel_blob_rw_[REDACTED]');
+    expect(warnText).not.toMatch(/vercel_blob_rw_secret123/);
+  });
+
+  it('skips HEAD verification when --no-verify is set', async () => {
+    put.mockImplementation((path) => Promise.resolve({ url: `https://new.example/${path}` }));
+    let fetchCalls = 0;
+    const result = await run({
+      rootDir,
+      argv: ['node', 'script', '--all', '--no-verify'],
+      token: 'tok',
+      log,
+      warn,
+      batchDelayMs: 0,
+      fetchFn: async () => {
+        fetchCalls += 1;
+        return { status: 200, ok: true };
+      },
+    });
+    expect(result.uploaded).toHaveLength(2);
+    expect(fetchCalls).toBe(0);
   });
 });
