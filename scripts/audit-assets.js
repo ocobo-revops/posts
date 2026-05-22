@@ -9,7 +9,7 @@
  *   - team-avatar slug convention (team/{slug}.{jpg,jpeg} per posts/team/{slug}.md)
  *   - ClientCarousel hardcoded slugs (website)
  *   - story-slug expansion (clients/{slug}-{white,avatar}.png)
- *   - any hardcoded asset path in website source (app/**/*.{tsx,ts,jsx,js,md,mdx})
+ *   - any hardcoded asset path in website source (app/** under .tsx/.ts/.jsx/.js/.md/.mdx)
  *
  * Usage:
  *   node scripts/audit-assets.js
