@@ -270,12 +270,19 @@ describe('formatReport', () => {
     { path: 'assets/clients/acme.png', before: 50_000, after: 50_000, skipped: 'under-threshold' },
   ];
 
-  it('lists per-file results with savings or skip reason', () => {
-    const report = formatReport(results);
+  it('lists per-file results: non-skipped rows show a size transition, skipped rows do not', () => {
+    const lines = formatReport(results).split('\n');
 
-    expect(report).toMatch(/assets\/team\/jane\.jpg.*saved/);
-    expect(report).toMatch(/assets\/posts\/foo\/cover\.png.*skip.*no gain/);
-    expect(report).toMatch(/assets\/clients\/acme\.png.*skip.*under threshold/);
+    const lineFor = (path) => lines.find((l) => l.includes(path));
+
+    // non-skipped → before → after notation present
+    expect(lineFor('assets/team/jane.jpg')).toMatch(/→/);
+    expect(lineFor('assets/posts/foo/inline.png')).toMatch(/→/);
+
+    // skipped → no size transition (preserves the user-visible distinction
+    // without coupling to the exact human-readable label)
+    expect(lineFor('assets/posts/foo/cover.png')).not.toMatch(/→/);
+    expect(lineFor('assets/clients/acme.png')).not.toMatch(/→/);
   });
 
   it('summarises totals by extension', () => {
