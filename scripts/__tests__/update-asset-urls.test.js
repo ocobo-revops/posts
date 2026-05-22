@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 const {
+  CONTENT_DIRS,
   LEGACY_HOST,
   NEW_HOST,
   parseArgs,
@@ -28,6 +29,12 @@ describe('parseArgs', () => {
 
   it('rejects unknown flags (typo detection)', () => {
     expect(() => parseArgs(['--targt', 'new'])).toThrow(/Unknown argument/);
+  });
+});
+
+describe('CONTENT_DIRS', () => {
+  it('scans blog, stories, legal, team, and tools', () => {
+    expect(CONTENT_DIRS).toEqual(['blog', 'stories', 'legal', 'team', 'tools']);
   });
 });
 

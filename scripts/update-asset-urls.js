@@ -20,6 +20,8 @@ const rootDir = join(__dirname, '..');
 export const LEGACY_HOST = 'jr0deqtyc8c5pvr8.public.blob.vercel-storage.com';
 export const NEW_HOST = 'ipjmp3k0z0p479cb.public.blob.vercel-storage.com';
 
+export const CONTENT_DIRS = ['blog', 'stories', 'legal', 'team', 'tools'];
+
 const VALID_TARGETS = new Set(['legacy', 'new']);
 const IMAGE_EXTS_RE = '(png|jpg|jpeg|svg|webp|gif)';
 
@@ -183,8 +185,7 @@ export const run = async (opts) => {
   console.log('🔍 Finding markdown files...');
   const markdownFiles = [];
 
-  const contentDirs = ['blog', 'stories', 'legal'];
-  for (const dir of contentDirs) {
+  for (const dir of CONTENT_DIRS) {
     const dirPath = join(rootDir, dir);
     const files = await findMarkdownFiles(dirPath);
     markdownFiles.push(...files);
