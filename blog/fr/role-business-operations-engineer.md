@@ -111,7 +111,7 @@ _Peut inclure : Data Eng (pour la partie ETL)_
 
 ### 🎫 La carte de visite du Business Ops Engineer
 
-![BusinessOps Engineer.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/6/1.png)
+![BusinessOps Engineer.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/6/1.png)
 
 🤹 **Skillset :** Engineering, Back End Tech, Front End Tech, API, Salesforce Architecture
 (Certifications), ETL

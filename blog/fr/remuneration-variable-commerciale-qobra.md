@@ -7,7 +7,7 @@ exerpt: |
   Aujourd'hui, Qobra accompagne des centaines d'entreprises et affiche une très belle croissance.
   Retour sur le parcours de son fondateur et sur la manière dont la startup a su transformer un irritant organisationnel en véritable moteur de développement.
 read: 5 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-13/cover-1.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-13/cover-1.png
 date: 2025-12-12
 podcastId: GZ9n9tvNLKLv
 tags:

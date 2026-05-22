@@ -6,7 +6,7 @@ description: Les insights concrets de Rodolphe Ardant pour structurer une bonne 
 exerpt: |
   En quelques années, spendesk est devenu un leader des solutions de paiement pour les entreprises. Une ascension qui s’explique notamment par une stratégie commerciale bien rodée. Au micro de Revenue Echoes, Rodolphe Ardant, cofondateur de Spendesk, raconte comment il a fait de son produit le nouveau standard de la gestion des paiements.
 read: 6 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-3/cover-2.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-3/cover-2.png
 date: 2024-11-12
 podcastId: 60gKgHxYePlz
 tags:

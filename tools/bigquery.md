@@ -1,5 +1,5 @@
 ---
 name: BigQuery
 category: Data
-iconUrl: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/tools/bigquery.svg
+iconUrl: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/tools/bigquery.svg
 ---

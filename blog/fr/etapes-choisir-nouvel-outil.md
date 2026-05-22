@@ -56,7 +56,7 @@ collaborateurs interviewés et/ou leur manager avec :
   ne pas biaiser leur choix) ;
 - **L’importance** selon vos collaborateurs de 1 à 5 (1 : peu important vs. 5 : très important)
 
-![Matrice de prio](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/5/1.png)
+![Matrice de prio](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/5/1.png)
 
 👉 Vous avez maintenant une vue précise des **besoins priorisés pour vos équipes**, ce qui va vous
 permettre de définir la liste de vos besoins / fonctionnalités lors de votre benchmark.
@@ -94,11 +94,11 @@ angles suivants :
 rapport aux **démos** effectuées avec les fournisseurs et le **test** effectué par vos utilisateurs
 de la plateforme (et oui, c’est souvent possible en le demandant).
 
-![Benchmark](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/5/2.png)
+![Benchmark](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/5/2.png)
 
 👉 Ce qui va vous permettre d’avoir une table finale avec une note par catégorie par outil :
 
-![Final benchmark](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/5/3.png)
+![Final benchmark](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/5/3.png)
 
 {% callout %}
 💡 Nous vous recommandons **d’interviewer** des **clients existants** afin d’avoir leur **retour**

@@ -21,7 +21,7 @@ En effet, le NRR permet non seulement d’unifier les équipes clients (Customer
 
 Néanmoins, **sa définition, son calcul et son utilisation au quotidien ne sont pas si évidents, et portent un certain nombre de prérequis opérationnels** avant de pouvoir en tirer tous les bénéfices. Cet article a donc vocation à fournir des éléments actionnables afin de comprendre et de mettre en place le NRR, pour des équipes Revenue Operations (RevOps) et Services Operations (Services Ops).
 
-![Illustrations support com.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/12/intro.png)
+![Illustrations support com.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/12/intro.png)
 
 ## Comprendre et mesurer le NRR
 
@@ -33,7 +33,7 @@ Le Net Retention Rate (NRR), exprimé en %, est un KPI qui mesure la croissance 
 
 Pour calculer le NRR, on utilise la formule suivante :
 
-![Untitled](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/12/1.png)
+![Untitled](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/12/1.png)
 
 L’expansion de revenus récurrents (MRR et ARR) comprend l’upsell et le cross-sell sur la base installée (base client) en début de période.
 
@@ -127,11 +127,11 @@ Ces analyses détaillées peuvent devenir complexes et nécessitent des outils e
 
 ### Bonnes pratiques - Les 4 étapes à suivre pour mettre en place le NRR
 
-![Untitled](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/12/2.png)
+![Untitled](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/12/2.png)
 
 #### 1. **Organisation Métier**
 
-![Untitled](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/12/3.png)
+![Untitled](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/12/3.png)
 
 Le premier élément à envisager est la segmentation de la base client en fonction de la valeur générée pour l'entreprise. Cela implique de d**iviser les clients en segments basés sur des critères qui permettent de capter les 3 méta critères** : le revenu généré, le potentiel de croissance, et la durée de vie du client.
 
@@ -141,7 +141,7 @@ Enfin, il faut **définir clairement le process (fréquence et moment) de réass
 
 #### 2. **Reconnaissance de revenu, facturation & _quote-to-cash_**
 
-![Untitled](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/12/4.png)
+![Untitled](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/12/4.png)
 
 Le deuxième prérequis afin de mettre en place le NRR est de définir de manière très minutieuse tous les éléments liés à la reconnaissance du revenu : à quel moment du process de facturation et de _quote-to-cash_ considérer du MRR ? qu’est-ce qu’un upsell et comment le différencie-t-on d’un cross-sell (cf. catégorisation des différents produits ou lignes de produit) ? qu’est-ce qu’un downgrade ? qu’est-ce qu’un churn ?
 
@@ -153,7 +153,7 @@ Tous ces éléments doivent ensuite être mis en place dans les outils dédiés,
 
 #### 3. **Architecture technique**
 
-![Untitled](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/12/5.png)
+![Untitled](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/12/5.png)
 
 D’un point de vue technique, il est important d’appliquer dans les outils (CRM et/ou customer platform) un processus standardisé de façon à :
 
@@ -165,7 +165,7 @@ Enfin, surveiller la qualité des données sortantes est crucial pour éviter le
 
 #### 4. **Architecture de Données**
 
-![Untitled](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/12/6.png)
+![Untitled](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/12/6.png)
 
 Une fois les process métiers et l’architecture technique définis, la gestion de la donnée entre en scène et comporte deux étapes :
 

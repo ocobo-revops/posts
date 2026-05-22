@@ -4,7 +4,7 @@ author: benjamin-boileux
 description: Découvrez nos astuces pour déployer votre business model et gérer chaque étape de croissance.
 exerpt: Une entreprise, c’est avant tout une vision, un service ou un produit qui s’intègre parfaitement au quotidien de votre ICP (Ideal Customer profile). Une fois que vous avez trouvé LA bonne idée, encore faut-il la mettre en œuvre, la faire connaître et la développer. Grâce à notre discussion avec Bertrand, fondateur de TheFork, apprenez en plus pour définir votre business model et maîtriser chaque étape de votre croissance à l’international.
 read: 5 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-1/cover-2.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-1/cover-2.png
 date: 2024-09-16
 podcastId: 4Pg3gfj8z0gx
 tags:

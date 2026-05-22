@@ -12,7 +12,7 @@ exerpt: |
 
   C'est ce que partage Romain Lopez, CRO chez LittleBig Rise, dans le dernier épisode de Revenue Echoes : comment structurer ses équipes (Sales, CSM, PreSales, AM) pour affronter des ventes complexes.
 read: 5 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-8/cover-1.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-8/cover-1.png
 date: 2025-04-15
 podcastId: XL3g3HNdwJlR
 tags:
@@ -262,7 +262,7 @@ Afin d'assurer la période post-signature, une équipe revenue doit travailler a
 
 **Le framework Ocobo pour bien penser son Customer Journey :**
 
-![image.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-8/value-framework.png)
+![image.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-8/value-framework.png)
 
 Pour comprendre l'utilité de ce framework, comment l'ituliser et le déployer dans un outil adapté, [n'hésitez pas à lire notre article dédié.](https://www.ocobo.co/blog/conseils-optimiser-customer-journey-choisir-customer-success-platform)
 

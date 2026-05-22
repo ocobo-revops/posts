@@ -50,7 +50,7 @@ leviers d’excellence :
 3. Data et Performance
 4. Compensation
 
-![illustration](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/10/1.png)
+![illustration](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/10/1.png)
 
 La **première phase d’une mission** avec Ocobo est toujours initiée, gérée, et suivie par un de nos
 **directeurs Business Ops** afin d’apporter une **expertise forte sur le métier** et permettre de

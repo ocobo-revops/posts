@@ -12,7 +12,7 @@ exerpt: |
 
   Ludovic Bauplé est venu raconter les coulisses de l'entreprise, dans Revenue Echoes.
 read: 5 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-7/cover-1.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-7/cover-1.png
 date: 2025-04-02
 podcastId: 78gqghxMEYLl
 tags:

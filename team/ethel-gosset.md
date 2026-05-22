@@ -5,7 +5,7 @@ role:
   en: Senior RevOps Manager
 track: builder
 linkedin: https://www.linkedin.com/in/ethel-gosset-a4b295136/
-avatar: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/team/ethel-gosset.jpeg
+avatar: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/team/ethel-gosset.jpeg
 displayOrder: 7
 active: true
 featuredOnAboutUs: false

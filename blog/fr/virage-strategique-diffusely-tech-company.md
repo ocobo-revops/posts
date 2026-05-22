@@ -10,7 +10,7 @@ exerpt: |
 
   Dans un épisode de Revenue Echoes, Fanny Kauffer, CRO de Diffusely (ex Meero), partage son retour d'expérience sur un changement audacieux : abandonner une activité rentable pour développer une offre SaaS scalable, basée sur l'intelligence artificielle et les nouvelles des consommateurs.
 read: 7 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-9/cover.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-9/cover.png
 date: 2025-05-28
 podcastId: PdrZrt57gYa2
 tags:
@@ -99,7 +99,7 @@ La transition vers un modèle produit nécessite de modifier l'offre commerciale
 
 ### Adopter une nouvelle méthodologie commerciale
 
-![spiced.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-9/spiced.png)
+![spiced.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-9/spiced.png)
 
 Chez Diffusely, la transition vers le SaaS a nécessité une **refonte complète** de l'approche commerciale. L'équipe a adopté [**SPICED**](https://winningbydesign.com/resources/blueprints/the-spiced-framework/), une méthodologie conçue pour analyser les besoins des clients et **structurer les cycles de vente**.
 

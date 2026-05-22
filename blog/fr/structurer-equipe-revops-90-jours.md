@@ -8,7 +8,7 @@ tags:
   - revenue-echoes
 author: benjamin-boileux
 read: 5 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-11/cover.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-11/cover.png
 ---
 
 C'est ce que partage [Lida Laisné](https://www.linkedin.com/in/lidalaisne/?originalSubdomain=fr), VP Revenue Operations chez [Dataiku](https://www.dataiku.com/), dans le dernier épisode du podcast Revenue Echoes. En quelques mois, elle est passée d'une équipe RevOps de **2 et demie à 30 personnes**, avec la mission de soutenir la croissance rapide de l'entreprise grâce à des fondations RevOps solides et scalables.
@@ -53,7 +53,7 @@ En parallèle, essayez de comprendre **la stack technologique** dans sa globalit
 
 Un simple **schéma** ou une **frise chronologique** peut suffire au départ. L'important est de rendre visible ce qui ne l'était pas, pour éviter de construire sur des fondations fragiles.
 
-![image.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-11/process.png)
+![image.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-11/process.png)
 
 ### Rédiger un diagnostic avec priorisation
 

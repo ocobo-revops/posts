@@ -137,7 +137,7 @@ La suite au prochain épisode !
 
 ### 🎫 La carte de visite du Business Ops Manager
 
-![Radar_businessOps_Level1.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/3/1.png)
+![Radar_businessOps_Level1.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/3/1.png)
 
 🤹 **Soft Skills**
 

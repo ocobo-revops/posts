@@ -7,7 +7,7 @@ exerpt: |
   Livestorm, c'est la plateforme de référence en Europe pour animer et organiser des webinars engageants. Fondée en 2016 par des passionnés de la tech, Livestorm séduit une centaine de clients en moins d'un an. Aujourd'hui, la plateforme compte une centaine de collaborateurs, et plus de 4000 clients en France et à l'international.
   Son CEO Gilles Bertaux est revenu sur la trajectoire si singulière de Livestorm au micro de Revenue Echoes.
 read: 5 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-5/cover-1.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-5/cover-1.png
 date: 2025-01-19
 podcastId: OdDpDtzpVl3W
 tags:

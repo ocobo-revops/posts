@@ -3,7 +3,7 @@ title: "Fini les tâches chronophages, place à la vente : l'IA au service des c
 author: benjamin-boileux
 description: L'IA est en train de transformer la vente sans remplacer l'humain. Découvrez comment elle améliore les performances commerciales tout en renforçant la relation client.
 read: 5 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-10/cover.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-10/cover.png
 date: 2025-06-23
 podcastId: dzWOWSj4OvE4
 tags:

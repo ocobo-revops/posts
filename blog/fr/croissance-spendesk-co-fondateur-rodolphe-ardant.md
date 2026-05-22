@@ -7,7 +7,7 @@ exerpt: |
   Spendesk, c’est le SaaS qui a révolutionné les solutions de paiement en entreprise. Co-fondée par Rodolphe Ardant en 2016, la plateforme a pour mission de libérer les entreprises et les collaborateurs du processus complexe de gestion des dépenses au travail tout en fournissant 100 % de contrôle aux équipes financières.
   Promesse tenue. Après 8 ans d’existence sur le marché, 3 levées de fonds et plus 140 000 utilisateurs, Spendesk est la 26ème licorne française. Au micro de Revenue Echoes, Rodolphe est venu raconter les grandes étapes de la croissance par le prisme du Revenue.
 read: 5 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-3/cover-1.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-3/cover-1.png
 date: 2024-11-11
 podcastId: 60gKgHxYePlz
 tags:

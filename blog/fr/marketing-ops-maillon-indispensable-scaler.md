@@ -9,7 +9,7 @@ exerpt: |
 
   Au cœur de cette évolution, on retrouve le rôle du Marketing Ops. Il participe à la définition l'ICP (Ideal Customer Profile), nettoie le CRM, met en place des workflows automatisés et des règles d'assignation pour orienter chaque lead vers le bon commercial. Son objectif ? Garantir un système prévisible et scalable, où sales et marketing partagent enfin des indicateurs communs et collaborent efficacement tout au long du cycle de conversion.
 read: 5 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-12/cover-2.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-12/cover-2.png
 date: 2025-09-18
 podcastId: pJGvGSAlZv72
 tags:
@@ -32,7 +32,7 @@ Souvent décrit comme la **colonne vertébrale technique et méthodologique** du
 
 En résumé, le Marketing Ops ne génère pas directement du revenu… mais il **rend chaque initiative marketing plus rapide, mesurable et alignée** avec l'organisation.
 
-![image.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-12/marketing-ops-process.png)
+![image.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-12/marketing-ops-process.png)
 
 ### Reconnaître les symptômes d'absence de MarketOps
 

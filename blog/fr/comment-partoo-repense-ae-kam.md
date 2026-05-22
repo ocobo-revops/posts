@@ -8,7 +8,7 @@ exerpt: |
 
   Au micro de Revenue Echoes, Vincent Coirier, Chief Sales Officer depuis 8 ans, a détaillé l'évolution de la stratégie commerciale de Partoo. À la tête d'une équipe de plus de 100 collaborateurs dédiés aux revenus, il a récemment initié une transformation majeure : fusionner les rôles d'Account Executives (AE) et de Key Account Managers (KAM). Voici les clés de cette refonte.
 read: 6 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-6/cover-2.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-6/cover-2.png
 date: 2025-03-23
 podcastId: VdlGlt86AeVk
 tags:

@@ -22,7 +22,7 @@ Mais comment ces piliers s'articulent-ils concrètement au quotidien au sein d'u
 
 Dans l'univers des Ops, ces quatre piliers, interconnectés et complémentaires, forment le socle sur lequel repose l'efficacité opérationnelle.
 
-![Les 4 piliers des Ops](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/roles-cles/pilars.png)
+![Les 4 piliers des Ops](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/roles-cles/pilars.png)
 
 ## Strategy (Stratégie)
 
@@ -63,7 +63,7 @@ Le pilier technologique constitue l'infrastructure qui soutient l'ensemble des o
 
 Les Revenue Operations représentent une approche centralisée qui englobe plusieurs spécialisations : Sales Ops, Marketing Ops, CS Ops, Finance Ops et Service Ops. La principale valeur ajoutée de l'équipe Revenue Operations est de porter des sujets transverses en brisant les silos. En connectant toutes les équipes Revenue entre elles, la discipline RevOps permet de créer une cohérence dans le cycle de vie du client.
 
-![Revenue Ops vs Sales Ops](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/roles-cles/versus.png)
+![Revenue Ops vs Sales Ops](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/roles-cles/versus.png)
 
 Découvrir les cinq fonctions clés qui composent une équipe RevOps aboutie est une étape essentielle pour ensuite savoir comment structurer et organiser cette équipe :
 
@@ -79,7 +79,7 @@ Cet article s'inscrit dans la continuité de notre série d'articles dédiées a
 
 **Son surnom : le couteau suisse**
 
-![Revenue Ops Manager](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/roles-cles/manager.png)
+![Revenue Ops Manager](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/roles-cles/manager.png)
 
 Le Revenue Ops Manager est bien souvent le premier membre recruté lorsqu'une équipe Ops se constitue. Véritable généraliste, il sait intervenir sur tous les fronts. Il veille à la cohérence et à la fluidité du funnel de vente de bout en bout, garantissant une collaboration efficace et sans rupture entre les équipes Marketing, Ventes, Service et Finance.
 
@@ -115,7 +115,7 @@ Pour plus de détails sur ce rôle, n'hésitez pas à consulter notre article d�
 
 **Son surnom : L'architecte système**
 
-![Revenue Ops Engineer](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/roles-cles/engineer.png)
+![Revenue Ops Engineer](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/roles-cles/engineer.png)
 
 Le Revenue Ops Engineer est le bâtisseur discret mais indispensable de la machine RevOps. Premier garant de la fiabilité des outils et des données, il intervient dès que l'organisation souhaite gagner en efficacité, automatiser ses workflows ou fiabiliser ses process. Ce profil technique, à la fois rigoureux et curieux, sait connecter les plateformes (CRM, marketing automation, outils d'analytics…), créer des automatisations sur mesure, et résoudre les petites comme les grandes frictions du quotidien. Il joue un rôle central dans l'alignement de la donnée : c'est lui qui transforme l'empilement d'outils en un écosystème cohérent et performant.
 
@@ -142,7 +142,7 @@ Pour plus de détails sur ce rôle, n'hésitez pas à consulter notre article d�
 
 **Son surnom : La tour de contrôle**
 
-![Revenue Analyst](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/roles-cles/analyst.png)
+![Revenue Analyst](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/roles-cles/analyst.png)
 
 Ce profil technique, reconnu pour sa rigueur, garantit la fiabilité des données partagées avec le board. Il collabore étroitement avec la Direction afin d'orienter les décisions stratégiques grâce à des analyses chiffrées, mais travaille aussi main dans la main avec les équipes Finance et Data. Entre l'élaboration des budgets, la gestion de la rémunération variable et la prévision des ventes, le Revenue Analyst doit être capable d'analyser la performance à la fois au niveau individuel et à l'échelle de l'entreprise. Selon la structure de l'entreprise, il peut s'appuyer sur une équipe dédiée ou être amené à manipuler lui-même de larges volumes de données en maîtrisant des langages comme SQL ou Python.
 
@@ -171,7 +171,7 @@ Développer une forte sensibilité business, notamment pour les processus métie
 
 **Son surnom : le coach**
 
-![Enablement Manager](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/roles-cles/enablement.png)
+![Enablement Manager](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/roles-cles/enablement.png)
 
 À mesure que l'entreprise grandit, les profils recrutés deviennent plus hétérogènes, créant un besoin croissant en documentation, formation et coaching. L'Enablement Manager est le garant de cette montée en compétences. Il joue un rôle essentiel dans le passage à l'échelle de l'organisation commerciale en garantissant que chaque membre de l'équipe dispose des ressources et connaissances nécessaires pour réussir.
 
@@ -201,7 +201,7 @@ Pour plus de détails sur ce rôle, nous vous invitons à suivre le podcast [Sal
 
 **Le surnom : le chef d'orchestre**
 
-![Strategic Project Manager](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/roles-cles/strategic.png)
+![Strategic Project Manager](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/roles-cles/strategic.png)
 
 Si l'on devait faire une analogie musicale, le Strategic Project Manager serait le chef d'orchestre : il ne maîtrise pas nécessairement chaque instrument, ni n'écrit la partition, mais il veille à ce que l'ensemble soit joué à la perfection. Présent tout au long du concert, il accompagne chaque musicien, clarifie le rôle de chacun et anime le collectif pour garantir l'harmonie et la fluidité de l'exécution.
 

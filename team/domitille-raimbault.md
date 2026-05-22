@@ -5,7 +5,7 @@ role:
   en: Senior RevOps Manager
 track: builder
 linkedin: https://www.linkedin.com/in/domitille-raimbault-488366107/
-avatar: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/team/domitille-raimbault.jpeg
+avatar: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/team/domitille-raimbault.jpeg
 displayOrder: 6
 active: true
 featuredOnAboutUs: false

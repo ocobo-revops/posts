@@ -7,7 +7,7 @@ exerpt: |
 
   C'est ce qu'adresse Domitille de Saint-Exupéry, CMO chez Lemlist, dans le dernier épisode du podcast Revenue Echoes. Cet article, inspiré par ses conseils, vous propose une méthode en trois temps pour construire une équipe marketing performante et évolutive.
 read: 7 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-12/cover-1.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-12/cover-1.png
 date: 2025-09-18
 podcastId: pJGvGSAlZv72
 tags:
@@ -38,7 +38,7 @@ Une alternative est donc le profil en **T**.
 
 Le profil en T est un **marketer généraliste**, avec une **bonne compréhension** du marketing (barre horizontale) et **une expertise plus approfondie** dans un domaine spécifique (barre verticale) (comme le growth ou le contenu ou le SEA - exemple si après).
 
-![image.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-12/t-shaped-marketer.png)
+![image.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-12/t-shaped-marketer.png)
 
 En d'autres mots, les profils se distinguent par deux qualités :
 
