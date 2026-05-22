@@ -72,7 +72,7 @@ describe('formatBytes', () => {
 
 describe('parseArgs', () => {
   it('returns defaults when no flags are passed', () => {
-    expect(parseArgs(['node', 'script'])).toEqual({
+    expect(parseArgs([])).toEqual({
       help: false,
       all: false,
       force: false,
@@ -82,40 +82,40 @@ describe('parseArgs', () => {
   });
 
   it('recognises --help and -h', () => {
-    expect(parseArgs(['node', 'script', '--help']).help).toBe(true);
-    expect(parseArgs(['node', 'script', '-h']).help).toBe(true);
+    expect(parseArgs(['--help']).help).toBe(true);
+    expect(parseArgs(['-h']).help).toBe(true);
   });
 
   it('recognises --all and -a', () => {
-    expect(parseArgs(['node', 'script', '--all']).all).toBe(true);
-    expect(parseArgs(['node', 'script', '-a']).all).toBe(true);
+    expect(parseArgs(['--all']).all).toBe(true);
+    expect(parseArgs(['-a']).all).toBe(true);
   });
 
   it('recognises --force', () => {
-    expect(parseArgs(['node', 'script', '--force']).force).toBe(true);
+    expect(parseArgs(['--force']).force).toBe(true);
   });
 
   it('recognises --no-verify (default false)', () => {
-    expect(parseArgs(['node', 'script']).noVerify).toBe(false);
-    expect(parseArgs(['node', 'script', '--no-verify']).noVerify).toBe(true);
+    expect(parseArgs([]).noVerify).toBe(false);
+    expect(parseArgs(['--no-verify']).noVerify).toBe(true);
   });
 
   it('accepts --target new and --target legacy', () => {
-    expect(parseArgs(['node', 'script', '--target', 'new']).target).toBe('new');
-    expect(parseArgs(['node', 'script', '--target', 'legacy']).target).toBe('legacy');
+    expect(parseArgs(['--target', 'new']).target).toBe('new');
+    expect(parseArgs(['--target', 'legacy']).target).toBe('legacy');
   });
 
   it('throws on invalid --target value', () => {
-    expect(() => parseArgs(['node', 'script', '--target', 'bogus'])).toThrow(/Invalid --target/);
+    expect(() => parseArgs(['--target', 'bogus'])).toThrow(/Invalid --target/);
   });
 
   it('throws when --target is passed without a value', () => {
-    expect(() => parseArgs(['node', 'script', '--target'])).toThrow(/Invalid --target/);
+    expect(() => parseArgs(['--target'])).toThrow(/Invalid --target/);
   });
 
   it('throws on unknown flag (typo detection)', () => {
-    expect(() => parseArgs(['node', 'script', '--targt', 'new'])).toThrow(/Unknown argument: --targt/);
-    expect(() => parseArgs(['node', 'script', '--verify'])).toThrow(/Unknown argument: --verify/);
+    expect(() => parseArgs(['--targt', 'new'])).toThrow(/Unknown argument: --targt/);
+    expect(() => parseArgs(['--verify'])).toThrow(/Unknown argument: --verify/);
   });
 });
 
@@ -372,7 +372,7 @@ describe('run (integration via vi.mock)', () => {
       await expect(
         run({
           rootDir,
-          argv: ['node', 'script', '--all', '--target', 'new'],
+          argv: ['--all', '--target', 'new'],
           log,
           warn,
         }),
@@ -386,7 +386,7 @@ describe('run (integration via vi.mock)', () => {
     put.mockImplementation((path) => Promise.resolve({ url: `https://new.example/${path}` }));
     const result = await run({
       rootDir,
-      argv: ['node', 'script', '--all'],
+      argv: ['--all'],
       token: 'tok',
       log,
       warn,
@@ -418,7 +418,7 @@ describe('run (integration via vi.mock)', () => {
     await expect(
       run({
         rootDir,
-        argv: ['node', 'script', '--all', '--no-verify'],
+        argv: ['--all', '--no-verify'],
         token: 'tok',
         log,
         warn,
@@ -438,7 +438,7 @@ describe('run (integration via vi.mock)', () => {
     let fetchCalls = 0;
     const result = await run({
       rootDir,
-      argv: ['node', 'script', '--all', '--no-verify'],
+      argv: ['--all', '--no-verify'],
       token: 'tok',
       log,
       warn,

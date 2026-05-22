@@ -106,15 +106,14 @@ export const uploadFile = async (file, { token, prefix = 'content' }) => {
 const VALID_TARGETS = new Set(['legacy', 'new']);
 
 export const parseArgs = (argv) => {
-  const args = argv.slice(2);
   let help = false;
   let all = false;
   let force = false;
   let noVerify = false;
   let target = 'legacy';
 
-  for (let i = 0; i < args.length; i++) {
-    const arg = args[i];
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
     switch (arg) {
       case '--help':
       case '-h':
@@ -131,7 +130,7 @@ export const parseArgs = (argv) => {
         noVerify = true;
         break;
       case '--target': {
-        const raw = args[++i];
+        const raw = argv[++i];
         if (!VALID_TARGETS.has(raw)) {
           throw new Error(`Invalid --target value: ${raw} (expected 'legacy' or 'new')`);
         }
@@ -333,7 +332,7 @@ const isMainModule = () => {
 if (isMainModule()) {
   const rootDir = join(dirname(fileURLToPath(import.meta.url)), '..');
   try {
-    await run({ rootDir, argv: process.argv });
+    await run({ rootDir, argv: process.argv.slice(2) });
   } catch (err) {
     console.error(`Upload failed: ${sanitizeMessage(err.message ?? err)}`);
     process.exit(1);
