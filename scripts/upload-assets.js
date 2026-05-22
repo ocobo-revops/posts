@@ -5,6 +5,9 @@ import { execSync } from 'node:child_process';
 import { readFile, readdir, stat } from 'node:fs/promises';
 import { dirname, extname, join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { sanitizeMessage } from './lib/sanitize.js';
+
+export { sanitizeMessage };
 
 const IMAGE_EXTS = new Set(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif']);
 
@@ -142,9 +145,6 @@ export const parseArgs = (argv) => {
 
   return { help, all, force, noVerify, target };
 };
-
-export const sanitizeMessage = (msg) =>
-  String(msg ?? '').replace(/vercel_blob_rw_[A-Za-z0-9_]+/g, 'vercel_blob_rw_[REDACTED]');
 
 export const resolveToken = (target, env = process.env) => {
   if (target === 'new') {

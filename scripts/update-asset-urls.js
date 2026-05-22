@@ -12,6 +12,7 @@
 import { readFile, readdir, stat, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { sanitizeMessage } from './lib/sanitize.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -254,13 +255,13 @@ if (isMain) {
     process.exit(0);
   }
 
-  process.on('unhandledRejection', (reason, promise) => {
-    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  process.on('unhandledRejection', (reason) => {
+    console.error(`Unhandled Rejection: ${sanitizeMessage(reason?.message ?? reason)}`);
     process.exit(1);
   });
 
   run(opts).catch((error) => {
-    console.error('\n❌ Update process failed:', error);
+    console.error(`\n❌ Update process failed: ${sanitizeMessage(error?.message ?? error)}`);
     process.exit(1);
   });
 }
