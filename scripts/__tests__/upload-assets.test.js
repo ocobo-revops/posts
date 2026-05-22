@@ -10,6 +10,7 @@ import {
   getContentType,
   isImageFile,
   parseArgs,
+  resolveToken,
 } from '../upload-assets.js';
 
 describe('isImageFile', () => {
@@ -61,7 +62,12 @@ describe('formatBytes', () => {
 
 describe('parseArgs', () => {
   it('returns defaults when no flags are passed', () => {
-    expect(parseArgs(['node', 'script'])).toEqual({ help: false, all: false, force: false });
+    expect(parseArgs(['node', 'script'])).toEqual({
+      help: false,
+      all: false,
+      force: false,
+      target: 'legacy',
+    });
   });
 
   it('recognises --help and -h', () => {
@@ -76,6 +82,47 @@ describe('parseArgs', () => {
 
   it('recognises --force', () => {
     expect(parseArgs(['node', 'script', '--force']).force).toBe(true);
+  });
+
+  it('accepts --target new and --target legacy', () => {
+    expect(parseArgs(['node', 'script', '--target', 'new']).target).toBe('new');
+    expect(parseArgs(['node', 'script', '--target', 'legacy']).target).toBe('legacy');
+  });
+
+  it('throws on invalid --target value', () => {
+    expect(() => parseArgs(['node', 'script', '--target', 'bogus'])).toThrow(/Invalid --target/);
+  });
+
+  it('throws when --target is passed without a value', () => {
+    expect(() => parseArgs(['node', 'script', '--target'])).toThrow(/Invalid --target/);
+  });
+});
+
+describe('resolveToken', () => {
+  it('returns NEW_BLOB_READ_WRITE_TOKEN for target=new', () => {
+    expect(resolveToken('new', { NEW_BLOB_READ_WRITE_TOKEN: 'new-tok' })).toBe('new-tok');
+  });
+
+  it('returns BLOB_READ_WRITE_TOKEN for target=legacy', () => {
+    expect(resolveToken('legacy', { BLOB_READ_WRITE_TOKEN: 'leg-tok' })).toBe('leg-tok');
+  });
+
+  it('falls back to VERCEL_BLOB_READ_WRITE_TOKEN for legacy when primary missing', () => {
+    expect(resolveToken('legacy', { VERCEL_BLOB_READ_WRITE_TOKEN: 'vrc-tok' })).toBe('vrc-tok');
+  });
+
+  it('never falls back to legacy tokens when target=new', () => {
+    expect(
+      resolveToken('new', {
+        BLOB_READ_WRITE_TOKEN: 'leg-tok',
+        VERCEL_BLOB_READ_WRITE_TOKEN: 'vrc-tok',
+      }),
+    ).toBeNull();
+  });
+
+  it('returns null when no relevant env var is set', () => {
+    expect(resolveToken('legacy', {})).toBeNull();
+    expect(resolveToken('new', {})).toBeNull();
   });
 });
 

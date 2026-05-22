@@ -100,17 +100,33 @@ export const uploadFile = async (file, { token, prefix = 'content' }) => {
   return { ...file, url: blob.url };
 };
 
+const VALID_TARGETS = new Set(['legacy', 'new']);
+
 export const parseArgs = (argv) => {
   const args = argv.slice(2);
+  const targetIdx = args.indexOf('--target');
+  let target = 'legacy';
+  if (targetIdx !== -1) {
+    const raw = args[targetIdx + 1];
+    if (!VALID_TARGETS.has(raw)) {
+      throw new Error(`Invalid --target value: ${raw} (expected 'legacy' or 'new')`);
+    }
+    target = raw;
+  }
   return {
     help: args.includes('--help') || args.includes('-h'),
     all: args.includes('--all') || args.includes('-a'),
     force: args.includes('--force'),
+    target,
   };
 };
 
-const resolveToken = () =>
-  process.env.BLOB_READ_WRITE_TOKEN ?? process.env.VERCEL_BLOB_READ_WRITE_TOKEN;
+export const resolveToken = (target, env = process.env) => {
+  if (target === 'new') {
+    return env.NEW_BLOB_READ_WRITE_TOKEN ?? null;
+  }
+  return env.BLOB_READ_WRITE_TOKEN ?? env.VERCEL_BLOB_READ_WRITE_TOKEN ?? null;
+};
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -129,9 +145,13 @@ export const run = async ({
     return { uploaded: [], skipped: 'help' };
   }
 
-  if (!token) {
-    throw new Error('Missing blob token. Set BLOB_READ_WRITE_TOKEN in your environment.');
+  const effectiveToken = token ?? resolveToken(opts.target);
+  if (!effectiveToken) {
+    const envVar = opts.target === 'new' ? 'NEW_BLOB_READ_WRITE_TOKEN' : 'BLOB_READ_WRITE_TOKEN';
+    throw new Error(`Missing blob token. Set ${envVar} in your environment.`);
   }
+
+  log(`Target: ${opts.target} store`);
 
   const assetsDir = join(rootDir, 'assets');
   try {
@@ -170,7 +190,7 @@ export const run = async ({
   const uploaded = [];
   for (let i = 0; i < files.length; i += BATCH_SIZE) {
     const batch = files.slice(i, i + BATCH_SIZE);
-    const results = await Promise.all(batch.map((f) => uploadFile(f, { token })));
+    const results = await Promise.all(batch.map((f) => uploadFile(f, { token: effectiveToken })));
     uploaded.push(...results);
     for (const r of results) {
       log(`  ${r.blobPath} → ${r.url}`);
@@ -188,14 +208,17 @@ const usage = () =>
 Usage:
   pnpm upload-assets             upload only changed/new assets (default)
   pnpm upload-assets:all         upload every asset (ignore git diff)
+  pnpm upload-assets:migrate     upload every asset to the new store (--all --target new)
 
 Flags:
-  --all, -a       upload all assets, skip git diff filter
-  --force         upload even if no changes detected
-  --help, -h      show this help
+  --all, -a            upload all assets, skip git diff filter
+  --force              upload even if no changes detected
+  --target <which>     'legacy' (default) or 'new' — selects which blob store to push to
+  --help, -h           show this help
 
 Environment:
-  BLOB_READ_WRITE_TOKEN          read-write token for the target blob store
+  BLOB_READ_WRITE_TOKEN          read-write token for the legacy blob store (default target)
+  NEW_BLOB_READ_WRITE_TOKEN      read-write token for the new blob store (--target new)
 `.trim();
 
 const isMainModule = () => {
@@ -207,7 +230,7 @@ const isMainModule = () => {
 if (isMainModule()) {
   const rootDir = join(dirname(fileURLToPath(import.meta.url)), '..');
   try {
-    await run({ rootDir, argv: process.argv, token: resolveToken() });
+    await run({ rootDir, argv: process.argv });
   } catch (err) {
     console.error(`Upload failed: ${err.message ?? err}`);
     process.exit(1);

@@ -6,6 +6,7 @@
   "scripts": {
     "upload-assets": "node scripts/upload-assets.js",
     "upload-assets:all": "node scripts/upload-assets.js --all",
+    "upload-assets:migrate": "node scripts/upload-assets.js --all --target new",
     "update-urls": "node scripts/update-asset-urls.js",
     "sync-assets": "pnpm upload-assets && pnpm update-urls",
     "sync-assets:all": "pnpm upload-assets:all && pnpm update-urls",
