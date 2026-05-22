@@ -9,13 +9,16 @@
     "upload-assets:branch": "node scripts/upload-assets.js --branch",
     "update-urls": "node scripts/update-asset-urls.js",
     "sync-assets": "pnpm upload-assets && pnpm update-urls",
-    "sync-assets:all": "pnpm upload-assets:all && pnpm update-urls"
+    "sync-assets:all": "pnpm upload-assets:all && pnpm update-urls",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@vercel/blob": "^1.1.1"
   },
   "devDependencies": {
-    "sharp": "^0.34.5"
+    "sharp": "^0.34.5",
+    "vitest": "^4.1.7"
   },
   "repository": {
     "type": "git",
