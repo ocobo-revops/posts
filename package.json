@@ -14,7 +14,9 @@
   "dependencies": {
     "@vercel/blob": "^1.1.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "sharp": "^0.34.5"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/wab/ocobo-posts.git"
