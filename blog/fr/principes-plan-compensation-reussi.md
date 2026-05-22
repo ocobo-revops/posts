@@ -99,7 +99,7 @@ Ainsi, on recommande généralement de suivre les étapes de développement suiv
   senior, sur un marché stable, avec des clients grands comptes, et sur des deals longs, plus la
   fréquence aura tendance à être faible (plan trimestriel voire semestriel ou annuel).
 
-![CompPlan Illu.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/4/1.png)
+![CompPlan Illu.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/4/1.png)
 
 ## 3. Préparer les objectifs en amont
 
@@ -133,7 +133,7 @@ C’est ici que ce qu’on attend de l’Ops change quelque peu : d’un rôle p
 un rôle de chef de projet. Il faut organiser, communiquer, documenter et former dans un seul but :
 que **tout le monde pousse dans le même sens**.
 
-![CompPlan-Gov](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/4/2.png)
+![CompPlan-Gov](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/4/2.png)
 
 ### Organiser
 

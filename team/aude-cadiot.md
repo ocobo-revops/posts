@@ -5,7 +5,7 @@ role:
   en: Partner
 track: architect
 linkedin: https://www.linkedin.com/in/aude-cadiot-9597096b/
-avatar: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/team/aude-cadiot.jpg
+avatar: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/team/aude-cadiot.jpg
 displayOrder: 2
 active: true
 featuredOnAboutUs: true

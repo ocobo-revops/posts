@@ -36,7 +36,7 @@ Cette progression s'accompagne généralement d'un élargissement du périmètre
 
 Le métier RevOps étant encore en pleine émergence, de nombreux parcours et trajectoires professionnelles sont envisageables. Il est ainsi possible d'explorer aussi bien des évolutions horizontales, que des évolutions verticales. Cette diversité de cheminements reflète la flexibilité et la richesse des opportunités offertes par un métier en constante évolution.
 
-![Schéma des niveaux de carrière RevOps](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/parcours-carriere-revops/image-1.png)
+![Schéma des niveaux de carrière RevOps](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/parcours-carriere-revops/image-1.png)
 
 Au sein de la fonction RevOps, les professionnels peuvent également se spécialiser dans différents domaines d'expertise complémentaires. On distingue ainsi quatre grandes familles de missions : le **Run** (gestion opérationnelle quotidienne et optimisation continue), l'**Admin** (administration et configuration des outils technologiques), les **Reports** (analyse des données et création de tableaux de bord), et le **Training** (formation et accompagnement des équipes métier). Cette répartition permet à chaque profil RevOps de développer une expertise distinctive tout en contribuant à la performance globale de l'organisation.
 
@@ -91,7 +91,7 @@ Pour maintenir l'engagement, l'équilibre entre différents types de projets est
 - **20 % de projets d'optimisation continue** (amélioration des processus existants).
 - **10 % d'expérimentation** (nouvelles technologies, approches innovantes).
 
-![Répartition des types de projets RevOps](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/parcours-carriere-revops/image-2.png)
+![Répartition des types de projets RevOps](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/parcours-carriere-revops/image-2.png)
 
 Cette répartition permet d'éviter la lassitude tout en assurant un impact tangible pour l'entreprise.
 

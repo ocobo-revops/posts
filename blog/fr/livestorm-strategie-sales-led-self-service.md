@@ -9,7 +9,7 @@ excerpt: |
 
   La cible évolue, les attentes des clients changent, et Gilles se retrouve à devoir repenser ses processus internes. Cela signifie investir dans des outils performants, retravailler son offre produit et, surtout, intégrer une équipe commerciale. Ce virage stratégique, il le partage au micro de Revenue Echoes.
 read: "5 min"
-image: "https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-5/cover-2.png"
+image: "https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-5/cover-2.png"
 date: 2025-01-20
 podcastId: OdDpDtzpVl3W
 tags:

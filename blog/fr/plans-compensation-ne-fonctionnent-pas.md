@@ -91,7 +91,7 @@ l’on retrouve également sous les acronymes OTVE, pour **On-Target Variable Ea
 **On-Target Commission**) doit être normalement distribuée, c’est-à-dire qu’elle doit suivre une
 courbe de Gauss.
 
-![Untitled](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/11/graph-1.png)
+![Untitled](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/11/graph-1.png)
 
 En termes pratiques, cela signifie que :
 
@@ -129,7 +129,7 @@ Aussi, il ne doit pas être distribuée sur une plage trop restreinte, c’est-�
 discriminant. Sur les exemples ci-dessous, il faudra privilégier la courbe en vert, mieux
 distribuée, que la rouge.
 
-![Untitled](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/11/graph-2.png)
+![Untitled](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/11/graph-2.png)
 
 Si la courbe est trop centrée autour de 100% (courbe rouge), c’est que les % d’atteinte de l’OTVE
 sont trop centrés autour de 100%, en d’autre termes que :

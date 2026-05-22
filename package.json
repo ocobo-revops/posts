@@ -4,12 +4,14 @@
   "description": "Content repository for Ocobo blog and stories",
   "type": "module",
   "scripts": {
-    "upload-assets": "node scripts/upload-assets.js",
-    "upload-assets:all": "node scripts/upload-assets.js --all",
-    "upload-assets:branch": "node scripts/upload-assets.js --branch",
-    "update-urls": "node scripts/update-asset-urls.js",
+    "upload-assets": "node --env-file-if-exists=.env scripts/upload-assets.js",
+    "upload-assets:all": "node --env-file-if-exists=.env scripts/upload-assets.js --all",
+    "upload-assets:migrate": "node --env-file-if-exists=.env scripts/upload-assets.js --all --target new",
+    "update-urls": "node --env-file-if-exists=.env scripts/update-asset-urls.js",
+    "update-urls:new": "node --env-file-if-exists=.env scripts/update-asset-urls.js --target new",
     "sync-assets": "pnpm upload-assets && pnpm update-urls",
     "sync-assets:all": "pnpm upload-assets:all && pnpm update-urls",
+    "sync-assets:migrate": "pnpm upload-assets:migrate && pnpm update-urls:new",
     "test": "vitest run",
     "test:watch": "vitest"
   },

@@ -96,7 +96,7 @@ Le découpage peut être réalisé à différents niveaux du cycle de vie client
 
 Le rôle de Strategic Project Manager transverse au sein du département RevOps permettra de mener des projets cross-fonction et assurer une bonne cohérence sur l'ensemble du cycle de vie client.
 
-![Le découpage par ligne de métier](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/ochestrer-talents/by-jobs.png)
+![Le découpage par ligne de métier](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/ochestrer-talents/by-jobs.png)
 
 ### Le découpage focus team
 
@@ -106,7 +106,7 @@ La constitution de focus teams se réalise autour d'objectifs stratégiques ou d
 
 Dès que cela est envisageable, nous préconisons la mise en place de ce type d'organisation, qui optimise l'impact des équipes RevOps. Ce modèle favorise à la fois l'agilité, la transversalité et l'expertise technique. Il reste toutefois préférable de constituer ces équipes dédiées avec des profils disposant d'une expérience minimale dans leur fonction, afin de garantir une bonne compréhension des enjeux métier et terrain.
 
-![Le découpage focus team](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/ochestrer-talents/focus-team.png)
+![Le découpage focus team](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/ochestrer-talents/focus-team.png)
 
 Dans tous les cas, il est possible d'envisager des modèles hybrides afin de s'adapter à vos particularités. L'essentiel reste de conserver une flexibilité suffisante pour ajuster l'organisation en fonction de la maturité de l'entreprise, des priorités business et de la composition de l'équipe RevOps.
 

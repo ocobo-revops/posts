@@ -42,7 +42,7 @@ de récupérer la projection sur la•es prochaine•s année•s de :
 Pour chaque outil, indiquez la projection du coût en fonction de pricing négocié initialement, la
 périodicité et la date de renouvellement.
 
-![Capture d’écran 2023-01-22 à 17.46.07.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/2/1.png)
+![Capture d’écran 2023-01-22 à 17.46.07.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/2/1.png)
 
 💡 Il existe aujourd’hui différents modèles de pricing mais de plus en plus de logiciels évoluent vers un **pricing basé sur l’usage** (ex: vol. d’utilisateurs actifs ou sur la consommation utilisée) afin d’associer le coût avec le succès du client.
 

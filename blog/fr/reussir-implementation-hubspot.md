@@ -18,7 +18,7 @@ read: 4 min
 
 En 2025, à l'heure où la data, l'IA et l'automatisation sont devenues incontournables, l'implémentation de HubSpot va bien au-delà d'un simple déploiement technique : il s'agit d'une véritable transformation stratégique de votre organisation. En tant qu'experts RevOps, nous vous dévoilons notre méthodologie éprouvée pour une implémentation réussie.
 
-![Capture d’écran 2025-04-22 à 17.37.38.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/hubspot-implementation/diagram.png)
+![Capture d’écran 2025-04-22 à 17.37.38.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/hubspot-implementation/diagram.png)
 
 ## 🤫 Le secret d'une implémentation réussie : l'approche progressive qui ne minimise pas les phases essentielles
 
@@ -60,7 +60,7 @@ La mise en place de HubSpot n'est pas une destination, mais un voyage. Les organ
 
 En suivant cette approche progressive et en accordant une attention particulière à chaque phase, vous maximiserez vos chances de succès et transformerez HubSpot en véritable moteur de croissance pour votre entreprise. N'oubliez pas que l'implémentation technique n'est qu'une partie du chemin vers une adoption réussie et durable de votre CRM.
 
-![Capture d’écran 2025-04-22 à 17.33.31.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/hubspot-implementation/chart.png)
+![Capture d’écran 2025-04-22 à 17.33.31.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/hubspot-implementation/chart.png)
 
 ## ✨ Les innovations 2025 à ne pas manquer
 

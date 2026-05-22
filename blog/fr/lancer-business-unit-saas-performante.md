@@ -9,7 +9,7 @@ exerpt: |
 
   Dans un épisode de Revenue Echoes, Romain Lopez, CRO de LittleBig Connection, revient sur les conditions de réussite pour lancer une Business Unit SaaS dans un grand groupe. On aborde comment aligner les équipes, structurer la machine revenue, clarifier l'offre, tout en préservant l'existant et en évitant la cannibalisation.
 read: 5 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-8/cover-2.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-8/cover-2.png
 date: 2025-04-16
 podcastId: XL3g3HNdwJlR
 tags:

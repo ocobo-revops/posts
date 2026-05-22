@@ -5,7 +5,7 @@ role:
   en: Manager
 track: architect
 linkedin: https://www.linkedin.com/in/clara-lecarrie-070595106/
-avatar: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/team/clara-lecarrie.jpg
+avatar: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/team/clara-lecarrie.jpg
 displayOrder: 4
 active: true
 featuredOnAboutUs: false

@@ -6,7 +6,7 @@ description: Découvrez comment constituer et faire évoluer votre équipe RevOp
 excerpt: |
   Comment constituer et faire évoluer une équipe RevOps stratégique ? De la phase de lancement à celle de productivité, découvrez les rôles clés à recruter, les modèles d'organisation (centralisé, décentralisé, hybride) et les critères pour adapter votre structure à votre croissance. Cet article explore les 5 stades de développement d'une équipe RevOps et vous guide pour maintenir l'équilibre entre cohérence opérationnelle et agilité, en fonction de la maturité et des enjeux de votre organisation.
 read: 7 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/team-structure/cover.jpeg
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/team-structure/cover.jpeg
 date: 2025-11-04
 tags:
   - revenue-operations
@@ -16,7 +16,7 @@ tags:
 
 Si l'on compare une entreprise en croissance à un navire, les Revenue Operations seraient sa salle des machines : un espace où chaque composant doit être parfaitement calibré et synchronisé pour garantir une navigation optimale. Mais comment constituer et faire évoluer cet équipage stratégique ? Quels rôles recruter et à quel moment ? Plongeons dans les différentes configurations possibles et les étapes clés de développement d'une équipe RevOps.
 
-![ Matrice de maturité RevOps ](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/team-structure/revops-maturity-matrix.png)
+![ Matrice de maturité RevOps ](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/team-structure/revops-maturity-matrix.png)
 
 ## Les stades de développement d'une équipe RevOps
 
@@ -37,7 +37,7 @@ En phase de productivité, chaque spécialiste maîtrise son domaine et l'équip
 Cependant, le rôle des équipes RevOps devient central pour garantir la bonne circulation de l'information et la fluidité des échanges entre les différents départements liés au revenu. Plus l'entreprise grandit, plus le risque de silos organisationnels augmente. Avec des process désormais solides et bien rodés, la gestion du "run" et la résolution des bugs deviennent moins fréquentes. Les RevOps peuvent alors adopter une posture de plus en plus stratégique au sein de l'organisation : leur position transversale prend toute son importance.
 C'est également à ce moment que le recrutement d'un Strategic Project Manager s'avère particulièrement pertinent. Ce profil pourra piloter les grands projets transverses impulsés par le COMEX : intégration d'une nouvelle entité après une fusion/acquisition, déploiement d'un ERP, ouverture de nouveaux marchés, externalisation du service client, etc.
 
-![Composition des équipes RevOps par maturité](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/team-structure/revops-team-composition-by-maturity.png)
+![Composition des équipes RevOps par maturité](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/team-structure/revops-team-composition-by-maturity.png)
 
 ## Les modèles d'organisation RevOps
 

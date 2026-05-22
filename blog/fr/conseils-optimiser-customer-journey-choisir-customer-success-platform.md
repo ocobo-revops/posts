@@ -33,7 +33,7 @@ Il regroupe toutes les étapes qu’un client traverse :
 
 **Cartographier ce parcours** permet de visualiser chaque étape, d’identifier les points de friction et de coordonner les efforts entre les équipes. Une cartographie détaillée aide à **aligner les actions des départements** et à optimiser l’expérience client.
 
-![image.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/customer-journey/image-1.png)
+![image.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/customer-journey/image-1.png)
 
 ### À quels moments repenser son Customer Journey ?
 
@@ -75,7 +75,7 @@ Ce processus repose sur l’identification des moments clés, comme le **"Aha mo
 
 Lorsqu’un client est satisfait, il devient un **ambassadeur naturel**, recommande le produit à d’autres et joue un **rôle de porte-voix**. La satisfaction client est le meilleur **levier d’acquisition**. À l’inverse, une mauvaise expérience peut rapidement nuire à la réputation du produit, impactant la confiance et la fidélité d’autres clients potentiels.
 
-![image.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/customer-journey/image-2.png)
+![image.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/customer-journey/image-2.png)
 
 Repenser le **Customer Journey** c’est aussi redéfinir la valeur à chaque étape clé :
 
@@ -97,7 +97,7 @@ Pour chacune de ces phases, il est indispensable de :
 - Identifier les touchpoints clés, qu’ils soient humains ou digitaux.
 - Suivre des **KPI mesurables** pour évaluer les résultats.
 
-![image.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/customer-journey/image-3.png)
+![image.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/customer-journey/image-3.png)
 
 ## 💻 Focus sur la Customer Success Platform : Comment la choisir ?
 

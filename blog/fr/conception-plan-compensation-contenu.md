@@ -113,7 +113,7 @@ période pour se les voir récompenser sur la période suivante), et prévenir l
 
 _Exemple de courbe accélératrice sur un mécanisme en % du KPI :_
 
-![Untitled](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/8/1.png)
+![Untitled](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/8/1.png)
 
 ## Définir la fréquence
 

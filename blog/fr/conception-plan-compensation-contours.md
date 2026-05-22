@@ -36,7 +36,7 @@ Définir un salaire variable cible (ou OTVE pour **On-Target Variable Earning**)
 aisée, mais **cela constitue généralement** **la première étape du processus conjoint Ops-RH**
 visant à préparer les détails d’un nouveau poste.
 
-![Rémunération variable.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/7/1.png)
+![Rémunération variable.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/7/1.png)
 
 Un écueil souvent observé est d’augmenter artificiellement les % d’atteinte des objectifs, dépassant
 ostensiblement les 100%, afin de combler un manque de compétitivité du salaire variable cible par
@@ -55,7 +55,7 @@ une première étape vers la mise en place de **career paths** bien précis, afi
 employé•e puisse se projeter dans l’organisation, avec une idée précise des salaires qu’il•elle
 pourra espérer en conséquence.
 
-![Untitled](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/7/2.png)
+![Untitled](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/7/2.png)
 
 Ensuite, il faut avoir en tête qu’un **salaire variable oblige et libère la performance** : il
 permet à des populations commerciales d’aller chercher des montants importants, tout en les
@@ -99,13 +99,13 @@ Il existe deux grandes méthodes :
   accélération (coefficient de la courbe supérieur à 1) jusqu’à un autre seuil (dans l’exemple
   ci-dessous, 80%), puis la courbe devient linéaire au-delà
 
-![Untitled](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/7/3.png)
+![Untitled](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/7/3.png)
 
 - **Déclencher la rémunération à partir d’un seuil, en partant du seuil.** La courbe est alors
   linéaire, mais il n’y aura aucune rémunération en-dessous du seuil (un palier se crée au niveau du
   seuil)
 
-![Untitled](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/7/4.png)
+![Untitled](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/7/4.png)
 
 Sur les limites hautes, le sujet est plus délicat. **Imposer une limite haute, aussi élevée
 soit-elle, aura un impact psychologique négatif sur un•e commercial•e.** C’est un biais cognitif

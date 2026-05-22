@@ -26,7 +26,7 @@ Le target setting est le process par lequel une entreprise définit et répartit
 
 ## Quand mener le process de target-setting ?
 
-![process target setting.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/target-setting/process_target_setting.png)
+![process target setting.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/target-setting/process_target_setting.png)
 
 Pour une année fiscale démarrant au 1er janvier, le processus de target setting s'articule en deux temps : un processus initial approfondi et des révisions régulières pour maintenir des objectifs pertinents.
 
@@ -70,7 +70,7 @@ Les KPIs servent de fondation au Target Setting, permettant de suivre des object
 
 Ils offrent une vision structurée des différentes métriques nécessaire pour évaluer la performance d’une équipe - et par extension, de l’entreprise.
 
-![formules clés.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/target-setting/formules_cls.png)
+![formules clés.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/target-setting/formules_cls.png)
 
 Pour fixer des objectifs commerciaux réalistes et ambitieux, il est essentiel de décomposer sa performance en indicateurs actionnables qui couvrent l'ensemble du cycle de vente.
 
@@ -103,13 +103,13 @@ Pour piloter efficacement la croissance dans un exercice de target setting, il e
 
 → La valeur générée par chaque transaction
 
-![formule article1.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/target-setting/formule_article1.png)
+![formule article1.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/target-setting/formule_article1.png)
 
 ### Rétention
 
 La **formule générique de rétention** vient compléter cette approche en projetant l'évolution des revenus issus du portefeuille client existant. Elle additionne les hausses de valeur (augmentation des contrats et ventes additionnelles) et soustrait les pertes (réductions de périmètre et churn clients).
 
-![formule article2.png](https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/target-setting/formule_article2.png)
+![formule article2.png](https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/target-setting/formule_article2.png)
 
 Cette décomposition permet d'identifier précisément les leviers d'action et de construire des objectifs à la fois **ambitieux** et **réalistes**.
 

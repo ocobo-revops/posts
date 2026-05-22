@@ -8,7 +8,7 @@ exerpt: |
   Au micro de Revenue Echoes, Emmanuel Chaumeau, CRO (Chief Revenue Officer) de Ringover, est venu nous livrer quelques astuces pour gérer ses équipes Revenue dans une entreprise en forte croissance.
   Au programme : un aperçu du rôle de CRO et des conseils concrets pour structurer les fonctions sales et marketing.
 read: 5 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-4/cover-1.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-4/cover-1.png
 date: 2024-12-16
 podcastId: 4Pg3gfnVJEwr
 tags:

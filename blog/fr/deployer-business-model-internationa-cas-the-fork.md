@@ -7,7 +7,7 @@ exerpt: |
 
   Lorsqu’il crée La Fourchette en 2006, Bertrand n’en est pas à son coup d’essai. En quelques années, il propulse sa 3e entreprise au rang de première plateforme de réservation en France. Aujourd’hui, il est venu raconter sa success story au micro de Revenue Echoes by Ocobo et nous partager le playbook qu’il a utilisé pour déployer TheFork dans 25 pays.
 read: 5 min
-image: https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/posts/revenue-echoes-1/cover-1.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revenue-echoes-1/cover-1.png
 date: 2024-09-16
 podcastId: 4Pg3gfj8z0gx
 tags:

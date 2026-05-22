@@ -1,381 +1,340 @@
 #!/usr/bin/env node
 
-/**
- * Upload assets from /assets directory to Vercel Blob
- * Prerequisites: pnpm add @vercel/blob
- * 
- * Usage:
- *   pnpm upload-assets                    # Upload only changed/new assets (default)
- *   pnpm upload-assets:branch             # Choose branch for content fetching
- *   node scripts/upload-assets.js --all   # Upload all assets
- *   node scripts/upload-assets.js --help  # Show help
- */
-
 import { put } from '@vercel/blob';
-import { readdir, readFile, stat } from 'fs/promises';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { execSync } from 'child_process';
+import { execSync } from 'node:child_process';
+import { readFile, readdir, stat } from 'node:fs/promises';
+import { dirname, extname, join, relative, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { sanitizeMessage } from './lib/sanitize.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const rootDir = join(__dirname, '..');
-const assetsDir = join(rootDir, 'assets');
+export { sanitizeMessage };
 
-// Environment variables
-const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN || process.env.VERCEL_BLOB_READ_WRITE_TOKEN;
+const IMAGE_EXTS = new Set(['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif']);
 
-async function showUsage() {
-  console.log(`
-🚀 Ocobo Posts - Asset Upload Tool
+const CONTENT_TYPES = {
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
+  '.gif': 'image/gif',
+};
 
-Upload assets from /assets directory to Vercel Blob storage.
+const BATCH_SIZE = 5;
+const BATCH_DELAY_MS = 1000;
 
-Usage:
-  pnpm upload-assets                    Upload only changed/new assets (default)
-  pnpm upload-assets:branch             Choose branch for content fetching  
-  node scripts/upload-assets.js        Direct script execution
-  node scripts/upload-assets.js --all  Upload all assets (ignore git diff)
+const toPosix = (p) => (sep === '/' ? p : p.split(sep).join('/'));
 
-Options:
-  --help, -h                           Show this help message
-  --all, -a                           Upload all assets (ignore git diff)
-  --branch, -b                         Allow branch selection for content
-  --force                             Force upload even if no changes detected
+export const isImageFile = (filename) => IMAGE_EXTS.has(extname(filename).toLowerCase());
 
-Default Behavior:
-  By default, only uploads assets that are:
-  - New (untracked by git)
-  - Modified (changed since last commit)  
-  - Staged for commit
+export const getContentType = (filename) =>
+  CONTENT_TYPES[extname(filename).toLowerCase()] ?? 'application/octet-stream';
 
-Environment Variables:
-  BLOB_READ_WRITE_TOKEN                Vercel Blob read/write token
-  VERCEL_BLOB_READ_WRITE_TOKEN         Alternative token variable
-
-Asset Structure:
-  assets/
-  ├── posts/                          Blog post assets
-  │   └── post-slug/
-  │       └── image.png
-  ├── clients/                        Client logos & avatars
-  │   └── client-logo.png
-  └── stories/                        Story assets
-      └── story-assets.png
-
-Examples:
-  # Upload only new/changed assets (recommended)
-  mkdir -p assets/posts/my-new-post
-  cp image.png assets/posts/my-new-post/
-  pnpm upload-assets
-
-  # Upload all assets regardless of git status
-  pnpm upload-assets -- --all
-
-  # Check what would be uploaded
-  git status assets/
-`);
-}
-
-function isImageFile(filename) {
-  const imageExtensions = ['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif'];
-  return imageExtensions.some(ext => filename.toLowerCase().endsWith(ext));
-}
-
-function getContentType(filename) {
-  const ext = filename.toLowerCase().split('.').pop();
-  const contentTypes = {
-    'png': 'image/png',
-    'jpg': 'image/jpeg',
-    'jpeg': 'image/jpeg',
-    'svg': 'image/svg+xml',
-    'webp': 'image/webp',
-    'gif': 'image/gif'
-  };
-  return contentTypes[ext] || 'application/octet-stream';
-}
-
-function formatBytes(bytes) {
+export const formatBytes = (bytes) => {
   if (bytes === 0) return '0 Bytes';
   const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-}
+  return `${Number.parseFloat((bytes / k ** i).toFixed(2))} ${sizes[i]}`;
+};
 
-async function getChangedAssets() {
-  const changedFiles = new Set();
-  
-  try {
-    // Check if we're in a git repository
-    execSync('git rev-parse --git-dir', { stdio: 'ignore' });
-    
-    // Get untracked files in assets directory
-    const untrackedOutput = execSync('git ls-files --others --exclude-standard assets/', { 
-      encoding: 'utf8', 
-      cwd: rootDir 
-    }).trim();
-    
-    if (untrackedOutput) {
-      untrackedOutput.split('\n').forEach(file => changedFiles.add(file));
-    }
-    
-    // Get modified files in assets directory
-    const modifiedOutput = execSync('git diff --name-only HEAD assets/', { 
-      encoding: 'utf8', 
-      cwd: rootDir 
-    }).trim();
-    
-    if (modifiedOutput) {
-      modifiedOutput.split('\n').forEach(file => changedFiles.add(file));
-    }
-    
-    // Get staged files in assets directory
-    const stagedOutput = execSync('git diff --staged --name-only assets/', { 
-      encoding: 'utf8', 
-      cwd: rootDir 
-    }).trim();
-    
-    if (stagedOutput) {
-      stagedOutput.split('\n').forEach(file => changedFiles.add(file));
-    }
-    
-  } catch (error) {
-    console.warn('⚠️  Not in a git repository or git command failed, will upload all assets');
-    return null; // Return null to indicate we should upload all files
-  }
-  
-  return Array.from(changedFiles).filter(file => file && isImageFile(file));
-}
-
-function shouldUploadFile(filePath, changedAssets, uploadAll) {
-  if (uploadAll || !changedAssets) {
-    return true;
-  }
-  
-  // Convert absolute path to relative path from root
-  const relativePath = filePath.replace(rootDir + '/', '');
-  return changedAssets.includes(relativePath);
-}
-
-async function findAssetFiles(dirPath, relativePath = '') {
+export const findAssetFiles = async (assetsDir) => {
   const files = [];
-  
-  try {
-    const entries = await readdir(dirPath);
-    
+  const visit = async (dir) => {
+    let entries;
+    try {
+      entries = await readdir(dir, { withFileTypes: true });
+    } catch (err) {
+      if (err.code === 'ENOENT') return;
+      throw err;
+    }
     for (const entry of entries) {
-      const fullPath = join(dirPath, entry);
-      const relativeFilePath = join(relativePath, entry);
-      const stats = await stat(fullPath);
-      
-      if (stats.isDirectory()) {
-        const subFiles = await findAssetFiles(fullPath, relativeFilePath);
-        files.push(...subFiles);
-      } else if (isImageFile(entry)) {
-        files.push({
-          localPath: fullPath,
-          blobPath: relativeFilePath.replace(/\\/g, '/'), // Normalize path separators
-          size: stats.size
+      const abs = join(dir, entry.name);
+      if (entry.isDirectory()) {
+        await visit(abs);
+        continue;
+      }
+      if (!isImageFile(entry.name)) continue;
+      const info = await stat(abs);
+      files.push({
+        localPath: abs,
+        blobPath: toPosix(relative(assetsDir, abs)),
+        size: info.size,
+      });
+    }
+  };
+  await visit(assetsDir);
+  return files;
+};
+
+const runGit = (cmd, rootDir) =>
+  execSync(cmd, {
+    encoding: 'utf8',
+    cwd: rootDir,
+    stdio: ['ignore', 'pipe', 'ignore'],
+  })
+    .trim()
+    .split('\n')
+    .filter(Boolean);
+
+export const getChangedAssets = (rootDir) => {
+  try {
+    execSync('git rev-parse --git-dir', { cwd: rootDir, stdio: 'ignore' });
+  } catch {
+    return null;
+  }
+
+  const untracked = runGit('git ls-files --others --exclude-standard assets/', rootDir);
+  const modified = runGit('git diff --name-only HEAD assets/', rootDir);
+  const staged = runGit('git diff --staged --name-only assets/', rootDir);
+
+  return [...new Set([...untracked, ...modified, ...staged])].filter(isImageFile);
+};
+
+export const uploadFile = async (file, { token, prefix = 'content' }) => {
+  const buffer = await readFile(file.localPath);
+  const blob = await put(`${prefix}/${file.blobPath}`, buffer, {
+    access: 'public',
+    contentType: getContentType(file.blobPath),
+    addRandomSuffix: false,
+    allowOverwrite: true,
+    token,
+  });
+  return { ...file, url: blob.url };
+};
+
+const VALID_TARGETS = new Set(['legacy', 'new']);
+
+export const parseArgs = (argv) => {
+  let help = false;
+  let all = false;
+  let force = false;
+  let noVerify = false;
+  let target = 'legacy';
+
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    switch (arg) {
+      case '--help':
+      case '-h':
+        help = true;
+        break;
+      case '--all':
+      case '-a':
+        all = true;
+        break;
+      case '--force':
+        force = true;
+        break;
+      case '--no-verify':
+        noVerify = true;
+        break;
+      case '--target': {
+        const raw = argv[++i];
+        if (!VALID_TARGETS.has(raw)) {
+          throw new Error(`Invalid --target value: ${raw} (expected 'legacy' or 'new')`);
+        }
+        target = raw;
+        break;
+      }
+      default:
+        throw new Error(`Unknown argument: ${arg}`);
+    }
+  }
+
+  return { help, all, force, noVerify, target };
+};
+
+export const resolveToken = (target, env = process.env) => {
+  if (target === 'new') {
+    return env.NEW_BLOB_READ_WRITE_TOKEN ?? null;
+  }
+  return env.BLOB_READ_WRITE_TOKEN ?? env.VERCEL_BLOB_READ_WRITE_TOKEN ?? null;
+};
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export const verifyUrls = async (
+  uploaded,
+  { fetchFn = globalThis.fetch, retries = 2, retryDelayMs = 500 } = {},
+) => {
+  const failures = [];
+
+  const verifyOne = async (item) => {
+    let last = { item, status: 0, ok: false };
+    for (let attempt = 0; attempt <= retries; attempt++) {
+      try {
+        const res = await fetchFn(item.url, { method: 'HEAD', redirect: 'follow' });
+        last = { item, status: res.status, ok: res.ok };
+        if (last.ok) return last;
+      } catch (err) {
+        last = { item, status: 0, ok: false, error: err.message ?? String(err) };
+      }
+      if (attempt < retries) await sleep(retryDelayMs);
+    }
+    return last;
+  };
+
+  for (let i = 0; i < uploaded.length; i += BATCH_SIZE) {
+    const batch = uploaded.slice(i, i + BATCH_SIZE);
+    const results = await Promise.all(batch.map(verifyOne));
+    for (const r of results) {
+      if (!r.ok) {
+        failures.push({
+          url: r.item.url,
+          blobPath: r.item.blobPath,
+          status: r.status,
+          error: r.error,
         });
       }
     }
-  } catch (error) {
-    if (error.code !== 'ENOENT') {
-      console.warn(`Could not read directory ${dirPath}:`, error.message);
-    }
   }
-  
-  return files;
-}
+  return { failures };
+};
 
-async function uploadFile(file) {
-  try {
-    const fileBuffer = await readFile(file.localPath);
-    const contentType = getContentType(file.blobPath);
-    const blobPath = `content/${file.blobPath}`;
-    
-    console.log(`📤 Uploading: ${file.blobPath} (${formatBytes(file.size)})`);
-    
-    const blob = await put(blobPath, fileBuffer, {
-      access: 'public',
-      contentType,
-      addRandomSuffix: false,
-      allowOverwrite: true
-    });
-    
-    console.log(`✅ Uploaded: ${blob.url}`);
-    
-    return {
-      localPath: file.localPath,
-      blobPath: file.blobPath,
-      url: blob.url,
-      size: file.size
-    };
-    
-  } catch (error) {
-    console.error(`❌ Failed to upload ${file.blobPath}:`, error.message);
-    throw error;
+export const run = async ({
+  rootDir,
+  argv,
+  token,
+  log = console.log,
+  warn = console.warn,
+  batchDelayMs = BATCH_DELAY_MS,
+  fetchFn,
+  retries,
+  retryDelayMs,
+}) => {
+  const opts = parseArgs(argv);
+
+  if (opts.help) {
+    log(usage());
+    return { uploaded: [], skipped: 'help' };
   }
-}
 
-async function promptBranchSelection() {
-  console.log(`
-🌟 Branch Selection Mode
-
-This feature allows you to specify which branch the main website should use 
-when fetching content. This is useful for testing content changes before 
-they go live.
-
-Current behavior:
-- Main website fetches content from the main/master branch
-- You can specify a different branch for content fetching
-- Assets are always uploaded to the same blob storage
-
-Note: Branch selection for content fetching is configured on the main website,
-not in this repository. This is a reminder feature.
-`);
-
-  return 'main'; // Default branch
-}
-
-async function main() {
-  const args = process.argv.slice(2);
-  
-  // Handle help
-  if (args.includes('--help') || args.includes('-h')) {
-    await showUsage();
-    return;
+  const effectiveToken = token ?? resolveToken(opts.target);
+  if (!effectiveToken) {
+    const envVar = opts.target === 'new' ? 'NEW_BLOB_READ_WRITE_TOKEN' : 'BLOB_READ_WRITE_TOKEN';
+    throw new Error(`Missing blob token. Set ${envVar} in your environment.`);
   }
-  
-  // Parse options
-  const uploadAll = args.includes('--all') || args.includes('-a');
-  const branchMode = args.includes('--branch') || args.includes('-b');
-  const force = args.includes('--force');
-  
-  if (branchMode) {
-    await promptBranchSelection();
-  }
-  
-  if (uploadAll) {
-    console.log('🚀 Starting asset upload to Vercel Blob (ALL ASSETS)...\n');
-  } else {
-    console.log('🚀 Starting asset upload to Vercel Blob (CHANGED ASSETS ONLY)...\n');
-  }
-  
-  // Check for required environment variable
-  if (!BLOB_TOKEN) {
-    console.error('❌ Blob token is required');
-    console.log('Set one of these environment variables:');
-    console.log('  BLOB_READ_WRITE_TOKEN');
-    console.log('  VERCEL_BLOB_READ_WRITE_TOKEN');
-    console.log('');
-    console.log('Get your token from: https://vercel.com/dashboard/stores');
-    process.exit(1);
-  }
-  
-  // Check if assets directory exists
+
+  log(`Target: ${opts.target} store`);
+
+  const assetsDir = join(rootDir, 'assets');
   try {
     await stat(assetsDir);
-  } catch (error) {
-    console.log('📁 No /assets directory found. Creating example structure...\n');
-    
-    console.log(`Please create your assets in the following structure:
-    
-assets/
-├── posts/
-│   └── your-post-slug/
-│       ├── cover.png
-│       └── diagram.svg
-├── clients/
-│   ├── client-logo.png
-│   └── client-avatar.png
-└── stories/
-    └── story-image.jpg
-
-Then run: pnpm upload-assets`);
-    return;
+  } catch {
+    warn(`No assets directory found at ${assetsDir}.`);
+    return { uploaded: [], skipped: 'no-assets-dir' };
   }
-  
-  try {
-    // Get changed assets (unless uploading all)
-    let changedAssets = null;
-    if (!uploadAll) {
-      console.log('🔍 Checking git status for changed assets...');
-      changedAssets = await getChangedAssets();
-      
-      if (changedAssets && changedAssets.length > 0) {
-        console.log(`📝 Found ${changedAssets.length} changed asset(s):`);
-        changedAssets.forEach(file => console.log(`  - ${file}`));
-        console.log('');
-      } else if (changedAssets && changedAssets.length === 0 && !force) {
-        console.log('✅ No changed assets found. Nothing to upload.');
-        console.log('💡 To upload all assets: pnpm upload-assets -- --all');
-        console.log('💡 To force upload: pnpm upload-assets -- --force');
-        return;
-      }
+
+  let filterList = null;
+  if (!opts.all) {
+    const changed = getChangedAssets(rootDir);
+    if (changed === null) {
+      warn('Not in a git repository — falling back to --all behaviour.');
+    } else if (changed.length === 0 && !opts.force) {
+      log('No changed assets. Use --all or --force to upload anyway.');
+      return { uploaded: [], skipped: 'no-changes' };
+    } else {
+      filterList = new Set(changed);
     }
-    
-    // Find all asset files
-    console.log('🔍 Scanning for asset files...');
-    const allFiles = await findAssetFiles(assetsDir);
-    
-    // Filter files based on git status (unless uploading all)
-    const files = allFiles.filter(file => shouldUploadFile(file.localPath, changedAssets, uploadAll));
-    
-    if (files.length === 0) {
-      if (uploadAll) {
-        console.log('No image files found in /assets directory.');
-        console.log('Supported formats: PNG, JPG, JPEG, SVG, WebP, GIF');
+  }
+
+  const allFiles = await findAssetFiles(assetsDir);
+  const files = filterList
+    ? allFiles.filter((f) => filterList.has(toPosix(relative(rootDir, f.localPath))))
+    : allFiles;
+
+  if (files.length === 0) {
+    log('Nothing to upload.');
+    return { uploaded: [], skipped: 'no-matches' };
+  }
+
+  const totalSize = files.reduce((s, f) => s + f.size, 0);
+  log(`Uploading ${files.length} file(s) (${formatBytes(totalSize)})`);
+
+  const uploaded = [];
+  const uploadFailures = [];
+  for (let i = 0; i < files.length; i += BATCH_SIZE) {
+    const batch = files.slice(i, i + BATCH_SIZE);
+    const results = await Promise.allSettled(
+      batch.map((f) => uploadFile(f, { token: effectiveToken })),
+    );
+    for (let j = 0; j < results.length; j++) {
+      const r = results[j];
+      if (r.status === 'fulfilled') {
+        uploaded.push(r.value);
+        log(`  ${r.value.blobPath} → ${r.value.url}`);
       } else {
-        console.log('No changed image files to upload.');
-        console.log('💡 To upload all assets: pnpm upload-assets -- --all');
-      }
-      return;
-    }
-    
-    const totalSize = files.reduce((sum, file) => sum + file.size, 0);
-    console.log(`Found ${files.length} file(s) to upload (${formatBytes(totalSize)})\n`);
-    
-    // Upload files in batches
-    const batchSize = 5;
-    const results = [];
-    
-    for (let i = 0; i < files.length; i += batchSize) {
-      const batch = files.slice(i, i + batchSize);
-      console.log(`📦 Processing batch ${Math.floor(i / batchSize) + 1}/${Math.ceil(files.length / batchSize)}`);
-      
-      const promises = batch.map(file => uploadFile(file));
-      const batchResults = await Promise.all(promises);
-      
-      results.push(...batchResults);
-      
-      // Small delay between batches
-      if (i + batchSize < files.length) {
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        const reason = sanitizeMessage(r.reason?.message ?? r.reason);
+        uploadFailures.push({ blobPath: batch[j].blobPath, error: reason });
+        warn(`  ✗ ${batch[j].blobPath} — ${reason}`);
       }
     }
-    
-    // Summary
-    console.log('\n✅ Upload completed successfully!');
-    console.log(`\n📊 Summary:`);
-    console.log(`- Files uploaded: ${results.length}`);
-    console.log(`- Total size: ${formatBytes(totalSize)}`);
-    
-    console.log('\n🔄 Next steps:');
-    console.log('1. Run: pnpm update-urls (to update markdown references)');
-    console.log('2. Or use: pnpm sync-assets (upload + update in one command)');
-    
-  } catch (error) {
-    console.error('\n❌ Upload failed:', error);
+    if (i + BATCH_SIZE < files.length && batchDelayMs > 0) {
+      await sleep(batchDelayMs);
+    }
+  }
+
+  if (uploadFailures.length > 0) {
+    throw new Error(
+      `Upload failed: ${uploadFailures.length}/${files.length} file(s) errored, ${uploaded.length} succeeded. Re-running is safe (idempotent).`,
+    );
+  }
+
+  if (opts.noVerify) {
+    log(`Uploaded ${uploaded.length} file(s). Verification skipped (--no-verify).`);
+    return { uploaded, verified: null, skipped: null };
+  }
+
+  log(`Verifying ${uploaded.length} uploaded URL(s) via HEAD...`);
+  const verifyOpts = {};
+  if (fetchFn) verifyOpts.fetchFn = fetchFn;
+  if (retries !== undefined) verifyOpts.retries = retries;
+  if (retryDelayMs !== undefined) verifyOpts.retryDelayMs = retryDelayMs;
+  const { failures } = await verifyUrls(uploaded, verifyOpts);
+  if (failures.length > 0) {
+    for (const f of failures) {
+      const detail = f.error ? ` (${sanitizeMessage(f.error)})` : '';
+      warn(`  ✗ ${f.blobPath} → HTTP ${f.status}${detail}`);
+    }
+    throw new Error(`Verification failed: ${failures.length}/${uploaded.length} URL(s) unreachable.`);
+  }
+  log(`Verified ${uploaded.length}/${uploaded.length} URL(s).`);
+
+  return { uploaded, verified: uploaded.length, skipped: null };
+};
+
+const usage = () =>
+  `
+Usage:
+  pnpm upload-assets             upload only changed/new assets (default)
+  pnpm upload-assets:all         upload every asset (ignore git diff)
+  pnpm upload-assets:migrate     upload every asset to the new store (--all --target new)
+
+Flags:
+  --all, -a            upload all assets, skip git diff filter
+  --force              upload even if no changes detected
+  --target <which>     'legacy' (default) or 'new' — selects which blob store to push to
+  --no-verify          skip the post-upload HEAD verification step
+  --help, -h           show this help
+
+Environment:
+  BLOB_READ_WRITE_TOKEN          read-write token for the legacy blob store (default target)
+  NEW_BLOB_READ_WRITE_TOKEN      read-write token for the new blob store (--target new)
+`.trim();
+
+const isMainModule = () => {
+  const entry = process.argv[1];
+  if (!entry) return false;
+  return fileURLToPath(import.meta.url) === entry;
+};
+
+if (isMainModule()) {
+  const rootDir = join(dirname(fileURLToPath(import.meta.url)), '..');
+  try {
+    await run({ rootDir, argv: process.argv.slice(2) });
+  } catch (err) {
+    console.error(`Upload failed: ${sanitizeMessage(err.message ?? err)}`);
     process.exit(1);
   }
 }
-
-// Handle unhandled rejections
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
-  process.exit(1);
-});
-
-main();
