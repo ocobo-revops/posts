@@ -1,58 +1,120 @@
 #!/usr/bin/env node
 
 /**
- * Update asset URLs in markdown files to use Vercel Blob URLs
- * This script looks for assets that have been uploaded and updates references
- * 
+ * Update asset URLs in markdown files to use Vercel Blob URLs.
+ *
  * Usage:
- *   pnpm update-urls                      # Update all asset references
- *   node scripts/update-asset-urls.js     # Direct script execution
+ *   pnpm update-urls                      # rewrite local asset paths to the legacy store
+ *   pnpm update-urls:new                  # rewrite legacy + local paths to the new store
+ *   node scripts/update-asset-urls.js --target new
  */
 
-import { readFile, writeFile, readdir, stat } from 'fs/promises';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import { readFile, readdir, stat, writeFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const rootDir = join(__dirname, '..');
 
-// Known blob URL pattern - this should match your actual blob storage URL
-const BLOB_BASE_URL = 'https://jr0deqtyc8c5pvr8.public.blob.vercel-storage.com/content/';
+export const LEGACY_HOST = 'jr0deqtyc8c5pvr8.public.blob.vercel-storage.com';
+export const NEW_HOST = 'ipjmp3k0z0p479cb.public.blob.vercel-storage.com';
 
-async function showUsage() {
-  console.log(`
-🔄 Ocobo Posts - Asset URL Update Tool
+const VALID_TARGETS = new Set(['legacy', 'new']);
+const IMAGE_EXTS_RE = '(png|jpg|jpeg|svg|webp|gif)';
 
-Update markdown files to use Vercel Blob URLs for assets.
+export const resolveBaseUrl = (target) => {
+  const host = target === 'new' ? NEW_HOST : LEGACY_HOST;
+  return `https://${host}/content/`;
+};
 
-Usage:
-  pnpm update-urls                      Update all asset references
-  node scripts/update-asset-urls.js     Direct script execution
+export const parseArgs = (argv) => {
+  let help = false;
+  let target = 'legacy';
 
-What it does:
-- Scans all markdown files in blog/, stories/, legal/
-- Finds asset references that should use Blob URLs
-- Updates local paths to Blob URLs
-- Handles both relative and absolute URL references
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    switch (arg) {
+      case '--help':
+      case '-h':
+        help = true;
+        break;
+      case '--target': {
+        const raw = argv[++i];
+        if (!VALID_TARGETS.has(raw)) {
+          throw new Error(`Invalid --target value: ${raw} (expected 'legacy' or 'new')`);
+        }
+        target = raw;
+        break;
+      }
+      default:
+        throw new Error(`Unknown argument: ${arg}`);
+    }
+  }
 
-Examples of updates:
-  /assets/posts/my-post/image.png     → https://blob.../content/posts/my-post/image.png
-  assets/clients/logo.png             → https://blob.../content/clients/logo.png
-  https://www.ocobo.co/assets/...     → https://blob.../content/...
-`);
-}
+  return { help, target };
+};
 
-async function findMarkdownFiles(dirPath) {
+const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+export const updateMarkdownContent = (content, { target = 'legacy' } = {}) => {
+  const baseUrl = resolveBaseUrl(target);
+  let updatedContent = content;
+  let replacements = 0;
+
+  // Pattern 1: /assets/... -> blob URL
+  const assetPattern = new RegExp(`/assets/([\\w\\-/.]+\\.${IMAGE_EXTS_RE})`, 'gi');
+  updatedContent = updatedContent.replace(assetPattern, (_match, assetPath) => {
+    replacements++;
+    return `${baseUrl}${assetPath}`;
+  });
+
+  // Pattern 2: assets/... -> blob URL (relative paths)
+  const relativeAssetPattern = new RegExp(
+    `(?<!/|https://[^\\s]*?)assets/([\\w\\-/.]+\\.${IMAGE_EXTS_RE})`,
+    'gi',
+  );
+  updatedContent = updatedContent.replace(relativeAssetPattern, (_match, assetPath) => {
+    replacements++;
+    return `${baseUrl}${assetPath}`;
+  });
+
+  // Pattern 3: https://www.ocobo.co/assets/... -> blob URL
+  const absoluteAssetPattern = new RegExp(
+    `https://www\\.ocobo\\.co/assets/([\\w\\-/.]+\\.${IMAGE_EXTS_RE})`,
+    'gi',
+  );
+  updatedContent = updatedContent.replace(absoluteAssetPattern, (_match, assetPath) => {
+    replacements++;
+    return `${baseUrl}${assetPath}`;
+  });
+
+  // Pattern 4: cleanup double-blob URLs (https://www.ocobo.co/https://blob.../...)
+  const doubleBlobPattern = new RegExp(`https://www\\.ocobo\\.co${escapeRegex(baseUrl)}`, 'gi');
+  updatedContent = updatedContent.replace(doubleBlobPattern, baseUrl);
+
+  // Pattern 5: when migrating to 'new', rewrite legacy-host URLs → new-host URLs
+  if (target === 'new') {
+    const legacyHostPattern = new RegExp(escapeRegex(`https://${LEGACY_HOST}/`), 'gi');
+    updatedContent = updatedContent.replace(legacyHostPattern, (match) => {
+      replacements++;
+      return `https://${NEW_HOST}/`;
+    });
+  }
+
+  return { content: updatedContent, replacements };
+};
+
+const findMarkdownFiles = async (dirPath) => {
   const files = [];
-  
+
   try {
     const entries = await readdir(dirPath);
-    
+
     for (const entry of entries) {
       const fullPath = join(dirPath, entry);
       const stats = await stat(fullPath);
-      
+
       if (stats.isDirectory()) {
         const subFiles = await findMarkdownFiles(fullPath);
         files.push(...subFiles);
@@ -65,187 +127,136 @@ async function findMarkdownFiles(dirPath) {
       console.warn(`Could not read directory ${dirPath}:`, error.message);
     }
   }
-  
+
   return files;
-}
+};
 
-async function findAssetPaths() {
-  const assetPaths = [];
-  const assetsDir = join(rootDir, 'assets');
-  
-  try {
-    await walkDirectory(assetsDir, '');
-  } catch (error) {
-    console.log('No /assets directory found, checking for existing asset references...');
-  }
-  
-  async function walkDirectory(dirPath, relativePath) {
-    try {
-      const entries = await readdir(dirPath);
-      
-      for (const entry of entries) {
-        const fullPath = join(dirPath, entry);
-        const relativeFilePath = join(relativePath, entry);
-        const stats = await stat(fullPath);
-        
-        if (stats.isDirectory()) {
-          await walkDirectory(fullPath, relativeFilePath);
-        } else if (isImageFile(entry)) {
-          assetPaths.push(relativeFilePath.replace(/\\/g, '/'));
-        }
-      }
-    } catch (error) {
-      // Skip directories that don't exist
-    }
-  }
-  
-  return assetPaths;
-}
-
-function isImageFile(filename) {
-  const imageExtensions = ['.png', '.jpg', '.jpeg', '.svg', '.webp', '.gif'];
-  return imageExtensions.some(ext => filename.toLowerCase().endsWith(ext));
-}
-
-function updateMarkdownContent(content, assetPaths) {
-  let updatedContent = content;
-  let replacements = 0;
-  
-  // Pattern 1: /assets/... -> blob URL
-  const assetPattern = /\/assets\/([\w\-\/\.]+\.(png|jpg|jpeg|svg|webp|gif))/gi;
-  updatedContent = updatedContent.replace(assetPattern, (match, assetPath) => {
-    replacements++;
-    return `${BLOB_BASE_URL}${assetPath}`;
-  });
-  
-  // Pattern 2: assets/... -> blob URL (relative paths)
-  const relativeAssetPattern = /(?<!\/|https:\/\/[^\s]*?)assets\/([\w\-\/\.]+\.(png|jpg|jpeg|svg|webp|gif))/gi;
-  updatedContent = updatedContent.replace(relativeAssetPattern, (match, assetPath) => {
-    replacements++;
-    return `${BLOB_BASE_URL}${assetPath}`;
-  });
-  
-  // Pattern 3: https://www.ocobo.co/assets/... -> blob URL
-  const absoluteAssetPattern = /https:\/\/www\.ocobo\.co\/assets\/([\w\-\/\.]+\.(png|jpg|jpeg|svg|webp|gif))/gi;
-  updatedContent = updatedContent.replace(absoluteAssetPattern, (match, assetPath) => {
-    replacements++;
-    return `${BLOB_BASE_URL}${assetPath}`;
-  });
-  
-  // Pattern 4: Fix any double-blob URLs that might have been created
-  const doubleBlobPattern = new RegExp(`https://www\\.ocobo\\.co${BLOB_BASE_URL}`, 'gi');
-  updatedContent = updatedContent.replace(doubleBlobPattern, BLOB_BASE_URL);
-  
-  return { content: updatedContent, replacements };
-}
-
-async function updateFile(filePath, assetPaths) {
+const updateFile = async (filePath, opts) => {
   try {
     const content = await readFile(filePath, 'utf-8');
-    const { content: updatedContent, replacements } = updateMarkdownContent(content, assetPaths);
-    
+    const { content: updatedContent, replacements } = updateMarkdownContent(content, opts);
+
     if (replacements === 0) {
       return { updated: false, replacements: 0 };
     }
-    
+
     const relativePath = filePath.replace(rootDir, '').replace(/^\//, '');
     console.log(`📝 ${relativePath}: ${replacements} URL(s) updated`);
-    
+
     await writeFile(filePath, updatedContent, 'utf-8');
-    
+
     return { updated: true, replacements };
   } catch (error) {
     console.error(`❌ Failed to update ${filePath}:`, error.message);
     return { updated: false, replacements: 0, error: error.message };
   }
-}
+};
 
-async function main() {
-  const args = process.argv.slice(2);
-  
-  if (args.includes('--help') || args.includes('-h')) {
-    await showUsage();
+const showUsage = () => {
+  console.log(`
+🔄 Ocobo Posts - Asset URL Update Tool
+
+Update markdown files to use Vercel Blob URLs for assets.
+
+Usage:
+  pnpm update-urls                      Rewrite local asset paths to the legacy store
+  pnpm update-urls:new                  Rewrite legacy + local paths to the new store
+  node scripts/update-asset-urls.js [--target legacy|new]
+
+Options:
+  --target <which>     'legacy' (default) or 'new' — selects which blob host to write
+  --help, -h           Show this help
+
+Examples of updates:
+  /assets/posts/my-post/image.png          → https://<host>/content/posts/my-post/image.png
+  assets/clients/logo.png                  → https://<host>/content/clients/logo.png
+  https://www.ocobo.co/assets/...          → https://<host>/content/...
+  https://<legacy-host>/content/... (only with --target new)
+                                           → https://<new-host>/content/...
+`);
+};
+
+export const run = async (opts) => {
+  console.log('🔄 Starting asset URL updates...\n');
+  console.log(`Target: ${opts.target} store (${resolveBaseUrl(opts.target)})\n`);
+
+  console.log('🔍 Finding markdown files...');
+  const markdownFiles = [];
+
+  const contentDirs = ['blog', 'stories', 'legal'];
+  for (const dir of contentDirs) {
+    const dirPath = join(rootDir, dir);
+    const files = await findMarkdownFiles(dirPath);
+    markdownFiles.push(...files);
+  }
+
+  console.log(`Found ${markdownFiles.length} markdown files\n`);
+
+  if (markdownFiles.length === 0) {
+    console.log('No markdown files found to process.');
     return;
   }
-  
-  console.log('🔄 Starting asset URL updates...\n');
-  
+
+  let totalUpdated = 0;
+  let totalReplacements = 0;
+  const errors = [];
+
+  for (const file of markdownFiles) {
+    const result = await updateFile(file, opts);
+
+    if (result.updated) {
+      totalUpdated++;
+    }
+
+    totalReplacements += result.replacements;
+
+    if (result.error) {
+      errors.push({ file, error: result.error });
+    }
+  }
+
+  console.log('\n✅ URL update completed!');
+  console.log('\n📊 Summary:');
+  console.log(`- Files processed: ${markdownFiles.length}`);
+  console.log(`- Files updated: ${totalUpdated}`);
+  console.log(`- Total URL replacements: ${totalReplacements}`);
+  console.log(`- Errors: ${errors.length}`);
+
+  if (errors.length > 0) {
+    console.log('\n❌ Errors encountered:');
+    for (const { file, error } of errors) {
+      console.log(`  - ${file}: ${error}`);
+    }
+  }
+
+  if (totalUpdated > 0) {
+    console.log(`\n🎉 Asset URLs updated for target=${opts.target}!`);
+  }
+};
+
+const isMain = import.meta.url === `file://${process.argv[1]}`;
+
+if (isMain) {
+  let opts;
   try {
-    // Find all markdown files
-    console.log('🔍 Finding markdown files...');
-    const markdownFiles = [];
-    
-    // Search in common content directories
-    const contentDirs = ['blog', 'stories', 'legal'];
-    for (const dir of contentDirs) {
-      const dirPath = join(rootDir, dir);
-      const files = await findMarkdownFiles(dirPath);
-      markdownFiles.push(...files);
-    }
-    
-    console.log(`Found ${markdownFiles.length} markdown files\n`);
-    
-    if (markdownFiles.length === 0) {
-      console.log('No markdown files found to process.');
-      return;
-    }
-    
-    // Find asset paths for reference
-    console.log('🔍 Scanning for asset references...');
-    const assetPaths = await findAssetPaths();
-    
-    // Update files
-    let totalUpdated = 0;
-    let totalReplacements = 0;
-    const errors = [];
-    
-    for (const file of markdownFiles) {
-      const result = await updateFile(file, assetPaths);
-      
-      if (result.updated) {
-        totalUpdated++;
-      }
-      
-      totalReplacements += result.replacements;
-      
-      if (result.error) {
-        errors.push({ file, error: result.error });
-      }
-    }
-    
-    // Summary
-    console.log('\n✅ URL update completed!');
-    console.log(`\n📊 Summary:`);
-    console.log(`- Files processed: ${markdownFiles.length}`);
-    console.log(`- Files updated: ${totalUpdated}`);
-    console.log(`- Total URL replacements: ${totalReplacements}`);
-    console.log(`- Errors: ${errors.length}`);
-    
-    if (errors.length > 0) {
-      console.log('\n❌ Errors encountered:');
-      errors.forEach(({ file, error }) => {
-        console.log(`  - ${file}: ${error}`);
-      });
-    }
-    
-    if (totalUpdated > 0) {
-      console.log('\n🎉 Asset URLs have been updated to use Vercel Blob!');
-      console.log('\n📝 Next steps:');
-      console.log('1. Review changes: git diff');
-      console.log('2. Commit changes: git add . && git commit -m "Update asset URLs to Vercel Blob"');
-      console.log('3. Push changes: git push');
-    }
-    
+    opts = parseArgs(process.argv.slice(2));
   } catch (error) {
-    console.error('\n❌ Update process failed:', error);
+    console.error(`❌ ${error.message}`);
     process.exit(1);
   }
+
+  if (opts.help) {
+    showUsage();
+    process.exit(0);
+  }
+
+  process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+    process.exit(1);
+  });
+
+  run(opts).catch((error) => {
+    console.error('\n❌ Update process failed:', error);
+    process.exit(1);
+  });
 }
-
-// Handle unhandled rejections
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
-  process.exit(1);
-});
-
-main();
