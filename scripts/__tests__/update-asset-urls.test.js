@@ -70,6 +70,21 @@ describe('updateMarkdownContent', () => {
     expect(replacements).toBe(1);
   });
 
+  it('does NOT match mid-word (word_assets/foo.png stays untouched)', () => {
+    const input = 'something_assets/foo.png and word-assets/bar.png';
+    const { content, replacements } = updateMarkdownContent(input);
+    expect(content).toBe(input);
+    expect(replacements).toBe(0);
+  });
+
+  it('does NOT match after another path segment (handled by Pattern 1)', () => {
+    const input = 'see /nested/assets/foo.png in path';
+    const { content, replacements } = updateMarkdownContent(input);
+    // Pattern 1 matches '/assets/foo.png' (the longer right-anchored match)
+    expect(replacements).toBe(1);
+    expect(content).toContain(`https://${LEGACY_HOST}/content/foo.png`);
+  });
+
   it('rewrites absolute ocobo.co/assets URLs', () => {
     const input = '![x](https://www.ocobo.co/assets/posts/x/y.jpg)';
     const { content, replacements } = updateMarkdownContent(input, { target: 'new' });

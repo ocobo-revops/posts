@@ -72,8 +72,11 @@ export const updateMarkdownContent = (content, { target = 'legacy' } = {}) => {
   });
 
   // Pattern 2: assets/... -> blob URL (relative paths)
+  // Anchor on a non-word, non-slash boundary so we don't match
+  // mid-word (e.g. 'word_assets/x.png') or after another path segment
+  // (e.g. '/foo/assets/x.png' — Pattern 1 already handles those).
   const relativeAssetPattern = new RegExp(
-    `(?<!/|https://[^\\s]*?)assets/([\\w\\-/.]+\\.${IMAGE_EXTS_RE})`,
+    `(?<![\\w/\\-.])assets/([\\w\\-/.]+\\.${IMAGE_EXTS_RE})`,
     'gi',
   );
   updatedContent = updatedContent.replace(relativeAssetPattern, (_match, assetPath) => {
