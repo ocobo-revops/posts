@@ -243,6 +243,22 @@ describe('writeAtomic', () => {
     const entries = await readdir(dir);
     expect(entries).toEqual([]);
   });
+
+  it('concurrent calls on the same target both succeed and leave no residue', async () => {
+    const target = join(dir, 'same.jpg');
+    await writeFile(target, 'original');
+
+    const bufA = Buffer.alloc(200, 'A');
+    const bufB = Buffer.alloc(200, 'B');
+
+    await Promise.all([writeAtomic(target, bufA), writeAtomic(target, bufB)]);
+
+    const entries = await readdir(dir);
+    expect(entries.every((e) => !e.includes('.tmp-'))).toBe(true);
+
+    const final = await readFile(target);
+    expect([bufA.toString('hex'), bufB.toString('hex')]).toContain(final.toString('hex'));
+  });
 });
 
 describe('formatReport', () => {

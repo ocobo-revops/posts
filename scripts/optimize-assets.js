@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { randomBytes } from 'node:crypto';
 import { readFile, readdir, rename, stat, unlink, writeFile } from 'node:fs/promises';
 import { dirname, extname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -167,7 +168,7 @@ export const formatReport = (results) => {
 };
 
 export const writeAtomic = async (target, buffer) => {
-  const tmp = `${target}.tmp-${process.pid}`;
+  const tmp = `${target}.tmp-${process.pid}-${randomBytes(6).toString('hex')}`;
   try {
     await writeFile(tmp, buffer);
     await rename(tmp, target);
