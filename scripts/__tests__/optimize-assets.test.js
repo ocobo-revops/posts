@@ -120,6 +120,29 @@ describe('resolvePaths', () => {
     expect(result.errors[0]).toMatch(/assets\//);
   });
 
+  it('rejects --paths entries that traverse out of assets/ via ..-segments', async () => {
+    const result = await resolvePaths({
+      rootDir,
+      paths: ['assets/../package.json', 'assets/team/../../secret.jpg'],
+    });
+
+    expect(result.files).toEqual([]);
+    expect(result.errors).toHaveLength(2);
+    for (const err of result.errors) {
+      expect(err).toMatch(/escap|outside/i);
+    }
+  });
+
+  it('rejects absolute paths even when they appear to point inside assets/', async () => {
+    const result = await resolvePaths({
+      rootDir,
+      paths: [join(rootDir, 'assets', 'team', 'jane.jpg')],
+    });
+
+    expect(result.files).toEqual([]);
+    expect(result.errors).toHaveLength(1);
+  });
+
   it('returns a warning for --paths entries that do not exist on disk', async () => {
     const result = await resolvePaths({
       rootDir,
@@ -325,6 +348,6 @@ describe('run (orchestrator)', () => {
   it('errors on --paths outside assets/ cause run() to throw', async () => {
     await expect(
       run({ rootDir, write: false, paths: ['scripts/foo.js'] }),
-    ).rejects.toThrow(/outside assets/);
+    ).rejects.toThrow(/escap|outside/i);
   });
 });

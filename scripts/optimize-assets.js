@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { readFile, readdir, rename, stat, unlink, writeFile } from 'node:fs/promises';
-import { dirname, extname, join, relative, sep } from 'node:path';
+import { dirname, extname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
@@ -52,19 +52,27 @@ export const resolvePaths = async ({ rootDir, paths }) => {
   const errors = [];
   const warnings = [];
 
+  const absRoot = resolve(rootDir);
+  const absAssets = resolve(absRoot, 'assets');
+
   for (const raw of paths) {
     const rel = toPosix(raw);
-    if (!rel.startsWith('assets/')) {
-      errors.push(`Path "${rel}" is outside assets/ — refusing to process.`);
+    if (isAbsolute(raw)) {
+      errors.push(`Path "${rel}" must be repo-relative, not absolute — refusing to process.`);
+      continue;
+    }
+    const absTarget = resolve(absRoot, rel);
+    const fromAssets = relative(absAssets, absTarget);
+    if (fromAssets === '' || fromAssets.startsWith('..') || isAbsolute(fromAssets)) {
+      errors.push(`Path "${rel}" escapes assets/ — refusing to process.`);
       continue;
     }
     if (!ALLOWED_EXTS.has(extname(rel).toLowerCase())) continue;
-    const abs = join(rootDir, rel);
-    if (!(await fileExists(abs))) {
+    if (!(await fileExists(absTarget))) {
       warnings.push(`Path "${rel}" not found on disk — skipping.`);
       continue;
     }
-    files.push(rel);
+    files.push(toPosix(relative(absRoot, absTarget)));
   }
 
   return { files, errors, warnings };
