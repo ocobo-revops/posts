@@ -4,8 +4,12 @@
  * Audit posts/assets/** against actual usage.
  *
  * Produces scripts/audit-orphans.json listing files present on disk but
- * not referenced by any markdown frontmatter/body, team-avatar slug, or
- * website dynamic slug pattern.
+ * not referenced by any of:
+ *   - markdown frontmatter/body under posts/{blog,stories,team,jobs,tools,legal}
+ *   - team-avatar slug convention (team/{slug}.{jpg,jpeg} per posts/team/{slug}.md)
+ *   - ClientCarousel hardcoded slugs (website)
+ *   - story-slug expansion (clients/{slug}-{white,avatar}.png)
+ *   - any hardcoded asset path in website source (app/**/*.{tsx,ts,jsx,js,md,mdx})
  *
  * Usage:
  *   node scripts/audit-assets.js
@@ -25,7 +29,31 @@ const outFile = join(__dirname, 'audit-orphans.json');
 
 const MARKDOWN_ROOTS = ['blog', 'stories', 'team', 'jobs', 'tools', 'legal'];
 const IMAGE_EXTS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif', '.svg']);
-const STORY_AVATAR_EXTS = ['-white.png', '-avatar.png'];
+
+// Top-level directories under posts/assets/ — used to recognise asset paths
+// in website source code (e.g. `${ASSETS_BASE_URL}/clients/foo.png`).
+const ASSET_PREFIXES = ['clients', 'team', 'posts', 'stories', 'jobs', 'tools', 'legal'];
+
+const WEBSITE_SOURCE_EXTS = new Set([
+  '.tsx',
+  '.ts',
+  '.jsx',
+  '.js',
+  '.mjs',
+  '.md',
+  '.mdx',
+]);
+const WEBSITE_SCAN_SKIP = new Set([
+  'node_modules',
+  'build',
+  'dist',
+  'tmp',
+  '.next',
+  '.turbo',
+  '.react-router',
+  '.git',
+  'public',
+]);
 
 const args = process.argv.slice(2);
 const websiteRootArg = args.indexOf('--website-root');
@@ -116,6 +144,55 @@ async function collectCarouselSlugs() {
   return [...slugs];
 }
 
+async function walkWebsiteSource(dir, base = dir) {
+  const out = [];
+  let entries;
+  try {
+    entries = await readdir(dir, { withFileTypes: true });
+  } catch (err) {
+    if (err.code === 'ENOENT') return out;
+    throw err;
+  }
+  for (const entry of entries) {
+    if (WEBSITE_SCAN_SKIP.has(entry.name)) continue;
+    if (entry.name.startsWith('.') && entry.name !== '.') continue;
+    const full = join(dir, entry.name);
+    if (entry.isDirectory()) {
+      out.push(...(await walkWebsiteSource(full, base)));
+    } else if (entry.isFile() && WEBSITE_SOURCE_EXTS.has(extname(entry.name))) {
+      out.push(full);
+    }
+  }
+  return out;
+}
+
+async function collectWebsiteSourceRefs() {
+  if (!existsSync(websiteRoot)) return new Set();
+  const used = new Set();
+  const prefixGroup = ASSET_PREFIXES.join('|');
+  const pattern = new RegExp(
+    `(?:\\/content\\/|\\$\\{ASSETS_BASE_URL\\}\\/|(?<=["'\`\\s/(])(?:${prefixGroup})\\/)([A-Za-z0-9_./-]+\\.(?:png|jpe?g|webp|gif|svg))`,
+    'gi',
+  );
+  const files = await walkWebsiteSource(websiteRoot);
+  for (const file of files) {
+    const text = await readFile(file, 'utf8');
+    for (const m of text.matchAll(pattern)) {
+      const path = normaliseSep(m[1]);
+      const top = path.split('/')[0];
+      if (ASSET_PREFIXES.includes(top)) {
+        used.add(path);
+      } else {
+        // Path captured after `/content/` or `${ASSETS_BASE_URL}/` lacks
+        // a recognised prefix — keep it anyway, it may still match a file
+        // under posts/assets/.
+        used.add(path);
+      }
+    }
+  }
+  return used;
+}
+
 async function collectStorySlugs() {
   const dir = join(rootDir, 'stories', 'fr');
   if (!existsSync(dir)) return [];
@@ -152,12 +229,14 @@ async function main() {
   const storySlugs = await collectStorySlugs();
   const carouselUsed = expandClientVariants(carouselSlugs, false);
   const storyUsed = expandClientVariants(storySlugs, true);
+  const websiteSourceRefs = await collectWebsiteSourceRefs();
 
   const used = new Set([
     ...markdownRefs,
     ...teamAvatars,
     ...carouselUsed,
     ...storyUsed,
+    ...websiteSourceRefs,
   ]);
 
   const orphans = fsFiles.filter((f) => {
