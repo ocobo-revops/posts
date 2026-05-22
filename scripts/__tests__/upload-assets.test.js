@@ -1,0 +1,165 @@
+import { execSync } from 'node:child_process';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import {
+  findAssetFiles,
+  formatBytes,
+  getChangedAssets,
+  getContentType,
+  isImageFile,
+  parseArgs,
+} from '../upload-assets.js';
+
+describe('isImageFile', () => {
+  it('accepts allowlisted image extensions (case-insensitive)', () => {
+    expect(isImageFile('cover.png')).toBe(true);
+    expect(isImageFile('Cover.PNG')).toBe(true);
+    expect(isImageFile('photo.jpg')).toBe(true);
+    expect(isImageFile('photo.jpeg')).toBe(true);
+    expect(isImageFile('icon.svg')).toBe(true);
+    expect(isImageFile('hero.webp')).toBe(true);
+    expect(isImageFile('loop.gif')).toBe(true);
+  });
+
+  it('rejects non-image extensions', () => {
+    expect(isImageFile('readme.md')).toBe(false);
+    expect(isImageFile('archive.zip')).toBe(false);
+    expect(isImageFile('noext')).toBe(false);
+  });
+});
+
+describe('getContentType', () => {
+  it('maps known image extensions to MIME types', () => {
+    expect(getContentType('a.png')).toBe('image/png');
+    expect(getContentType('a.jpg')).toBe('image/jpeg');
+    expect(getContentType('a.jpeg')).toBe('image/jpeg');
+    expect(getContentType('a.svg')).toBe('image/svg+xml');
+    expect(getContentType('a.webp')).toBe('image/webp');
+    expect(getContentType('a.gif')).toBe('image/gif');
+  });
+
+  it('falls back to octet-stream for unknown extensions', () => {
+    expect(getContentType('a.bin')).toBe('application/octet-stream');
+    expect(getContentType('noext')).toBe('application/octet-stream');
+  });
+});
+
+describe('formatBytes', () => {
+  it('formats 0 explicitly', () => {
+    expect(formatBytes(0)).toBe('0 Bytes');
+  });
+
+  it('formats with the largest appropriate unit', () => {
+    expect(formatBytes(512)).toBe('512 Bytes');
+    expect(formatBytes(2048)).toBe('2 KB');
+    expect(formatBytes(1024 * 1024)).toBe('1 MB');
+    expect(formatBytes(1024 * 1024 * 1024)).toBe('1 GB');
+  });
+});
+
+describe('parseArgs', () => {
+  it('returns defaults when no flags are passed', () => {
+    expect(parseArgs(['node', 'script'])).toEqual({ help: false, all: false, force: false });
+  });
+
+  it('recognises --help and -h', () => {
+    expect(parseArgs(['node', 'script', '--help']).help).toBe(true);
+    expect(parseArgs(['node', 'script', '-h']).help).toBe(true);
+  });
+
+  it('recognises --all and -a', () => {
+    expect(parseArgs(['node', 'script', '--all']).all).toBe(true);
+    expect(parseArgs(['node', 'script', '-a']).all).toBe(true);
+  });
+
+  it('recognises --force', () => {
+    expect(parseArgs(['node', 'script', '--force']).force).toBe(true);
+  });
+});
+
+describe('findAssetFiles', () => {
+  let rootDir;
+  let assetsDir;
+
+  beforeEach(async () => {
+    rootDir = await mkdtemp(join(tmpdir(), 'upload-assets-find-'));
+    assetsDir = join(rootDir, 'assets');
+    await mkdir(join(assetsDir, 'posts', 'slug-a'), { recursive: true });
+    await mkdir(join(assetsDir, 'clients'), { recursive: true });
+    await writeFile(join(assetsDir, 'posts', 'slug-a', 'cover.png'), 'png');
+    await writeFile(join(assetsDir, 'posts', 'slug-a', 'notes.md'), 'md');
+    await writeFile(join(assetsDir, 'clients', 'acme.svg'), '<svg/>');
+  });
+
+  afterEach(async () => {
+    await rm(rootDir, { recursive: true, force: true });
+  });
+
+  it('walks recursively and returns only image files with posix blobPath', async () => {
+    const files = await findAssetFiles(assetsDir);
+    const paths = files.map((f) => f.blobPath).sort();
+    expect(paths).toEqual(['clients/acme.svg', 'posts/slug-a/cover.png']);
+    for (const f of files) {
+      expect(f.size).toBeGreaterThan(0);
+      expect(f.localPath.startsWith(assetsDir)).toBe(true);
+    }
+  });
+
+  it('returns an empty list when the directory does not exist', async () => {
+    const files = await findAssetFiles(join(rootDir, 'missing'));
+    expect(files).toEqual([]);
+  });
+});
+
+describe('getChangedAssets', () => {
+  let rootDir;
+
+  const git = (cmd) =>
+    execSync(`git ${cmd}`, {
+      cwd: rootDir,
+      stdio: ['ignore', 'pipe', 'ignore'],
+    });
+
+  beforeEach(async () => {
+    rootDir = await mkdtemp(join(tmpdir(), 'upload-assets-git-'));
+    git('init -q');
+    git('config user.email "test@example.com"');
+    git('config user.name "Test"');
+    git('commit --allow-empty -q -m "init"');
+    await mkdir(join(rootDir, 'assets', 'posts'), { recursive: true });
+  });
+
+  afterEach(async () => {
+    await rm(rootDir, { recursive: true, force: true });
+  });
+
+  it('returns null outside a git repository', async () => {
+    const nonRepo = await mkdtemp(join(tmpdir(), 'upload-assets-nogit-'));
+    expect(getChangedAssets(nonRepo)).toBeNull();
+    await rm(nonRepo, { recursive: true, force: true });
+  });
+
+  it('reports untracked image files only (filters non-images)', async () => {
+    await writeFile(join(rootDir, 'assets', 'posts', 'fresh.png'), 'png');
+    await writeFile(join(rootDir, 'assets', 'posts', 'notes.md'), 'md');
+    const changed = getChangedAssets(rootDir);
+    expect(changed).toContain('assets/posts/fresh.png');
+    expect(changed).not.toContain('assets/posts/notes.md');
+  });
+
+  it('reports modified tracked files', async () => {
+    await writeFile(join(rootDir, 'assets', 'posts', 'tracked.png'), 'v1');
+    git('add assets/posts/tracked.png');
+    git('commit -q -m "add tracked"');
+    await writeFile(join(rootDir, 'assets', 'posts', 'tracked.png'), 'v2');
+    const changed = getChangedAssets(rootDir);
+    expect(changed).toContain('assets/posts/tracked.png');
+  });
+
+  it('returns an empty list when nothing changed', async () => {
+    const changed = getChangedAssets(rootDir);
+    expect(changed).toEqual([]);
+  });
+});
