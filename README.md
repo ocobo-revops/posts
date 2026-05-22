@@ -2,6 +2,16 @@
 
 Content repository for Ocobo blog posts, client stories, and assets.
 
+## How this repo relates to `ocobo-revops/website`
+
+This repo is the **source of truth for all content** (markdown files + assets). The website (`ocobo-revops/website`) is a pure read-side consumer — it never writes here, and it never needs to redeploy when content changes.
+
+For the full architecture (system diagram, content flow, asset flow, repo-boundary decision table), see the canonical reference in the website repo:
+
+**[docs/architecture/two-repo-content-pipeline.md](https://github.com/ocobo-revops/website/blob/main/docs/architecture/two-repo-content-pipeline.md)**
+
+---
+
 ## Asset Management
 
 This repository includes tools for managing assets independently from the main website deployment.
