@@ -366,4 +366,30 @@ describe('run (orchestrator)', () => {
       run({ rootDir, write: false, paths: ['scripts/foo.js'] }),
     ).rejects.toThrow(/escap|outside/i);
   });
+
+  it('no-gain PNG is left untouched on disk under --write', async () => {
+    // Seed a PNG, optimise it once so it's already palette-encoded at L9, then
+    // re-run with a threshold below its post-optimisation size. The second pass
+    // hits the no-gain guard (re-encoded buffer >= input) and must not rewrite.
+    const isolatedRoot = await mkdtemp(join(tmpdir(), 'optimize-assets-nogain-'));
+    try {
+      await mkdir(join(isolatedRoot, 'assets', 'posts', 'a'), { recursive: true });
+      const target = join(isolatedRoot, 'assets', 'posts', 'a', 'pic.png');
+      const seed = await makePng(300, 300);
+      await writeFile(target, seed);
+
+      await run({ rootDir: isolatedRoot, write: true, thresholdKb: 0 });
+      const afterFirst = await readFile(target);
+
+      const result = await run({ rootDir: isolatedRoot, write: true, thresholdKb: 0 });
+
+      const entry = result.results.find((r) => r.path === 'assets/posts/a/pic.png');
+      expect(entry?.skipped).toBe('no-gain');
+
+      const afterSecond = await readFile(target);
+      expect(afterSecond.equals(afterFirst)).toBe(true);
+    } finally {
+      await rm(isolatedRoot, { recursive: true, force: true });
+    }
+  });
 });
