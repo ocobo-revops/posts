@@ -11,6 +11,7 @@ import {
   isImageFile,
   parseArgs,
   resolveToken,
+  verifyUrls,
 } from '../upload-assets.js';
 
 describe('isImageFile', () => {
@@ -66,6 +67,7 @@ describe('parseArgs', () => {
       help: false,
       all: false,
       force: false,
+      noVerify: false,
       target: 'legacy',
     });
   });
@@ -82,6 +84,11 @@ describe('parseArgs', () => {
 
   it('recognises --force', () => {
     expect(parseArgs(['node', 'script', '--force']).force).toBe(true);
+  });
+
+  it('recognises --no-verify (default false)', () => {
+    expect(parseArgs(['node', 'script']).noVerify).toBe(false);
+    expect(parseArgs(['node', 'script', '--no-verify']).noVerify).toBe(true);
   });
 
   it('accepts --target new and --target legacy', () => {
@@ -208,5 +215,52 @@ describe('getChangedAssets', () => {
   it('returns an empty list when nothing changed', async () => {
     const changed = getChangedAssets(rootDir);
     expect(changed).toEqual([]);
+  });
+});
+
+describe('verifyUrls', () => {
+  const mkUploaded = (urls) => urls.map((url, i) => ({ url, blobPath: `path/${i}.png` }));
+
+  it('returns no failures when every HEAD responds ok', async () => {
+    const fetchFn = async () => ({ status: 200, ok: true });
+    const { failures } = await verifyUrls(mkUploaded(['u1', 'u2', 'u3']), { fetchFn });
+    expect(failures).toEqual([]);
+  });
+
+  it('collects non-ok responses as failures with status code', async () => {
+    const fetchFn = async (url) =>
+      url === 'bad' ? { status: 404, ok: false } : { status: 200, ok: true };
+    const { failures } = await verifyUrls(mkUploaded(['ok1', 'bad', 'ok2']), { fetchFn });
+    expect(failures).toHaveLength(1);
+    expect(failures[0]).toMatchObject({ url: 'bad', status: 404 });
+  });
+
+  it('captures network errors as failures with status 0', async () => {
+    const fetchFn = async () => {
+      throw new Error('network down');
+    };
+    const { failures } = await verifyUrls(mkUploaded(['u1']), { fetchFn });
+    expect(failures).toHaveLength(1);
+    expect(failures[0]).toMatchObject({ url: 'u1', status: 0, error: 'network down' });
+  });
+
+  it('issues one HEAD request per uploaded item', async () => {
+    let calls = 0;
+    const fetchFn = async () => {
+      calls += 1;
+      return { status: 200, ok: true };
+    };
+    await verifyUrls(mkUploaded(['u1', 'u2', 'u3', 'u4', 'u5', 'u6', 'u7']), { fetchFn });
+    expect(calls).toBe(7);
+  });
+
+  it('uses the HEAD method', async () => {
+    const methods = [];
+    const fetchFn = async (_url, init) => {
+      methods.push(init?.method);
+      return { status: 200, ok: true };
+    };
+    await verifyUrls(mkUploaded(['u1', 'u2']), { fetchFn });
+    expect(methods).toEqual(['HEAD', 'HEAD']);
   });
 });

@@ -117,6 +117,7 @@ export const parseArgs = (argv) => {
     help: args.includes('--help') || args.includes('-h'),
     all: args.includes('--all') || args.includes('-a'),
     force: args.includes('--force'),
+    noVerify: args.includes('--no-verify'),
     target,
   };
 };
@@ -129,6 +130,29 @@ export const resolveToken = (target, env = process.env) => {
 };
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export const verifyUrls = async (uploaded, { fetchFn = globalThis.fetch } = {}) => {
+  const failures = [];
+  for (let i = 0; i < uploaded.length; i += BATCH_SIZE) {
+    const batch = uploaded.slice(i, i + BATCH_SIZE);
+    const results = await Promise.all(
+      batch.map(async (item) => {
+        try {
+          const res = await fetchFn(item.url, { method: 'HEAD' });
+          return { item, status: res.status, ok: res.ok };
+        } catch (err) {
+          return { item, status: 0, ok: false, error: err.message ?? String(err) };
+        }
+      }),
+    );
+    for (const r of results) {
+      if (!r.ok) {
+        failures.push({ url: r.item.url, blobPath: r.item.blobPath, status: r.status, error: r.error });
+      }
+    }
+  }
+  return { failures };
+};
 
 export const run = async ({
   rootDir,
@@ -200,7 +224,22 @@ export const run = async ({
     }
   }
 
-  return { uploaded, skipped: null };
+  if (opts.noVerify) {
+    log(`Uploaded ${uploaded.length} file(s). Verification skipped (--no-verify).`);
+    return { uploaded, verified: null, skipped: null };
+  }
+
+  log(`Verifying ${uploaded.length} uploaded URL(s) via HEAD...`);
+  const { failures } = await verifyUrls(uploaded);
+  if (failures.length > 0) {
+    for (const f of failures) {
+      warn(`  ✗ ${f.blobPath} → HTTP ${f.status}${f.error ? ` (${f.error})` : ''}`);
+    }
+    throw new Error(`Verification failed: ${failures.length}/${uploaded.length} URL(s) unreachable.`);
+  }
+  log(`Verified ${uploaded.length}/${uploaded.length} URL(s).`);
+
+  return { uploaded, verified: uploaded.length, skipped: null };
 };
 
 const usage = () =>
@@ -214,6 +253,7 @@ Flags:
   --all, -a            upload all assets, skip git diff filter
   --force              upload even if no changes detected
   --target <which>     'legacy' (default) or 'new' — selects which blob store to push to
+  --no-verify          skip the post-upload HEAD verification step
   --help, -h           show this help
 
 Environment:
