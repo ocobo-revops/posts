@@ -1,15 +1,11 @@
 name: Content sync
 
 on:
+  # Runs on every PR. `sync-and-validate` is a required status check on `main`;
+  # a path filter here would mean PRs that touch no content path (docs, config)
+  # never report the check and can never merge. The upload step no-ops when no
+  # assets changed, so docs-only PRs just run `pnpm validate` and pass.
   pull_request:
-    paths:
-      - 'team/**'
-      - 'blog/**'
-      - 'stories/**'
-      - 'jobs/**'
-      - 'tools/**'
-      - 'assets/**'
-      - '.github/workflows/**'
 
 permissions:
   contents: write
