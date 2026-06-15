@@ -157,7 +157,7 @@ assets/
 ✅ **No website rebuilds** when adding content assets  
 ✅ **CDN performance** for all images  
 ✅ **Independent workflows** for content and code  
-✅ **Automatic asset optimization** via Vercel Blob  
+✅ **Publish-time image optimization** — the `publish-content` skill runs `pnpm optimize-assets:write` over the branch's new/changed images before upload, re-encoding oversized ones (> 400 KB) in place (local only; not automatic on Vercel Blob, no CI step)  
 ✅ **Version control** for content and assets separately  
 
 ### Troubleshooting
