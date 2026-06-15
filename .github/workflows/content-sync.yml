@@ -13,6 +13,7 @@ on:
 
 permissions:
   contents: write
+  checks: write
 
 jobs:
   sync-and-validate:
@@ -42,17 +43,34 @@ jobs:
       - name: Rewrite local asset paths to blob URLs
         run: pnpm update-urls:new
 
+      - name: Validate content
+        run: pnpm validate
+
       - name: Commit back rewritten URLs
+        id: commit_back
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           if ! git diff --quiet; then
             git add -A
-            git commit -m "chore(assets): rewrite local paths to Vercel Blob URLs"
+            git commit -m "chore(assets): rewrite local paths to Vercel Blob URLs [skip ci]"
             git push
+            echo "new_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+            echo "pushed=true" >> $GITHUB_OUTPUT
           else
-            echo "No URL rewrites needed."
+            echo "pushed=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Validate content
-        run: pnpm validate
+      - name: Forward passing check to commit-back SHA
+        if: steps.commit_back.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/${{ github.repository }}/check-runs \
+            --method POST \
+            -f name=sync-and-validate \
+            -f head_sha=${{ steps.commit_back.outputs.new_sha }} \
+            -f status=completed \
+            -f conclusion=success \
+            -f "output[title]=Content sync passed" \
+            -f "output[summary]=Assets uploaded and URLs rewritten. Content validated."
