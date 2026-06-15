@@ -19,10 +19,12 @@ If any precondition fails, explain clearly which one and how to fix it.
 Extract from the file path:
 - `blog/fr/<slug>.md` → type `blog-post`, lang `fr`
 - `blog/en/<slug>.md` → type `blog-post`, lang `en`
-- `stories/fr/<slug>.md` → type `story`
+- `stories/fr/<slug>.md` → type `story`, lang `fr`
+- `stories/en/<slug>.md` → type `story`, lang `en`
 - `team/<slug>.md` → type `team-member`
 - `tools/<slug>.md` → type `tool`
-- `jobs/fr/<slug>.md` → type `job`
+- `jobs/fr/<slug>.md` → type `job`, lang `fr`
+- `jobs/en/<slug>.md` → type `job`, lang `en`
 
 ## Run sync-assets
 

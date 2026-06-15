@@ -32,6 +32,9 @@ const validateCrossRefs = (type, slug, data, resolver) => {
     (data.tools ?? []).forEach((t) => {
       if (!resolver.isValidToolSlug(t)) errors.push(`  • tools: "${t}" does not match any tool slug`);
     });
+    if (data.featuredTool && !resolver.isValidToolSlug(data.featuredTool)) {
+      errors.push(`  • featuredTool: "${data.featuredTool}" does not match any tool slug`);
+    }
   }
   if (type === 'job' && data.hiringContact && !resolver.isValidTeamSlug(data.hiringContact)) {
     errors.push(`  • hiringContact: "${data.hiringContact}" does not match any team slug`);

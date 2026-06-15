@@ -46,9 +46,9 @@ describe('createResolver', () => {
     expect(isValidToolSlug('notion')).toBe(false);
   });
 
-  it('getActiveTools returns all tools', () => {
-    const { getActiveTools } = createResolver(repoRoot);
-    const tools = getActiveTools();
+  it('getTools returns all tools', () => {
+    const { getTools } = createResolver(repoRoot);
+    const tools = getTools();
     expect(tools.map((t) => t.slug)).toEqual(expect.arrayContaining(['hubspot', 'salesforce']));
   });
 });

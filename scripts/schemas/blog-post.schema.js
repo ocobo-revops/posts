@@ -1,10 +1,5 @@
 import { z } from 'zod';
-
-// gray-matter parses YAML dates as JS Date objects; normalise to YYYY-MM-DD string
-const isoDate = z.preprocess(
-  (v) => (v instanceof Date ? v.toISOString().slice(0, 10) : v),
-  z.iso.date(),
-);
+import { isoDate } from './iso-date.js';
 
 export const blogPostSchema = z.object({
   title: z.string().min(1),

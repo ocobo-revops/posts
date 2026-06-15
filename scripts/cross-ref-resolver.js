@@ -20,6 +20,6 @@ export const createResolver = (repoRoot) => {
     isValidTeamSlug: (slug) => teamMembers.some((m) => m.slug === slug),
     getActiveTeamMembers: () => teamMembers.filter((m) => m.active !== false),
     isValidToolSlug: (slug) => tools.some((t) => t.slug === slug),
-    getActiveTools: () => tools,
+    getTools: () => tools,
   };
 };
