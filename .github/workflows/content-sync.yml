@@ -36,11 +36,20 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Upload new assets to Vercel Blob
+        id: upload
         env:
           NEW_BLOB_READ_WRITE_TOKEN: ${{ secrets.NEW_BLOB_READ_WRITE_TOKEN }}
-        run: node scripts/upload-assets.js --target new
+        run: |
+          output=$(node scripts/upload-assets.js --target new 2>&1)
+          echo "$output"
+          if echo "$output" | grep -q "Uploaded [1-9]"; then
+            echo "uploaded=true" >> $GITHUB_OUTPUT
+          else
+            echo "uploaded=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Rewrite local asset paths to blob URLs
+        if: steps.upload.outputs.uploaded == 'true'
         run: pnpm update-urls:new
 
       - name: Validate content
