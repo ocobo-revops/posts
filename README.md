@@ -12,6 +12,36 @@ For the full architecture (system diagram, content flow, asset flow, repo-bounda
 
 ---
 
+## Adding content
+
+Content is authored through three Claude Code skills — no CMS, no manual frontmatter.
+
+### Prerequisites
+
+```bash
+pnpm install
+```
+
+That's all you need to start. Notion import is **optional** — if you want to pull a draft from a Notion page, follow [`docs/mcp-notion-setup.md`](docs/mcp-notion-setup.md) to connect the Notion MCP. Otherwise, interview mode works immediately.
+
+### The three commands
+
+| Command | Purpose |
+|---------|---------|
+| `/new-content [--type X] [source]` | Create a new blog post, story, team member, tool, or job. |
+| `/publish-content` | Validate the new file and open a PR against `main`. |
+| `/translate-content` | Translate an existing content file to the other language. |
+
+Canonical flow: **`/new-content` → review the preview → `/publish-content`**. CI uploads assets to Vercel Blob and rewrites local image paths to Blob URLs on the PR, then runs `pnpm validate` as a required check.
+
+### Three source modes for `/new-content`
+
+1. **Interview** — `/new-content` (or `/new-content --type blog-post`). Claude walks you through the required fields. No external source needed.
+2. **Local file** — `/new-content path/to/draft.md`. Pre-fills fields from a local markdown draft; the interview only asks for what's missing.
+3. **Notion URL** — `/new-content https://notion.so/...`. Pre-fills from a Notion page (requires the optional MCP setup above).
+
+---
+
 ## Asset Management
 
 This repository includes tools for managing assets independently from the main website deployment.
