@@ -9,8 +9,13 @@ After you have written a new content file (via `new-content` or manually) and ar
 ## Preconditions (check all before doing anything)
 
 1. **Clean working tree** — `git status --porcelain` must output only the new content file(s) and their assets. If there are unrelated changes, stop and ask the user to stash or commit them first.
-2. **On main, up to date** — `git rev-parse --abbrev-ref HEAD` must be `main`. `git fetch origin && git status` must show "up to date". If not, stop and ask the user to pull.
-3. **pnpm validate passes** — run `pnpm validate`. If it fails, show the errors and stop. Do not open a PR against a broken content file.
+2. **On main, up to date** — `git rev-parse --abbrev-ref HEAD` must be `main`. Run:
+   ```bash
+   git fetch origin
+   git status
+   ```
+   If the output shows "Your branch is behind", run `git rebase origin/main`. If there are conflicts, stop and show them — do not proceed until the rebase is clean.
+3. **pnpm validate passes** — run `pnpm validate` after the rebase (cross-references may have changed on main). If it fails, show the errors and stop. Do not open a PR against a broken content file.
 
 If any precondition fails, explain clearly which one and how to fix it.
 
