@@ -13,6 +13,7 @@ scopes:
 tools:
   - hubspot
   - vitally
+  - planhat
 featuredTool: planhat
 quotes:
   - C'est la valeur de "on l'a déjà vu ou fait ailleurs" qui a vraiment fait la différence.
