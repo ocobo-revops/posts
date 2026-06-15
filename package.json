@@ -16,7 +16,10 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@vercel/blob": "^1.1.1"
+    "@vercel/blob": "^1.1.1",
+    "glob": "^13.0.6",
+    "gray-matter": "^4.0.3",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "sharp": "^0.34.5",
