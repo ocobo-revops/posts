@@ -15,7 +15,7 @@ tags:
 Dans le monde de la startup/scale-up, depuis quelques années maintenant, on entend de plus en plus
 parler de Business Ops, de Revenue Ops, de Sales Ops, de Marketing Ops, de Finance Ops, et même
 maintenant de Product Ops, People Ops, Design Ops, Legal Ops… des Ops à toutes les sauces et c’est
-plutôt très bon signe !
+plutôt très bon signe ! <!-- preview-check-65-7f3a9c -->preview-check-65-7f3a9c
 
 Les Business Operations ont effet une position centrale, elles représentent l’ensemble des
 processus, des outils et des personnes permettant d’optimiser la productivité et l’efficacité pour
