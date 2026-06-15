@@ -1,7 +1,7 @@
 ---
 slug: clementine-du-pradel
 name: Clémentine du Pradel
-track: Manager
+track: architect
 avatar: assets/team/clementine-du-pradel.png
 role:
   fr: Manager
