@@ -39,11 +39,25 @@ describe('parseContent — key-value', () => {
     expect(body).toBe('Corps en prose.');
   });
 
+  it('preserves values that contain colons', () => {
+    const raw = `time: 10:30\nlocation: Paris: 8e\n\nCorps.`;
+    const { fields } = parseContent(raw);
+    expect(fields.time).toBe('10:30');
+    expect(fields.location).toBe('Paris: 8e');
+  });
+
   it('falls back to prose when fewer than 2 kv pairs', () => {
     const raw = `title: Seulement une clé\n\nCorps.`;
     const { fields, body } = parseContent(raw);
     expect(Object.keys(fields)).toHaveLength(0);
     expect(body).toContain('Seulement une clé');
+  });
+
+  it('treats prose with a single inline colon as prose', () => {
+    const raw = `Ceci est: du texte.\nDeuxième ligne sans clé.`;
+    const { fields, body } = parseContent(raw);
+    expect(Object.keys(fields)).toHaveLength(0);
+    expect(body).toContain('Ceci est: du texte.');
   });
 });
 
@@ -85,5 +99,9 @@ describe('readLocalFile', () => {
     const { fields, body } = await readLocalFile(join(FIXTURES, 'local-file-prose.md'));
     expect(Object.keys(fields)).toHaveLength(0);
     expect(body).toContain('Ceci est un article');
+  });
+
+  it('rejects on non-existent path', async () => {
+    await expect(readLocalFile(join(FIXTURES, 'does-not-exist.md'))).rejects.toThrow();
   });
 });

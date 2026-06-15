@@ -51,6 +51,11 @@ if (process.argv[1] === __filename) {
     console.error('Usage: node scripts/source-adapters/local-file.js <path>');
     process.exit(1);
   }
-  const result = await readLocalFile(filePath);
-  console.log(JSON.stringify(result, null, 2));
+  try {
+    const result = await readLocalFile(filePath);
+    console.log(JSON.stringify(result, null, 2));
+  } catch (err) {
+    console.error(`Cannot read ${filePath}: ${err.message}`);
+    process.exit(1);
+  }
 }

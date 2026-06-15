@@ -27,12 +27,12 @@ Run the local-file adapter:
 node scripts/source-adapters/local-file.js "<path>"
 ```
 
-The adapter outputs `{"fields": {...}, "body": "..."}`. Store this as `prefilled`.
+The adapter outputs `{"fields": {...}, "body": "..."}` to stdout. Store this as `prefilled`.
 
 - `prefilled.fields` — key-value pairs extracted from the file (frontmatter > key-value lines > empty for prose)
 - `prefilled.body` — remaining prose content (empty when the file had only frontmatter)
 
-If `prefilled.fields.type` is present and a valid content type, treat it as if `--type` was passed (unless `--type` was already given explicitly).
+If the command exits with a non-zero code (file not found, unreadable), stop and show the error to the user — do not proceed to Step 1.
 
 ---
 
