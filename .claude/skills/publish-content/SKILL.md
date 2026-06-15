@@ -31,6 +31,18 @@ Extract from the file path:
 - `jobs/fr/<slug>.md` → type `job`, lang `fr`
 - `jobs/en/<slug>.md` → type `job`, lang `en`
 
+## Optimize assets
+
+Run **before** sync so the optimized bytes are what get committed and uploaded to Vercel Blob:
+
+```bash
+pnpm optimize-assets:write
+```
+
+This re-encodes only the branch's new/changed images that exceed the 400 KB threshold (in place); smaller images are left byte-identical, and `.svg`/`.gif` are skipped. If there are no changed assets it prints "No changed assets to optimise." and is a no-op.
+
+Surface the concise before/after report it prints (files touched + bytes saved) so the contributor sees what changed. Do not tweak threshold or quality — the defaults are deliberate.
+
 ## Run sync-assets
 
 ```bash
