@@ -2,7 +2,7 @@
 slug: clementine-du-pradel
 name: Clémentine du Pradel
 track: architect
-avatar: assets/team/clementine-du-pradel.png
+avatar: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/team/clementine-du-pradel.png
 role:
   fr: Manager
   en: Manager
@@ -12,4 +12,5 @@ bio:
 linkedin: "https://www.linkedin.com/in/clémentine-du-pradel-237ab948/"
 active: true
 featuredOnAboutUs: false
+displayOrder: 12
 ---

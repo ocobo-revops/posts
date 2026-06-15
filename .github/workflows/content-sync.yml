@@ -1,0 +1,78 @@
+name: Content sync
+
+on:
+  pull_request:
+    paths:
+      - 'team/**'
+      - 'blog/**'
+      - 'stories/**'
+      - 'jobs/**'
+      - 'tools/**'
+      - 'assets/**'
+      - '.github/workflows/**'
+
+permissions:
+  contents: write
+  checks: write
+
+jobs:
+  sync-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Upload new assets to Vercel Blob
+        env:
+          NEW_BLOB_READ_WRITE_TOKEN: ${{ secrets.NEW_BLOB_READ_WRITE_TOKEN }}
+        run: node scripts/upload-assets.js --target new
+
+      - name: Rewrite local asset paths to blob URLs
+        run: pnpm update-urls:new
+
+      - name: Validate content
+        run: pnpm validate
+
+      - name: Commit back rewritten URLs
+        id: commit_back
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet; then
+            git add -A
+            git commit -m "chore(assets): rewrite local paths to Vercel Blob URLs [skip ci]"
+            git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git HEAD:${{ github.head_ref }}
+            echo "new_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+            echo "pushed=true" >> $GITHUB_OUTPUT
+          else
+            echo "pushed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Forward passing check to commit-back SHA
+        if: steps.commit_back.outputs.pushed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api repos/${{ github.repository }}/check-runs \
+            --method POST \
+            -f name=sync-and-validate \
+            -f head_sha=${{ steps.commit_back.outputs.new_sha }} \
+            -f status=completed \
+            -f conclusion=success \
+            -f "output[title]=Content sync passed" \
+            -f "output[summary]=Assets uploaded and URLs rewritten. Content validated."
