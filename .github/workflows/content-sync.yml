@@ -1,0 +1,57 @@
+name: Content sync
+
+on:
+  pull_request:
+    paths:
+      - 'team/**'
+      - 'blog/**'
+      - 'stories/**'
+      - 'jobs/**'
+      - 'tools/**'
+      - 'assets/**'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Upload new assets to Vercel Blob
+        env:
+          NEW_BLOB_READ_WRITE_TOKEN: ${{ secrets.NEW_BLOB_READ_WRITE_TOKEN }}
+        run: node scripts/upload-assets.js --target new
+
+      - name: Rewrite local asset paths to blob URLs
+        run: pnpm update-urls:new
+
+      - name: Commit back rewritten URLs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet; then
+            git add -A
+            git commit -m "chore(assets): rewrite local paths to Vercel Blob URLs [skip ci]"
+            git push
+          else
+            echo "No URL rewrites needed."
+          fi
+
+      - name: Validate content
+        run: pnpm validate
