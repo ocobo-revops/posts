@@ -91,6 +91,20 @@ export const getChangedAssets = (rootDir) => {
   return [...new Set([...untracked, ...modified, ...staged])].filter(isImageFile);
 };
 
+// CI mode: assets changed between a base ref (e.g. origin/main) and HEAD.
+// Working-tree diffs are empty in CI because content is already committed,
+// so we diff the whole PR branch against its base instead.
+export const getChangedAssetsAgainstBase = (rootDir, base) => {
+  try {
+    execSync('git rev-parse --git-dir', { cwd: rootDir, stdio: 'ignore' });
+  } catch {
+    return null;
+  }
+
+  const changed = runGit(`git diff --name-only ${base}...HEAD -- assets/`, rootDir);
+  return [...new Set(changed)].filter(isImageFile);
+};
+
 export const uploadFile = async (file, { token, prefix = 'content' }) => {
   const buffer = await readFile(file.localPath);
   const blob = await put(`${prefix}/${file.blobPath}`, buffer, {
@@ -111,10 +125,19 @@ export const parseArgs = (argv) => {
   let force = false;
   let noVerify = false;
   let target = 'legacy';
+  let base = null;
 
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     switch (arg) {
+      case '--base': {
+        const raw = argv[++i];
+        if (!raw) {
+          throw new Error('--base requires a git ref (e.g. origin/main)');
+        }
+        base = raw;
+        break;
+      }
       case '--help':
       case '-h':
         help = true;
@@ -142,7 +165,7 @@ export const parseArgs = (argv) => {
     }
   }
 
-  return { help, all, force, noVerify, target };
+  return { help, all, force, noVerify, target, base };
 };
 
 export const resolveToken = (target, env = process.env) => {
@@ -228,7 +251,9 @@ export const run = async ({
 
   let filterList = null;
   if (!opts.all) {
-    const changed = getChangedAssets(rootDir);
+    const changed = opts.base
+      ? getChangedAssetsAgainstBase(rootDir, opts.base)
+      : getChangedAssets(rootDir);
     if (changed === null) {
       warn('Not in a git repository — falling back to --all behaviour.');
     } else if (changed.length === 0 && !opts.force) {
@@ -314,6 +339,7 @@ Usage:
 Flags:
   --all, -a            upload all assets, skip git diff filter
   --force              upload even if no changes detected
+  --base <ref>         upload assets changed between <ref> and HEAD (CI mode, e.g. origin/main)
   --target <which>     'legacy' (default) or 'new' — selects which blob store to push to
   --no-verify          skip the post-upload HEAD verification step
   --help, -h           show this help
