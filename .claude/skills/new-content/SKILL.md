@@ -10,6 +10,30 @@ When a user wants to create a new blog post, story, team member profile, tool en
 
 `--type <type>` — skip the type prompt. Valid: `blog-post | story | team-member | tool | job`.
 
+`[path]` — optional positional arg. Any non-flag argument is treated as a source file path. The file is parsed before the interview — recognised fields pre-fill the answers, prose becomes the body. Examples:
+
+    new-content path/to/draft.md
+    new-content --type blog-post path/to/draft.md
+
+---
+
+## Step 0 — Parse source file
+
+_Skip this step if no file path arg was provided._
+
+Run the local-file adapter:
+
+```bash
+node scripts/source-adapters/local-file.js "<path>"
+```
+
+The adapter outputs `{"fields": {...}, "body": "..."}`. Store this as `prefilled`.
+
+- `prefilled.fields` — key-value pairs extracted from the file (frontmatter > key-value lines > empty for prose)
+- `prefilled.body` — remaining prose content (empty when the file had only frontmatter)
+
+If `prefilled.fields.type` is present and a valid content type, treat it as if `--type` was passed (unless `--type` was already given explicitly).
+
 ---
 
 ## Step 1 — Determine type
@@ -57,6 +81,16 @@ grep "^category:" tools/*.md | awk -F': ' '{print $2}' | sort -u
 ---
 
 ## Step 3 — Interview
+
+**Pre-filled fields (when a source file was parsed in Step 0):** Before asking questions, check `prefilled`. For each field already present, show the extracted value and ask to confirm:
+
+> `title: "Mon article"` — keep? [y / edit]
+
+Accept on Enter. Only ask from scratch for fields that are missing or rejected. If `prefilled.body` is non-empty, show a short preview and confirm before using it as the body.
+
+If no path arg was given, `prefilled` is empty — proceed with the full interview as normal.
+
+---
 
 Ask one or two related questions at a time — never dump the full list. For required fields: do not proceed without a non-empty value. For optional fields: accept Enter to skip.
 
