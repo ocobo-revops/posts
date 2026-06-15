@@ -12,11 +12,15 @@
     "sync-assets": "pnpm upload-assets && pnpm update-urls",
     "sync-assets:all": "pnpm upload-assets:all && pnpm update-urls",
     "sync-assets:migrate": "pnpm upload-assets:migrate && pnpm update-urls:new",
+    "validate": "node scripts/validate-content.js",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@vercel/blob": "^1.1.1"
+    "@vercel/blob": "^1.1.1",
+    "glob": "^13.0.6",
+    "gray-matter": "^4.0.3",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "sharp": "^0.34.5",
