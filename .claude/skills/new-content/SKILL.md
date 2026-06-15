@@ -10,29 +10,75 @@ When a user wants to create a new blog post, story, team member profile, tool en
 
 `--type <type>` — skip the type prompt. Valid: `blog-post | story | team-member | tool | job`.
 
-`[path]` — optional positional arg. Any non-flag argument is treated as a source file path. The file is parsed before the interview — recognised fields pre-fill the answers, prose becomes the body. Examples:
+`[source]` — optional positional arg. Can be:
+- A **Notion URL** — `https://notion.so/...` or `https://www.notion.so/...` — triggers the Notion adapter.
+- A **local file path** — any other non-flag argument — triggers the local-file adapter.
 
+Pre-filled fields from either adapter reduce the interview to only what's missing.
+
+Examples:
+
+    new-content https://notion.so/Mon-article-abc123
+    new-content --type blog-post https://notion.so/abc123
     new-content path/to/draft.md
     new-content --type blog-post path/to/draft.md
 
 ---
 
-## Step 0 — Parse source file
+## Step 0 — Parse source
 
-_Skip this step if no file path arg was provided._
+_Skip this step if no source arg was provided._
 
-Run the local-file adapter:
+**Detect source type** — check if the arg matches `^https?://(www\.)?notion\.(so|site)/`:
+- Yes → **Notion path** (Step 0A)
+- No → **Local file path** (Step 0B)
+
+Store the result (from whichever path) as `prefilled`:
+- `prefilled.fields` — extracted key-value pairs (may be empty)
+- `prefilled.body` — extracted prose (may be empty)
+- `prefilled.assets` — image URLs to download (Notion only; empty for local files)
+
+If any step below exits non-zero, stop and show the error — do not proceed to Step 1.
+
+---
+
+### Step 0A — Notion adapter
+
+1. **Check MCP availability** — verify the Notion MCP is connected by attempting a simple call. If not available:
+   > Notion MCP is not configured. To use Notion import, follow `docs/mcp-notion-setup.md`. Falling back — use interview mode or pass a local file path instead.
+   Then proceed to Step 1 with empty `prefilled`.
+
+2. **Fetch the page** — use the `notion-fetch` MCP tool with the URL. This returns the page properties and content.
+
+3. **Determine type** — if `--type` was passed, use it. Otherwise check `prefilled.fields` for a recognisable type hint, or fall back to Step 1 prompt after extracting fields.
+
+4. **Map properties** — save the page JSON from `notion-fetch` to a temp file, then run:
+   ```bash
+   node scripts/source-adapters/notion.js /tmp/notion-page.json <type> [/tmp/notion-body.txt]
+   ```
+   The adapter outputs `{"fields": {...}, "body": "...", "assets": [...]}`.
+
+5. **Download images** — for each entry in `assets[]`, download the URL to the correct local path before Step 6:
+   ```bash
+   curl -L "<url>" -o "<target-path>"
+   ```
+   Target paths follow the same convention as Step 6 (slug-based). Record each downloaded path.
+
+   > **Note:** Notion file URLs (type `file`) are temporary S3 URLs that expire in ~1 hour — download immediately.
+
+---
+
+### Step 0B — Local file adapter
+
+Run:
 
 ```bash
 node scripts/source-adapters/local-file.js "<path>"
 ```
 
-The adapter outputs `{"fields": {...}, "body": "..."}` to stdout. Store this as `prefilled`.
+The adapter outputs `{"fields": {...}, "body": "..."}` to stdout. `assets` is always `[]` for local files.
 
-- `prefilled.fields` — key-value pairs extracted from the file (frontmatter > key-value lines > empty for prose)
-- `prefilled.body` — remaining prose content (empty when the file had only frontmatter)
-
-If the command exits with a non-zero code (file not found, unreadable), stop and show the error to the user — do not proceed to Step 1.
+If the command exits non-zero (file not found, unreadable), stop and show the error.
 
 ---
 
