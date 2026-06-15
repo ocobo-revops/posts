@@ -11,8 +11,8 @@ const EXTRACTORS = {
   date: (p) => p.date?.start ?? '',
   url: (p) => p.url ?? '',
   email: (p) => p.email ?? '',
-  number: (p) => p.number ?? null,
-  checkbox: (p) => p.checkbox ?? false,
+  number: (p) => (p.number !== undefined ? p.number : undefined),
+  checkbox: (p) => (p.checkbox !== undefined ? p.checkbox : undefined),
   files: (p) =>
     p.files?.map((f) => f.file?.url ?? f.external?.url).filter(Boolean) ?? [],
 };
@@ -63,7 +63,6 @@ const MAPPINGS = {
     featuredTool: extractSingle(props, 'Featured tool', 'Outil principal', 'Featured Tool'),
     quotes: extractProp(props, 'Quotes', 'Citations'),
     deliverables: extractProp(props, 'Deliverables', 'Livrables'),
-    lang: extractProp(props, 'Lang', 'Language', 'Langue'),
   }),
 
   'team-member': (props) => ({
@@ -111,7 +110,7 @@ const compactFields = (fields) =>
     Object.entries(fields).filter(([, v]) => {
       if (v === undefined || v === null || v === '') return false;
       if (Array.isArray(v) && v.length === 0) return false;
-      return true;
+      return true; // preserves false and 0
     }),
   );
 
@@ -134,10 +133,9 @@ const nestFields = (flat) => {
 export const extractAssets = (page) => {
   const assets = [];
   for (const [field, prop] of Object.entries(page.properties ?? {})) {
-    if (prop.type === 'files') {
-      for (const url of EXTRACTORS.files(prop)) {
-        assets.push({ field, url });
-      }
+    if (!prop || prop.type !== 'files') continue;
+    for (const url of EXTRACTORS.files(prop)) {
+      assets.push({ field, url });
     }
   }
   return assets;

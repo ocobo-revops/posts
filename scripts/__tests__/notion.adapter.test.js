@@ -108,6 +108,23 @@ describe('mapNotionPage — team-member', () => {
     expect(fields.linkedin).toBe('https://linkedin.com/in/alice-dupont');
     expect(fields.color).toBe('coral');
   });
+
+  it('preserves active: false — does not drop falsy checkbox', () => {
+    const page = {
+      properties: {
+        Name: { type: 'title', title: [{ plain_text: 'Bob' }] },
+        'Role FR': { type: 'rich_text', rich_text: [{ plain_text: 'Consultant' }] },
+        'Role EN': { type: 'rich_text', rich_text: [{ plain_text: 'Consultant' }] },
+        Track: { type: 'select', select: { name: 'builder' } },
+        Avatar: { type: 'url', url: 'https://example.com/bob.jpg' },
+        'Bio FR': { type: 'rich_text', rich_text: [{ plain_text: 'Bio FR.' }] },
+        'Bio EN': { type: 'rich_text', rich_text: [{ plain_text: 'Bio EN.' }] },
+        Active: { type: 'checkbox', checkbox: false },
+      },
+    };
+    const { fields } = mapNotionPage(page, 'team-member');
+    expect(fields.active).toBe(false);
+  });
 });
 
 // ── mapNotionPage — tool / job (inline fixtures) ──────────────────────────────
@@ -171,6 +188,11 @@ describe('mapNotionPage — edge cases', () => {
     expect(Object.keys(fields)).toHaveLength(0);
     expect(body).toBe('');
     expect(assets).toHaveLength(0);
+  });
+
+  it('does not crash when a property value is null', () => {
+    const page = { properties: { Title: null, Author: { type: 'select', select: { name: 'alice' } } } };
+    expect(() => mapNotionPage(page, 'blog-post')).not.toThrow();
   });
 
   it('takes first file URL when multiple files present', () => {

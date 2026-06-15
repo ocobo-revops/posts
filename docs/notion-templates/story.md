@@ -15,7 +15,6 @@
 | Scopes | Multi-select | `scopes` | ✅ |
 | Tools | Multi-select | `tools` | ✅ |
 | Featured tool | Select | `featuredTool` | ✅ |
-| Lang | Select | `lang` | recommended |
 | Quotes | Text | `quotes` | optional |
 | Deliverables | Text | `deliverables` | optional |
 
@@ -29,7 +28,6 @@
 - Scopes → `Périmètres`
 - Tools → `Outils`
 - Featured tool → `Outil principal`, `Featured Tool`
-- Lang → `Language`, `Langue`
 
 **Tools / Scopes** — values must match existing tool slugs and scope names in the repo. The skill shows existing values during the interview.
 
@@ -51,7 +49,6 @@
 > - Scopes (multi-select)
 > - Tools (multi-select)
 > - Featured tool (select)
-> - Lang (select) — options: fr, en
 > - Quotes (text)
 > - Deliverables (text)
 
