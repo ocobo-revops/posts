@@ -124,6 +124,12 @@ awk '/^scopes:/{f=1;next} f && /^  - /{sub(/^  - /,"");print} f && !/^  - /{f=0}
 grep "^category:" tools/*.md | awk -F': ' '{print $2}' | sort -u
 ```
 
+**Next displayOrder for team members** (used as default when creating a team member):
+```bash
+grep -h "^displayOrder:" team/*.md 2>/dev/null | awk '{print $2}' | sort -n | tail -1
+```
+Store as `maxDisplayOrder`. Suggested next value = `maxDisplayOrder + 1` (default to `1` if no files exist).
+
 ---
 
 ## Step 3 — Interview
@@ -160,7 +166,7 @@ No body for tools.
 7. **bio.fr** — French one-sentence bio.
 8. **bio.en** — English one-sentence bio.
 9. **linkedin (optional)** — full LinkedIn URL.
-10. **displayOrder (optional)** — integer for ordering on the team page.
+10. **displayOrder** — integer for ordering on the team page. Suggest `maxDisplayOrder + 1` (computed in Step 2) as the default; accept Enter to use it. **Do not skip** — this field is required by the website schema. If the contributor has no preference, use the suggested value.
 11. **active (optional, default `true`)** — `true | false`.
 12. **featuredOnAboutUs (optional, default `false`)** — `true | false`.
 13. **color (optional)** — `yellow | coral | sky`.
