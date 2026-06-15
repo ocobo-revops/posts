@@ -5,6 +5,7 @@ import { readFile, readdir, rename, stat, unlink, writeFile } from 'node:fs/prom
 import { dirname, extname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
+import { getChangedAssets } from './upload-assets.js';
 
 const JPEG_QUALITY = 80;
 const WEBP_QUALITY = 80;
@@ -77,6 +78,20 @@ export const resolvePaths = async ({ rootDir, paths }) => {
   }
 
   return { files, errors, warnings };
+};
+
+// Scope the optimizer to the branch's new/changed assets, reusing upload-assets'
+// git detection. getChangedAssets includes formats this optimizer cannot encode
+// (.svg, .gif), so re-filter to ALLOWED_EXTS. Returns a warning (and no paths)
+// outside a git repo — never falls back to walking all assets, which under --write
+// would re-encode already-committed files.
+export const resolveChangedPaths = (rootDir) => {
+  const changed = getChangedAssets(rootDir);
+  if (changed === null) {
+    return { paths: [], warning: 'Not in a git repository — no changed assets to optimise.' };
+  }
+  const paths = changed.filter((p) => ALLOWED_EXTS.has(extname(p).toLowerCase()));
+  return { paths, warning: null };
 };
 
 const DIR_LIMITS = [
@@ -262,9 +277,10 @@ export const run = async ({ rootDir, write = false, paths, thresholdKb = DEFAULT
   return { results, warnings };
 };
 
-const parseArgs = (argv) => {
+export const parseArgs = (argv) => {
   const args = argv.slice(2);
   const write = args.includes('--write');
+  const changed = args.includes('--changed');
 
   const thresholdIdx = args.indexOf('--threshold-kb');
   let thresholdKb = DEFAULT_THRESHOLD_KB;
@@ -285,7 +301,7 @@ const parseArgs = (argv) => {
     paths = raw.split(',').map((p) => p.trim()).filter(Boolean);
   }
 
-  return { write, thresholdKb, paths };
+  return { write, changed, thresholdKb, paths };
 };
 
 const isMainModule = () => {
@@ -295,26 +311,43 @@ const isMainModule = () => {
 };
 
 if (isMainModule()) {
-  const { write, thresholdKb, paths } = parseArgs(process.argv);
+  const { write, changed, thresholdKb, paths: explicitPaths } = parseArgs(process.argv);
   const rootDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-  console.log(
-    `${write ? '✍️  Writing' : '🔍 Dry-run'} — threshold ${thresholdKb} KB${paths ? `, ${paths.length} explicit path(s)` : ', walking assets/**'}`,
-  );
+  // --changed scopes to the branch's new/changed assets (publish flow). Explicit
+  // --paths wins if both are given; bare invocation still walks assets/**.
+  let paths = explicitPaths;
+  let changedWarning;
+  if (changed && !explicitPaths) {
+    const resolved = resolveChangedPaths(rootDir);
+    paths = resolved.paths;
+    changedWarning = resolved.warning;
+  }
+
+  const scopeLabel = paths
+    ? `, ${paths.length} ${changed && !explicitPaths ? 'changed' : 'explicit'} path(s)`
+    : ', walking assets/**';
+  console.log(`${write ? '✍️  Writing' : '🔍 Dry-run'} — threshold ${thresholdKb} KB${scopeLabel}`);
   console.log('');
 
   try {
-    const { results, warnings } = await run({ rootDir, write, paths, thresholdKb });
+    if (changedWarning) console.warn(`⚠️  ${changedWarning}`);
 
-    for (const w of warnings) {
-      console.warn(`⚠️  ${w}`);
-    }
+    if (paths && paths.length === 0) {
+      console.log('No changed assets to optimise.');
+    } else {
+      const { results, warnings } = await run({ rootDir, write, paths, thresholdKb });
 
-    console.log(formatReport(results));
+      for (const w of warnings) {
+        console.warn(`⚠️  ${w}`);
+      }
 
-    if (!write) {
-      console.log('');
-      console.log('Run with --write to overwrite originals in place.');
+      console.log(formatReport(results));
+
+      if (!write) {
+        console.log('');
+        console.log('Run with --write to overwrite originals in place.');
+      }
     }
   } catch (err) {
     console.error('❌ Optimisation failed:', err.message ?? err);

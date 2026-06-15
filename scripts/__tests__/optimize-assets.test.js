@@ -1,3 +1,4 @@
+import { execSync } from 'node:child_process';
 import { mkdir, mkdtemp, readdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -8,6 +9,8 @@ import {
   formatReport,
   getDirConfig,
   optimizeBuffer,
+  parseArgs,
+  resolveChangedPaths,
   resolvePaths,
   run,
   writeAtomic,
@@ -153,6 +156,75 @@ describe('resolvePaths', () => {
     expect(result.files).toEqual(['assets/team/jane.jpg']);
     expect(result.warnings).toHaveLength(1);
     expect(result.warnings[0]).toMatch(/missing\.jpg/);
+  });
+});
+
+describe('resolveChangedPaths', () => {
+  let rootDir;
+
+  const git = (cmd) =>
+    execSync(`git ${cmd}`, { cwd: rootDir, stdio: ['ignore', 'pipe', 'ignore'] });
+
+  beforeEach(async () => {
+    rootDir = await mkdtemp(join(tmpdir(), 'optimize-assets-changed-'));
+    git('init -q');
+    git('config user.email "test@example.com"');
+    git('config user.name "Test"');
+    git('commit --allow-empty -q -m "init"');
+    await mkdir(join(rootDir, 'assets', 'posts'), { recursive: true });
+  });
+
+  afterEach(async () => {
+    await rm(rootDir, { recursive: true, force: true });
+  });
+
+  it('returns only changed image paths, excluding non-images and unchanged files', async () => {
+    await writeFile(join(rootDir, 'assets', 'posts', 'committed.png'), 'v1');
+    git('add assets/posts/committed.png');
+    git('commit -q -m "add committed"');
+
+    await writeFile(join(rootDir, 'assets', 'posts', 'fresh.jpg'), 'jpg');
+    await writeFile(join(rootDir, 'assets', 'posts', 'notes.md'), 'md');
+
+    const result = resolveChangedPaths(rootDir);
+
+    expect(result.paths).toContain('assets/posts/fresh.jpg');
+    expect(result.paths).not.toContain('assets/posts/notes.md');
+    expect(result.paths).not.toContain('assets/posts/committed.png');
+    expect(result.warning).toBeNull();
+  });
+
+  it('excludes formats the optimizer cannot encode (.svg, .gif)', async () => {
+    await writeFile(join(rootDir, 'assets', 'posts', 'logo.svg'), 'svg');
+    await writeFile(join(rootDir, 'assets', 'posts', 'anim.gif'), 'gif');
+    await writeFile(join(rootDir, 'assets', 'posts', 'photo.jpg'), 'jpg');
+
+    const { paths } = resolveChangedPaths(rootDir);
+
+    expect(paths).toEqual(['assets/posts/photo.jpg']);
+  });
+
+  it('returns no paths and a warning outside a git repository (no mass rewrite)', async () => {
+    const nonRepo = await mkdtemp(join(tmpdir(), 'optimize-assets-nogit-'));
+    try {
+      const result = resolveChangedPaths(nonRepo);
+      expect(result.paths).toEqual([]);
+      expect(result.warning).toMatch(/git/i);
+    } finally {
+      await rm(nonRepo, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('parseArgs', () => {
+  const argv = (...flags) => ['node', 'optimize-assets.js', ...flags];
+
+  it('defaults changed to false', () => {
+    expect(parseArgs(argv()).changed).toBe(false);
+  });
+
+  it('sets changed when --changed is passed', () => {
+    expect(parseArgs(argv('--changed', '--write')).changed).toBe(true);
   });
 });
 
