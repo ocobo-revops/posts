@@ -12,4 +12,5 @@ bio:
 linkedin: "https://www.linkedin.com/in/clémentine-du-pradel-237ab948/"
 active: true
 featuredOnAboutUs: false
+displayOrder: 12
 ---
