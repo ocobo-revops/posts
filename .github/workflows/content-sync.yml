@@ -62,7 +62,7 @@ jobs:
       - name: Commit back rewritten URLs
         id: commit_back
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_PAT: ${{ secrets.OCOBO_POST_CLI }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
