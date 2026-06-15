@@ -50,7 +50,7 @@ jobs:
             echo "::error::upload-assets exited with code $code"
             exit $code
           fi
-          if echo "$output" | grep -q "Uploaded [1-9]"; then
+          if echo "$output" | grep -qE "Uploading [1-9]"; then
             echo "uploaded=true" >> $GITHUB_OUTPUT
           else
             echo "uploaded=false" >> $GITHUB_OUTPUT
