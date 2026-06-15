@@ -47,7 +47,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           if ! git diff --quiet; then
             git add -A
-            git commit -m "chore(assets): rewrite local paths to Vercel Blob URLs [skip ci]"
+            git commit -m "chore(assets): rewrite local paths to Vercel Blob URLs"
             git push
           else
             echo "No URL rewrites needed."
