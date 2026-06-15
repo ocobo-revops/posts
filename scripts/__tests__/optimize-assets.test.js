@@ -12,6 +12,7 @@ import {
   parseArgs,
   resolveChangedPaths,
   resolvePaths,
+  resolveScope,
   run,
   writeAtomic,
 } from '../optimize-assets.js';
@@ -213,6 +214,36 @@ describe('resolveChangedPaths', () => {
     } finally {
       await rm(nonRepo, { recursive: true, force: true });
     }
+  });
+});
+
+describe('resolveScope', () => {
+  it('explicit --paths win over --changed (git is never consulted)', () => {
+    // rootDir is a non-existent, non-git path: if --changed were honoured it
+    // would surface the no-git warning. Explicit paths must short-circuit that.
+    const { paths, warning } = resolveScope({
+      changed: true,
+      explicitPaths: ['assets/team/jane.jpg'],
+      rootDir: '/nonexistent',
+    });
+
+    expect(paths).toEqual(['assets/team/jane.jpg']);
+    expect(warning).toBeNull();
+  });
+
+  it('with neither flag, paths is undefined so run() walks all assets', () => {
+    const { paths } = resolveScope({ changed: false, explicitPaths: undefined, rootDir: '/x' });
+    expect(paths).toBeUndefined();
+  });
+
+  it('--changed outside a git repo yields no paths and a warning (no mass rewrite)', () => {
+    const { paths, warning } = resolveScope({
+      changed: true,
+      explicitPaths: undefined,
+      rootDir: '/nonexistent',
+    });
+    expect(paths).toEqual([]);
+    expect(warning).toMatch(/git/i);
   });
 });
 

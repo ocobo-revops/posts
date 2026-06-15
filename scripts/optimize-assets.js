@@ -94,6 +94,14 @@ export const resolveChangedPaths = (rootDir) => {
   return { paths, warning: null };
 };
 
+// Decide which files the CLI should process. Explicit --paths always wins over
+// --changed; with neither, paths is undefined so run() walks all of assets/**.
+export const resolveScope = ({ changed, explicitPaths, rootDir }) => {
+  if (explicitPaths) return { paths: explicitPaths, warning: null };
+  if (changed) return resolveChangedPaths(rootDir);
+  return { paths: undefined, warning: null };
+};
+
 const DIR_LIMITS = [
   ['assets/team/', 800],
   ['assets/clients/', 400],
@@ -316,16 +324,11 @@ if (isMainModule()) {
 
   // --changed scopes to the branch's new/changed assets (publish flow). Explicit
   // --paths wins if both are given; bare invocation still walks assets/**.
-  let paths = explicitPaths;
-  let changedWarning;
-  if (changed && !explicitPaths) {
-    const resolved = resolveChangedPaths(rootDir);
-    paths = resolved.paths;
-    changedWarning = resolved.warning;
-  }
+  const { paths, warning: changedWarning } = resolveScope({ changed, explicitPaths, rootDir });
 
+  const fromChanged = changed && !explicitPaths;
   const scopeLabel = paths
-    ? `, ${paths.length} ${changed && !explicitPaths ? 'changed' : 'explicit'} path(s)`
+    ? `, ${paths.length} ${fromChanged ? 'changed' : 'explicit'} path(s)`
     : ', walking assets/**';
   console.log(`${write ? '✍️  Writing' : '🔍 Dry-run'} — threshold ${thresholdKb} KB${scopeLabel}`);
   console.log('');
