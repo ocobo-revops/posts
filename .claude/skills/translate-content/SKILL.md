@@ -61,8 +61,9 @@ Translate the fields listed below into the target language. General rules:
 
 - Preserve markdown formatting exactly — headers, bold, links, lists, code blocks, emojis, line breaks.
 - Do **not** translate: proper nouns (company names, people names, tool names, brand names, Ocobo), URLs, slugs, email addresses, code snippets, YAML keys.
+- Markdoc tags (`{% ... %}`): preserve tag names and `#anchor` IDs verbatim; translate human-readable text attributes (e.g. `title="..."`) where present.
 - Translate body prose as a whole — do not split by paragraph.
-- If `lang` is present in the source frontmatter, set it to the target language in the output. Do not add `lang` if it is absent.
+- **If the source file has no body:** warn before proceeding — `Source file has no body — translate frontmatter fields only? [y/n]`
 
 ### Blog post
 
@@ -83,12 +84,15 @@ Translate:
 - `title`
 - `subtitle`
 - `description`
+- `role` (speaker's job title — translatable prose, e.g. "Directeur commercial" → "Sales Director")
+- Each entry in `scopes[]` individually (displayed text on the site — translate each value)
 - Each entry in `quotes[]` individually (if present)
 - Each entry in `deliverables[]` individually (if present)
 - Body
 
 Preserve verbatim:
-- `name`, `date`, `speaker`, `role`, `duration`, `scopes`, `tools`, `featuredTool`
+- `name`, `date`, `speaker`, `duration`, `tools`, `featuredTool`
+  (`tools` and `featuredTool` are slugs validated by the schema — never translate them)
 
 Target path: `stories/<target-lang>/<slug>.md`
 
@@ -106,11 +110,20 @@ Target path: `jobs/<target-lang>/<slug>.md`
 
 ### Team member (in-place)
 
-Detect which language is missing from `role` and `bio`:
-- If `role.en` or `bio.en` is absent → translate the `fr` value into English
-- If `role.fr` or `bio.fr` is absent → translate the `en` value into French
-- If both languages are already present for both fields → stop:
-  > Both languages already present in `<path>` — nothing to translate.
+For each field (`role` and `bio`) independently, check which language key is missing and fill only that key. Never overwrite an existing value.
+
+| `role.fr` | `role.en` | Action |
+|---|---|---|
+| present | absent | translate `role.fr` → `role.en` |
+| absent | present | translate `role.en` → `role.fr` |
+| present | present | skip (nothing to add) |
+
+Apply the same logic for `bio`.
+
+If **both** `role` and `bio` already have both languages → stop:
+> Both languages already present in `<path>` — nothing to translate.
+
+If `role` and `bio` require translation in **opposite directions** (e.g. `role` missing EN, `bio` missing FR) — handle each field independently and show both additions in the Step 4 preview.
 
 Edit the **existing file** in-place. Do not create a sibling file.
 
@@ -122,14 +135,14 @@ Show the full output before writing anything.
 
 **Path-based types:** render the complete new file (frontmatter + body preview, first ~300 chars if body is long).
 
-**Team member:** show only the changed lines in diff format:
+**Team member:** show only the lines being added in diff format (omit fields where nothing changes):
 ```
   role:
     fr: <original>
-+   en: <translated>
++   en: <translated>          ← only if role.en was missing
   bio:
     fr: <original>
-+   en: <translated>
++   en: <translated>          ← only if bio.en was missing
 ```
 
 Ask: **Looks good? [y / n / edit]**
