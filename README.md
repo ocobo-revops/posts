@@ -14,7 +14,7 @@ For the full architecture (system diagram, content flow, asset flow, repo-bounda
 
 ## Adding content
 
-Content is authored through three Claude Code skills — no CMS, no manual frontmatter.
+Content is authored through Claude Code skills — no CMS, no manual frontmatter.
 
 ### Prerequisites
 
@@ -24,10 +24,13 @@ pnpm install
 
 That's all you need to start. Notion import is **optional** — if you want to pull a draft from a Notion page, follow [`docs/mcp-notion-setup.md`](docs/mcp-notion-setup.md) to connect the Notion MCP. Otherwise, interview mode works immediately.
 
-### The three commands
+**New contributor on a fresh macOS machine?** Run `/setup` in Claude Code — it installs and checks everything (Homebrew, Node 24, pnpm 8, GitHub CLI auth, dependencies) and leaves you ready to run `/new-content`.
+
+### The commands
 
 | Command | Purpose |
 |---------|---------|
+| `/setup` | One-time macOS onboarding — install/check Homebrew, Node 24, pnpm 8, GitHub CLI auth, dependencies. |
 | `/new-content [--type X] [source]` | Create a new blog post, story, team member, tool, or job. |
 | `/publish-content` | Validate the new file and open a PR against `main`. |
 | `/translate-content` | Translate an existing content file to the other language. |

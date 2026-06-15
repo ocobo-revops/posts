@@ -18,8 +18,9 @@ Single-context. `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/do
 
 ### Content authoring
 
-Three skills cover the full authoring lifecycle:
+Four skills cover the full authoring lifecycle:
 
+- `setup` (`.claude/skills/setup/`) — one-command macOS onboarding for new contributors: installs/checks Homebrew, Node 24, pnpm 8, GitHub CLI auth, clones + installs, leaves the machine ready to run `/new-content`.
 - `new-content` (`.claude/skills/new-content/`) — create any of the 5 types (`blog-post | story | team-member | tool | job`). Source-agnostic: interview, local file, or Notion URL.
 - `publish-content` — validate and open a PR against `main`.
 - `translate-content` — translate an existing file to the other language.
