@@ -1,0 +1,51 @@
+{
+  "id": "ghi789",
+  "properties": {
+    "Name": {
+      "type": "title",
+      "title": [{ "plain_text": "Alice Dupont" }]
+    },
+    "Role FR": {
+      "type": "rich_text",
+      "rich_text": [{ "plain_text": "Associée" }]
+    },
+    "Role EN": {
+      "type": "rich_text",
+      "rich_text": [{ "plain_text": "Partner" }]
+    },
+    "Track": {
+      "type": "select",
+      "select": { "name": "architect" }
+    },
+    "Avatar": {
+      "type": "files",
+      "files": [
+        {
+          "name": "alice.jpg",
+          "type": "external",
+          "external": { "url": "https://example.com/alice.jpg" }
+        }
+      ]
+    },
+    "Bio FR": {
+      "type": "rich_text",
+      "rich_text": [{ "plain_text": "Alice accompagne les équipes RevOps depuis 10 ans." }]
+    },
+    "Bio EN": {
+      "type": "rich_text",
+      "rich_text": [{ "plain_text": "Alice has been supporting RevOps teams for 10 years." }]
+    },
+    "LinkedIn": {
+      "type": "url",
+      "url": "https://linkedin.com/in/alice-dupont"
+    },
+    "Active": {
+      "type": "checkbox",
+      "checkbox": true
+    },
+    "Color": {
+      "type": "select",
+      "select": { "name": "coral" }
+    }
+  }
+}

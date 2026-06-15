@@ -1,0 +1,46 @@
+{
+  "id": "abc123",
+  "properties": {
+    "Title": {
+      "type": "title",
+      "title": [{ "plain_text": "Comment Yousign a transformé sa RevOps" }]
+    },
+    "Author": {
+      "type": "select",
+      "select": { "name": "jerome-boileux" }
+    },
+    "Description": {
+      "type": "rich_text",
+      "rich_text": [{ "plain_text": "Un retour d'expérience sur la structuration RevOps." }]
+    },
+    "Date": {
+      "type": "date",
+      "date": { "start": "2024-03-15" }
+    },
+    "Image": {
+      "type": "files",
+      "files": [
+        {
+          "name": "cover.jpg",
+          "type": "file",
+          "file": { "url": "https://prod-files-secure.s3.us-west-2.amazonaws.com/cover.jpg" }
+        }
+      ]
+    },
+    "Tags": {
+      "type": "multi_select",
+      "multi_select": [
+        { "name": "strategy" },
+        { "name": "ops" }
+      ]
+    },
+    "Read": {
+      "type": "rich_text",
+      "rich_text": [{ "plain_text": "6 min" }]
+    },
+    "Lang": {
+      "type": "select",
+      "select": { "name": "fr" }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "id": "def456",
+  "properties": {
+    "Name": {
+      "type": "title",
+      "title": [{ "plain_text": "Yousign" }]
+    },
+    "Date": {
+      "type": "date",
+      "date": { "start": "2024-01-10" }
+    },
+    "Title": {
+      "type": "rich_text",
+      "rich_text": [{ "plain_text": "De 0 à une équipe RevOps en 18 mois" }]
+    },
+    "Subtitle": {
+      "type": "rich_text",
+      "rich_text": [{ "plain_text": "Startup SaaS spécialisée dans la signature électronique" }]
+    },
+    "Description": {
+      "type": "rich_text",
+      "rich_text": [{ "plain_text": "Yousign accompagne des milliers d'entreprises dans leur dématérialisation." }]
+    },
+    "Speaker": {
+      "type": "rich_text",
+      "rich_text": [{ "plain_text": "Jean Dupont" }]
+    },
+    "Role": {
+      "type": "rich_text",
+      "rich_text": [{ "plain_text": "Head of Revenue" }]
+    },
+    "Duration": {
+      "type": "rich_text",
+      "rich_text": [{ "plain_text": "6 mois" }]
+    },
+    "Scopes": {
+      "type": "multi_select",
+      "multi_select": [{ "name": "Acquisition" }, { "name": "CRM" }]
+    },
+    "Tools": {
+      "type": "multi_select",
+      "multi_select": [{ "name": "hubspot" }, { "name": "gsheet" }]
+    },
+    "Featured tool": {
+      "type": "select",
+      "select": { "name": "hubspot" }
+    }
+  }
+}
