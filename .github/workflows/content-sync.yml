@@ -9,6 +9,7 @@ on:
       - 'jobs/**'
       - 'tools/**'
       - 'assets/**'
+      - '.github/workflows/**'
 
 permissions:
   contents: write
