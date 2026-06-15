@@ -40,7 +40,8 @@ jobs:
         env:
           NEW_BLOB_READ_WRITE_TOKEN: ${{ secrets.NEW_BLOB_READ_WRITE_TOKEN }}
         run: |
-          output=$(node scripts/upload-assets.js --target new 2>&1)
+          git fetch origin ${{ github.base_ref }}
+          output=$(node scripts/upload-assets.js --target new --base origin/${{ github.base_ref }} 2>&1)
           echo "$output"
           if echo "$output" | grep -q "Uploaded [1-9]"; then
             echo "uploaded=true" >> $GITHUB_OUTPUT
