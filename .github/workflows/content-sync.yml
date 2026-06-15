@@ -48,13 +48,15 @@ jobs:
 
       - name: Commit back rewritten URLs
         id: commit_back
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           if ! git diff --quiet; then
             git add -A
             git commit -m "chore(assets): rewrite local paths to Vercel Blob URLs [skip ci]"
-            git push
+            git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git HEAD:${{ github.head_ref }}
             echo "new_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
             echo "pushed=true" >> $GITHUB_OUTPUT
           else
