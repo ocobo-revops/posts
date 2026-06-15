@@ -1,0 +1,99 @@
+name: Preview deploy
+
+# Stands up a website preview pointed at this PR's content branch and posts the
+# URL on the PR. The website has no per-branch deploy of its own — we check out
+# its source (at `main`) and run `vercel deploy` against its existing Vercel
+# project with GITHUB_BRANCH overridden to this PR's branch, so the rendered
+# site fetches *this* PR's content at runtime. Build runs on Vercel's infra.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+# `github.token` covers commenting on this repo's own PR. Checking out the
+# website source needs `OCOBO_POST_CLI`; deploying needs the Vercel secrets below.
+permissions:
+  pull-requests: write
+  contents: read
+
+# One in-flight run per PR; a new push cancels the previous deploy.
+concurrency:
+  group: preview-deploy-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    env:
+      MARKER: <!-- ocobo-preview -->
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      HEAD_REF: ${{ github.head_ref }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - name: Seed sticky preview comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          body="${MARKER}
+          ⏳ **Preview deploying…** the rendered website for this PR will appear here shortly."
+          existing=$(gh api "repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
+            --paginate \
+            --jq "[.[] | select(.body | contains(\"${MARKER}\"))][0].id")
+          if [ -n "$existing" ] && [ "$existing" != "null" ]; then
+            gh api "repos/${{ github.repository }}/issues/comments/${existing}" \
+              --method PATCH -f body="$body"
+          else
+            gh api "repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
+              --method POST -f body="$body"
+          fi
+
+      - name: Checkout website source
+        uses: actions/checkout@v5
+        with:
+          repository: ocobo-revops/website
+          ref: main
+          token: ${{ secrets.OCOBO_POST_CLI }}
+          path: website
+
+      - name: Deploy preview to Vercel
+        id: deploy
+        working-directory: website
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          npm install -g vercel
+          # `--env` for runtime SSR content fetch, `--build-env` for anything
+          # resolved at build time. Both point the deploy at this PR's branch.
+          url=$(vercel deploy \
+            --token "${{ secrets.VERCEL_TOKEN }}" \
+            --env GITHUB_BRANCH="${HEAD_REF}" \
+            --build-env GITHUB_BRANCH="${HEAD_REF}" \
+            --yes | tail -n1)
+          echo "url=${url}" >> "$GITHUB_OUTPUT"
+
+      - name: Update sticky comment with result
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          URL: ${{ steps.deploy.outputs.url }}
+          OUTCOME: ${{ steps.deploy.outcome }}
+        run: |
+          if [ "$OUTCOME" = "success" ] && [ -n "$URL" ]; then
+            body="${MARKER}
+          🔍 **Preview:** ${URL}
+
+          Built from website \`main\` with content from this PR's branch."
+          else
+            body="${MARKER}
+          ❌ **Preview build failed** — see the [workflow run](${RUN_URL})."
+          fi
+          existing=$(gh api "repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
+            --paginate \
+            --jq "[.[] | select(.body | contains(\"${MARKER}\"))][0].id")
+          if [ -n "$existing" ] && [ "$existing" != "null" ]; then
+            gh api "repos/${{ github.repository }}/issues/comments/${existing}" \
+              --method PATCH -f body="$body"
+          else
+            gh api "repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
+              --method POST -f body="$body"
+          fi
