@@ -305,23 +305,21 @@ YAML rules:
 
 ---
 
-## Step 8 — Sync assets and validate
+## Step 8 — Commit and let CI handle asset sync
 
-If any local images were copied in Step 6, upload them and rewrite the frontmatter URLs:
+**The GitHub Actions workflow (`.github/workflows/content-sync.yml`) handles blob upload and URL rewriting automatically on every PR.** Contributors do not need `BLOB_READ_WRITE_TOKEN` locally.
+
+If you have the token available locally and want to sync before pushing:
 ```bash
-pnpm upload-assets && pnpm update-urls:new
+node scripts/upload-assets.js --target new && pnpm update-urls:new && pnpm validate
 ```
 
-`upload-assets` pushes git-untracked/changed files to Vercel Blob. `update-urls:new` rewrites local `assets/...` references in the content file to `https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/...` URLs. Requires `BLOB_READ_WRITE_TOKEN` in `.env` or the environment.
+Otherwise, skip straight to `publish-content`. CI will:
+1. Upload any `assets/...` files to Vercel Blob
+2. Rewrite local paths in the content file to blob URLs (commit back to the branch)
+3. Run `pnpm validate` as a required check — the PR cannot merge until it passes
 
-**If sync fails:** stop and show the error. Do not run `pnpm validate` — it will fail on required URL fields (`avatar`, `image`) that are still local paths. Tell the user: run `publish-content` when the token is available; it also runs sync-assets before opening the PR.
-
-If sync succeeds (or no images were collected), validate:
-```bash
-pnpm validate
-```
-
-If validation fails, show the exact errors and offer to fix schema issues inline.
+**Note:** `pnpm validate` will fail locally on `avatar` / `image` fields that are still local paths — this is expected and will be resolved by CI after push.
 
 ---
 
