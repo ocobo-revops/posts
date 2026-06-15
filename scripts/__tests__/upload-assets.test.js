@@ -78,7 +78,16 @@ describe('parseArgs', () => {
       force: false,
       noVerify: false,
       target: 'legacy',
+      base: null,
     });
+  });
+
+  it('recognises --base <ref>', () => {
+    expect(parseArgs(['--base', 'origin/main']).base).toBe('origin/main');
+  });
+
+  it('throws when --base is missing its value', () => {
+    expect(() => parseArgs(['--base'])).toThrow(/--base requires a git ref/);
   });
 
   it('recognises --help and -h', () => {
