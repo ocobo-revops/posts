@@ -1,7 +1,7 @@
 ---
-slug: hugo-moulon
 name: Hugo Moulon
 track: builder
+displayOrder: 16
 avatar: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/team/hugo-moulon.jpeg
 role:
   fr: RevOps Manager
