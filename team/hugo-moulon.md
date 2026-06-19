@@ -12,4 +12,5 @@ bio:
 linkedin: "https://www.linkedin.com/in/hugo-moulon-44b4a613b/"
 active: true
 featuredOnAboutUs: false
+displayOrder: 14
 ---

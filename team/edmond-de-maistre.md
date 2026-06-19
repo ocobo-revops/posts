@@ -12,4 +12,5 @@ bio:
 linkedin: "https://www.linkedin.com/in/edmond-de-maistre/"
 active: true
 featuredOnAboutUs: false
+displayOrder: 13
 ---

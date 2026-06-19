@@ -12,4 +12,5 @@ bio:
 linkedin: "https://www.linkedin.com/in/thomas-revops/"
 active: true
 featuredOnAboutUs: false
+displayOrder: 16
 ---
