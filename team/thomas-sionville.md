@@ -2,7 +2,7 @@
 slug: thomas-sionville
 name: Thomas Sionville
 track: builder
-avatar: assets/team/thomas-sionville.png
+avatar: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/team/thomas-sionville.png
 role:
   fr: RevOps Manager
   en: RevOps Manager

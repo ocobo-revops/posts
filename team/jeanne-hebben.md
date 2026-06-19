@@ -2,7 +2,7 @@
 slug: jeanne-hebben
 name: Jeanne Hebben
 track: builder
-avatar: assets/team/jeanne-hebben.png
+avatar: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/team/jeanne-hebben.png
 role:
   fr: Senior Revenue Operations Manager
   en: Senior Revenue Operations Manager

@@ -2,7 +2,7 @@
 slug: edmond-de-maistre
 name: Edmond de Maistre
 track: builder
-avatar: assets/team/edmond-de-maistre.png
+avatar: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/team/edmond-de-maistre.png
 role:
   fr: Revenue Operations Associate
   en: Revenue Operations Associate
