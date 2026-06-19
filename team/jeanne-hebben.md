@@ -8,7 +8,7 @@ role:
   en: Senior Revenue Operations Manager
 bio:
   fr: Experte dans l'optimisation et l'automatisation des process Sales pour aligner stratégie commerciale et performance opérationnelle.
-  en: Experte dans l'optimisation et l'automatisation des process Sales pour aligner stratégie commerciale et performance opérationnelle.
+  en: Expert in optimising and automating Sales processes to align commercial strategy with operational performance.
 linkedin: "https://www.linkedin.com/in/jeanne-hebben/"
 active: true
 featuredOnAboutUs: false

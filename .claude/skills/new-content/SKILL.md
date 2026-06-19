@@ -166,14 +166,16 @@ No body for tools.
 3. **track** — existing values: `architect | builder | expert-engineer`. Ask to pick or type a new one.
 4. **avatar** (required) — drag image path here. Copy to `assets/team/` and record for sync.
 5. **role.fr** — French job title.
-6. **role.en** — English job title.
+6. **role.en** — English job title. **Auto-translate, never duplicate:** if the source supplied only the French value (or the extracted `role.en` is identical to `role.fr`), translate it to English yourself and show the result to confirm — do not copy the French through.
 7. **bio.fr** — French one-sentence bio.
-8. **bio.en** — English one-sentence bio.
+8. **bio.en** — English one-sentence bio. Same rule as role.en: if only French is available (or the value equals `bio.fr`), translate from `bio.fr` and present it for confirmation — never copy the French verbatim. (PR #73 shipped four members with the French bio duplicated into `bio.en` exactly this way.)
 9. **linkedin (optional)** — full LinkedIn URL.
 10. **displayOrder** — integer for ordering on the team page. Suggest `maxDisplayOrder + 1` (computed in Step 2) as the default; accept Enter to use it. **Mandatory gate — never skip, regardless of source.** This field is required by the website schema and is never supplied by the Notion/local adapters, so it stays "missing" after prefill — ask it explicitly even when every other field came from a source. If the contributor has no preference, write the suggested value. Before Step 4, assert the assembled frontmatter contains a positive integer `displayOrder`; if not, stop and resolve it.
 11. **active (optional, default `true`)** — `true | false`.
 12. **featuredOnAboutUs (optional, default `false`)** — `true | false`.
 13. **color (optional)** — `yellow | coral | sky`.
+
+**Bilingual gate — before Step 4:** assert that `role.en` ≠ `role.fr` and `bio.en` ≠ `bio.fr`. An `en` value identical to its `fr` counterpart means the source had no English and it was copied through untranslated — translate it before continuing. Identical values are only acceptable for genuinely language-neutral strings (e.g. a role title that is the same in both languages, like "RevOps Manager"); when in doubt, confirm with the contributor.
 
 No body for team members.
 
