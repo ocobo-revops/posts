@@ -5,7 +5,7 @@ role:
   en: RevOps Manager
 track: builder
 linkedin: https://www.linkedin.com/in/yoann-boileux/
-avatar: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/team/yoann-boileux.jpeg
+avatar: assets/team/yoann-boileux.jpeg
 displayOrder: 11
 active: true
 featuredOnAboutUs: false

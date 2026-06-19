@@ -1,0 +1,15 @@
+---
+slug: hugo-moulon
+name: Hugo Moulon
+track: builder
+avatar: assets/team/hugo-moulon.jpeg
+role:
+  fr: RevOps Manager
+  en: RevOps Manager
+bio:
+  fr: Expert dans la structuration et l'optimisation des processus Sales et CSM, de la compréhension métier à l'adaptation du CRM jusqu'au pilotage par la donnée, pour accélérer la croissance et éliminer les frictions opérationnelles.
+  en: Expert dans la structuration et l'optimisation des processus Sales et CSM, de la compréhension métier à l'adaptation du CRM jusqu'au pilotage par la donnée, pour accélérer la croissance et éliminer les frictions opérationnelles.
+linkedin: "https://www.linkedin.com/in/hugo-moulon-44b4a613b/"
+active: true
+featuredOnAboutUs: false
+---
