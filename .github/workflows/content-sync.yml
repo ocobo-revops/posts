@@ -31,6 +31,17 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # Re-encode oversized images in place BEFORE upload, so the optimised bytes
+      # are what gets pushed to Blob (and committed back below). The local
+      # `/publish-content` flow also optimises, but contributors can bypass it
+      # (raw multi-MB images shipped straight to Blob in #73); this makes
+      # optimisation hold regardless of how the PR was authored. Scopes to assets
+      # changed vs the base ref because the CI working tree is clean.
+      - name: Optimize changed images
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          node scripts/optimize-assets.js --write --base origin/${{ github.base_ref }}
+
       - name: Upload new assets to Vercel Blob
         id: upload
         env:
@@ -59,7 +70,7 @@ jobs:
       - name: Validate content
         run: pnpm validate
 
-      - name: Commit back rewritten URLs
+      - name: Commit back optimised images and rewritten URLs
         id: commit_back
         env:
           GH_PAT: ${{ secrets.OCOBO_POST_CLI }}
@@ -68,7 +79,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           if ! git diff --quiet; then
             git add -A
-            git commit -m "chore(assets): rewrite local paths to Vercel Blob URLs [skip ci]"
+            git commit -m "chore(assets): optimise images and rewrite local paths to Vercel Blob URLs [skip ci]"
             git push https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git HEAD:${{ github.head_ref }}
             echo "new_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
             echo "pushed=true" >> $GITHUB_OUTPUT
