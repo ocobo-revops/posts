@@ -39,6 +39,7 @@ const validMember = {
   track: 'architect',
   avatar: 'https://example.com/alice.jpg',
   bio: { fr: 'Bio FR', en: 'Bio EN' },
+  displayOrder: 1,
 };
 
 describe('team-member schema', () => {
@@ -50,6 +51,11 @@ describe('team-member schema', () => {
     expect(
       validateTeamMember({ ...validMember, linkedin: 'https://linkedin.com/in/alice', displayOrder: 1, active: true, color: 'coral' }).success,
     ).toBe(true);
+  });
+
+  it('rejects missing displayOrder', () => {
+    const { displayOrder, ...withoutOrder } = validMember;
+    expect(validateTeamMember(withoutOrder).success).toBe(false);
   });
 
   it('rejects missing role.en', () => {
