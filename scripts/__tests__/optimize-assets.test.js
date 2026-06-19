@@ -11,6 +11,7 @@ import {
   optimizeBuffer,
   parseArgs,
   resolveChangedPaths,
+  resolveChangedPathsAgainstBase,
   resolvePaths,
   resolveScope,
   run,
@@ -217,6 +218,55 @@ describe('resolveChangedPaths', () => {
   });
 });
 
+describe('resolveChangedPathsAgainstBase', () => {
+  let rootDir;
+
+  const git = (cmd) =>
+    execSync(`git ${cmd}`, { cwd: rootDir, stdio: ['ignore', 'pipe', 'ignore'] });
+
+  beforeEach(async () => {
+    rootDir = await mkdtemp(join(tmpdir(), 'optimize-assets-base-'));
+    git('init -q -b main');
+    git('config user.email "test@example.com"');
+    git('config user.name "Test"');
+    git('commit --allow-empty -q -m "init"');
+    await mkdir(join(rootDir, 'assets', 'posts'), { recursive: true });
+    await writeFile(join(rootDir, 'assets', 'posts', 'base.png'), 'base');
+    git('add -A');
+    git('commit -q -m "base asset"');
+  });
+
+  afterEach(async () => {
+    await rm(rootDir, { recursive: true, force: true });
+  });
+
+  it('returns image paths changed between base and HEAD (committed, not working tree)', async () => {
+    git('checkout -q -b feature');
+    await writeFile(join(rootDir, 'assets', 'posts', 'fresh.jpg'), 'jpg');
+    await writeFile(join(rootDir, 'assets', 'posts', 'notes.md'), 'md');
+    git('add -A');
+    git('commit -q -m "add fresh"');
+
+    const result = resolveChangedPathsAgainstBase(rootDir, 'main');
+
+    expect(result.paths).toContain('assets/posts/fresh.jpg');
+    expect(result.paths).not.toContain('assets/posts/notes.md');
+    expect(result.paths).not.toContain('assets/posts/base.png');
+    expect(result.warning).toBeNull();
+  });
+
+  it('returns no paths and a warning outside a git repository', async () => {
+    const nonRepo = await mkdtemp(join(tmpdir(), 'optimize-assets-nogit-base-'));
+    try {
+      const result = resolveChangedPathsAgainstBase(nonRepo, 'main');
+      expect(result.paths).toEqual([]);
+      expect(result.warning).toMatch(/git/i);
+    } finally {
+      await rm(nonRepo, { recursive: true, force: true });
+    }
+  });
+});
+
 describe('resolveScope', () => {
   it('explicit --paths win over --changed (git is never consulted)', () => {
     // rootDir is a non-existent, non-git path: if --changed were honoured it
@@ -234,6 +284,29 @@ describe('resolveScope', () => {
   it('with neither flag, paths is undefined so run() walks all assets', () => {
     const { paths } = resolveScope({ changed: false, explicitPaths: undefined, rootDir: '/x' });
     expect(paths).toBeUndefined();
+  });
+
+  it('--base wins over --changed (CI mode scopes against the ref)', () => {
+    const { paths, warning } = resolveScope({
+      changed: true,
+      explicitPaths: undefined,
+      base: 'origin/main',
+      rootDir: '/nonexistent',
+    });
+    // /nonexistent is not a git repo, so against-base detection yields the warning.
+    expect(paths).toEqual([]);
+    expect(warning).toMatch(/git/i);
+  });
+
+  it('explicit --paths win over --base', () => {
+    const { paths, warning } = resolveScope({
+      changed: false,
+      explicitPaths: ['assets/team/jane.jpg'],
+      base: 'origin/main',
+      rootDir: '/nonexistent',
+    });
+    expect(paths).toEqual(['assets/team/jane.jpg']);
+    expect(warning).toBeNull();
   });
 
   it('--changed outside a git repo yields no paths and a warning (no mass rewrite)', () => {
@@ -256,6 +329,15 @@ describe('parseArgs', () => {
 
   it('sets changed when --changed is passed', () => {
     expect(parseArgs(argv('--changed', '--write')).changed).toBe(true);
+  });
+
+  it('parses --base <ref>', () => {
+    expect(parseArgs(argv('--write', '--base', 'origin/main')).base).toBe('origin/main');
+  });
+
+  it('throws when --base has no ref', () => {
+    expect(() => parseArgs(argv('--base'))).toThrow(/--base requires a git ref/);
+    expect(() => parseArgs(argv('--base', '--write'))).toThrow(/--base requires a git ref/);
   });
 });
 

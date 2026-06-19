@@ -5,7 +5,7 @@ import { readFile, readdir, rename, stat, unlink, writeFile } from 'node:fs/prom
 import { dirname, extname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import { getChangedAssets } from './upload-assets.js';
+import { getChangedAssets, getChangedAssetsAgainstBase } from './upload-assets.js';
 
 const JPEG_QUALITY = 80;
 const WEBP_QUALITY = 80;
@@ -94,10 +94,25 @@ export const resolveChangedPaths = (rootDir) => {
   return { paths, warning: null };
 };
 
-// Decide which files the CLI should process. Explicit --paths always wins over
-// --changed; with neither, paths is undefined so run() walks all of assets/**.
-export const resolveScope = ({ changed, explicitPaths, rootDir }) => {
+// CI variant of resolveChangedPaths: working-tree diffs are empty in CI because
+// content is already committed, so scope to assets changed between a base ref
+// (e.g. origin/main) and HEAD instead. Mirrors upload-assets' --base mode so the
+// optimizer and uploader see the same set of branch assets.
+export const resolveChangedPathsAgainstBase = (rootDir, base) => {
+  const changed = getChangedAssetsAgainstBase(rootDir, base);
+  if (changed === null) {
+    return { paths: [], warning: 'Not in a git repository — no changed assets to optimise.' };
+  }
+  const paths = changed.filter((p) => ALLOWED_EXTS.has(extname(p).toLowerCase()));
+  return { paths, warning: null };
+};
+
+// Decide which files the CLI should process. Explicit --paths always wins, then
+// --base (CI), then --changed (local working tree); with none, paths is undefined
+// so run() walks all of assets/**.
+export const resolveScope = ({ changed, explicitPaths, base, rootDir }) => {
   if (explicitPaths) return { paths: explicitPaths, warning: null };
+  if (base) return resolveChangedPathsAgainstBase(rootDir, base);
   if (changed) return resolveChangedPaths(rootDir);
   return { paths: undefined, warning: null };
 };
@@ -309,7 +324,15 @@ export const parseArgs = (argv) => {
     paths = raw.split(',').map((p) => p.trim()).filter(Boolean);
   }
 
-  return { write, changed, thresholdKb, paths };
+  const baseIdx = args.indexOf('--base');
+  let base;
+  if (baseIdx !== -1) {
+    const raw = args[baseIdx + 1];
+    if (!raw || raw.startsWith('--')) throw new Error('--base requires a git ref (e.g. origin/main)');
+    base = raw;
+  }
+
+  return { write, changed, thresholdKb, paths, base };
 };
 
 const isMainModule = () => {
@@ -319,16 +342,17 @@ const isMainModule = () => {
 };
 
 if (isMainModule()) {
-  const { write, changed, thresholdKb, paths: explicitPaths } = parseArgs(process.argv);
+  const { write, changed, thresholdKb, paths: explicitPaths, base } = parseArgs(process.argv);
   const rootDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-  // --changed scopes to the branch's new/changed assets (publish flow). Explicit
-  // --paths wins if both are given; bare invocation still walks assets/**.
-  const { paths, warning: changedWarning } = resolveScope({ changed, explicitPaths, rootDir });
+  // --base scopes to assets changed vs a ref (CI, where the working tree is clean).
+  // --changed scopes to the working tree (local publish flow). Explicit --paths wins
+  // over both; bare invocation still walks assets/**.
+  const { paths, warning: changedWarning } = resolveScope({ changed, explicitPaths, base, rootDir });
 
-  const fromChanged = changed && !explicitPaths;
+  const scopedByGit = (changed || base) && !explicitPaths;
   const scopeLabel = paths
-    ? `, ${paths.length} ${fromChanged ? 'changed' : 'explicit'} path(s)`
+    ? `, ${paths.length} ${scopedByGit ? 'changed' : 'explicit'} path(s)`
     : ', walking assets/**';
   console.log(`${write ? '✍️  Writing' : '🔍 Dry-run'} — threshold ${thresholdKb} KB${scopeLabel}`);
   console.log('');

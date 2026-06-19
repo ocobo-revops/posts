@@ -8,7 +8,7 @@
 - **URLs**: markdown files are rewritten to Blob URLs: `https://[blob-id].vercel.app/content/posts/my-post/image.png`.
 - **Website**: the main website fetches markdown from this repo; images are served from the CDN.
 - **Performance**: no website rebuilds needed when adding or changing assets.
-- **Optimisation**: `/publish-content` runs `pnpm optimize-assets:write` over the branch's new/changed images before upload, re-encoding oversized ones (> 400 KB) in place. This is local-only — there is no Vercel Blob CI step for re-encoding.
+- **Optimisation**: oversized images (> 400 KB) are re-encoded in place. `/publish-content` runs `pnpm optimize-assets:write` locally before upload, **and** the `content-sync` CI workflow re-optimises the branch's changed images before pushing them to Blob — so optimisation holds even when a PR is authored outside the content skills.
 
 ## Setup
 
