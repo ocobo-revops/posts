@@ -15,7 +15,7 @@ tools:
 featuredTool: hubspot
 quotes:
   - Nous avons fait appel à Ocobo pour poser les fondations GTM B2B avant que la dette technique ne devienne ingérable.
-  - La problématique tenait en trois objectifs : une architecture CRM scalable pour centraliser la donnée client, un funnel B2B standardisé de la prospection au closing, et un pilotage de la performance fondé sur une donnée fiable.
+  - "La problématique tenait en trois objectifs : une architecture CRM scalable pour centraliser la donnée client, un funnel B2B standardisé de la prospection au closing, et un pilotage de la performance fondé sur une donnée fiable."
 deliverables:
   - Cartographie de l'architecture de données cible
   - Cartographie du cycle de vente cible
