@@ -58,11 +58,12 @@ If any step below exits non-zero, stop and show the error — do not proceed to 
    ```
    The adapter outputs `{"fields": {...}, "body": "...", "assets": [...]}`.
 
-5. **Download images** — for each entry in `assets[]`, download the URL to the correct local path before Step 6:
+5. **Download images** — for each entry in `assets[]`, download the URL to the correct local path before Step 6, then **verify it is actually an image**:
    ```bash
-   curl -L "<url>" -o "<target-path>"
+   curl -fL "<url>" -o "<target-path>"
+   file --mime-type -b "<target-path>"   # must start with "image/"
    ```
-   Target paths follow the same convention as Step 6 (slug-based). Record each downloaded path.
+   `curl -f` makes HTTP errors non-zero instead of writing the error body to the file. The `file` check is the real guard: an expired S3 URL returns a `200` XML error (`<Error><Code>InvalidToken</Code>...`) that `curl` happily saves as the "image" (this shipped a corrupt avatar in PR #73). If the mime type is not `image/*`, **stop and report** — do not proceed with a non-image file. Re-fetch the Notion page for a fresh URL and retry. Target paths follow the same convention as Step 6 (slug-based). Record each downloaded path.
 
    > **Note:** Notion file URLs (type `file`) are temporary S3 URLs that expire in ~1 hour — download immediately.
 
@@ -142,6 +143,9 @@ Accept on Enter. Only ask from scratch for fields that are missing or rejected. 
 
 If no path arg was given, `prefilled` is empty — proceed with the full interview as normal.
 
+**Fields adapters never supply — always resolve them, even when everything else is prefilled.** Bulk-confirming prefilled fields must NOT skip these:
+- **team-member `displayOrder`** — the Notion "Organigramme" has no order column, so it is never in `prefilled.fields`. You MUST still run Team member step 10 and write a value. A team member without `displayOrder` makes the website's `fetchMultiple` fail-fast and wipes the **entire** team section (regressions in PRs #59, #73).
+
 ---
 
 Ask one or two related questions at a time — never dump the full list. For required fields: do not proceed without a non-empty value. For optional fields: accept Enter to skip.
@@ -166,7 +170,7 @@ No body for tools.
 7. **bio.fr** — French one-sentence bio.
 8. **bio.en** — English one-sentence bio.
 9. **linkedin (optional)** — full LinkedIn URL.
-10. **displayOrder** — integer for ordering on the team page. Suggest `maxDisplayOrder + 1` (computed in Step 2) as the default; accept Enter to use it. **Do not skip** — this field is required by the website schema. If the contributor has no preference, use the suggested value.
+10. **displayOrder** — integer for ordering on the team page. Suggest `maxDisplayOrder + 1` (computed in Step 2) as the default; accept Enter to use it. **Mandatory gate — never skip, regardless of source.** This field is required by the website schema and is never supplied by the Notion/local adapters, so it stays "missing" after prefill — ask it explicitly even when every other field came from a source. If the contributor has no preference, write the suggested value. Before Step 4, assert the assembled frontmatter contains a positive integer `displayOrder`; if not, stop and resolve it.
 11. **active (optional, default `true`)** — `true | false`.
 12. **featuredOnAboutUs (optional, default `false`)** — `true | false`.
 13. **color (optional)** — `yellow | coral | sky`.

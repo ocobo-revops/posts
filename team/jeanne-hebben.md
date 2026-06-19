@@ -12,4 +12,5 @@ bio:
 linkedin: "https://www.linkedin.com/in/jeanne-hebben/"
 active: true
 featuredOnAboutUs: false
+displayOrder: 15
 ---

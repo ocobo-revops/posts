@@ -9,7 +9,11 @@ export const teamMemberSchema = z.object({
   avatar: z.url(),
   bio: bilingualString,
   linkedin: z.url().optional(),
-  displayOrder: z.number().int().positive().optional(),
+  // Required: the website's MemberFrontmatterSchema mandates it, and its
+  // fetchMultiple fails fast — a single member missing displayOrder wipes the
+  // entire team section (regressions in PRs #59, #73). Keep in sync with the
+  // site schema; do not relax to .optional().
+  displayOrder: z.number().int().positive(),
   active: z.boolean().optional(),
   featuredOnAboutUs: z.boolean().optional(),
   color: z.enum(['yellow', 'coral', 'sky']).optional(),
