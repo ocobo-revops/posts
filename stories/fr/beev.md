@@ -21,7 +21,6 @@ deliverables:
   - Cartographie du cycle de vente cible
   - Funnel de vente standardisé implémenté dans Hubspot et documenté
   - Cockpit de pilotage (vues et dashboards)
-image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/beev/beev.jpeg
 ---
 
 ## La mission
