@@ -1,8 +1,8 @@
 ---
 name: Beev
 date: 2026-06-19
-title: Standardisation du funnel B2B SaaS
-subtitle: Standardisation du funnel B2B SaaS
+title: "Beev ouvre sa verticale B2B sur des fondations solides : une architecture HubSpot pensée pour scaler"
+subtitle: "Beev ouvre sa verticale B2B sur des fondations solides : une architecture HubSpot pensée pour scaler"
 description: Beev développe trois lignes produit — véhicules électriques en LLD, bornes de recharge B2B/B2C, et un SaaS de gestion de flotte.
 speaker: Victor de Broca
 role: Head of Sales chez Beev
