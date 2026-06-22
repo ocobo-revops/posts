@@ -8,7 +8,7 @@ startDate: 2026-05-04
 hiringContact: benjamin-boileux
 applyEmail: recrutement@ocobo.co
 tallyFormId: kdYr11
-status: published
+status: closed
 publishedAt: 2026-04-26
 intro: >
   Rejoins Ocobo en tant que Responsable Marketing, Brand & Communication et contribue
