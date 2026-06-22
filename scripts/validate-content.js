@@ -9,6 +9,7 @@ import { validateStory } from './schemas/story.schema.js';
 import { validateTeamMember } from './schemas/team-member.schema.js';
 import { validateTool } from './schemas/tool.schema.js';
 import { createResolver } from './cross-ref-resolver.js';
+import { checkClientAssets } from './validate-client-assets.js';
 
 const REPO_ROOT = join(fileURLToPath(import.meta.url), '../..');
 
@@ -45,6 +46,7 @@ const validateCrossRefs = (type, slug, data, resolver) => {
 const run = () => {
   const resolver = createResolver(REPO_ROOT);
   const failures = [];
+  const storySlugs = new Set();
 
   for (const [type, { patterns, validate }] of Object.entries(VALIDATORS)) {
     for (const pattern of patterns) {
@@ -54,6 +56,7 @@ const run = () => {
         const raw = readFileSync(abs, 'utf8');
         const { data } = matter(raw);
         const slug = file.replace(/\.md$/, '').split('/').pop();
+        if (type === 'story') storySlugs.add(slug);
 
         const result = validate(data);
         const schemaErrors = result.success ? [] : result.error.issues.map((i) => ({
@@ -72,18 +75,34 @@ const run = () => {
     }
   }
 
-  if (failures.length === 0) {
+  const { errors: assetErrors, warnings: assetWarnings } = checkClientAssets(
+    REPO_ROOT,
+    [...storySlugs],
+  );
+
+  assetWarnings.forEach((w) => console.warn(`⚠️  ${w}`));
+
+  if (failures.length === 0 && assetErrors.length === 0) {
     console.log('✓ All content valid');
     process.exit(0);
   }
 
-  console.error(`✗ ${failures.length} file(s) failed validation:\n`);
-  for (const { file, schemaErrors, crossRefErrors } of failures) {
-    console.error(`${file}`);
-    if (schemaErrors.length > 0) console.error(formatErrors(schemaErrors));
-    crossRefErrors.forEach((e) => console.error(e));
+  if (failures.length > 0) {
+    console.error(`✗ ${failures.length} file(s) failed validation:\n`);
+    for (const { file, schemaErrors, crossRefErrors } of failures) {
+      console.error(`${file}`);
+      if (schemaErrors.length > 0) console.error(formatErrors(schemaErrors));
+      crossRefErrors.forEach((e) => console.error(e));
+      console.error('');
+    }
+  }
+
+  if (assetErrors.length > 0) {
+    console.error(`✗ ${assetErrors.length} client asset issue(s):\n`);
+    assetErrors.forEach((e) => console.error(`  • ${e}`));
     console.error('');
   }
+
   process.exit(1);
 };
 
