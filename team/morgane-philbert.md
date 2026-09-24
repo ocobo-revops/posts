@@ -2,7 +2,7 @@
 slug: morgane-philbert
 name: Morgane Philbert
 track: builder
-avatar: assets/team/morgane-philbert.jpg
+avatar: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/team/morgane-philbert.jpg
 role:
   fr: Brand & Communication Manager
   en: Brand & Communication Manager
