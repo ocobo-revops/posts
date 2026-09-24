@@ -2,7 +2,7 @@
 slug: pauline-belaubre
 name: Pauline Belaubre
 track: builder
-avatar: assets/team/pauline-belaubre.jpg
+avatar: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/team/pauline-belaubre.jpg
 role:
   fr: RevOps Manager
   en: RevOps Manager
