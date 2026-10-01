@@ -3,7 +3,7 @@ title: "Revenue Operations Associate - Stage de fin d'études (6 mois)"
 icon: "🧑‍🚀"
 contractType: Stage
 seniority: Stage de fin d'études (6 mois)
-location: Paris (On site)
+location: Paris, Bordeaux et Marseille (On site)
 startDate: 2026-11-01
 hiringContact: aude-cadiot
 applyEmail: recrutement@ocobo.co

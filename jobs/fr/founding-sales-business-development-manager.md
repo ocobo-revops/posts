@@ -3,7 +3,7 @@ title: "Founding Sales | Business Development Manager"
 icon: "🔥"
 contractType: CDI
 seniority: 5-7 ans
-location: Paris (On site)
+location: Paris, Bordeaux et Marseille (On site)
 startDate: 2026-09-01
 hiringContact: benjamin-boileux
 applyEmail: recrutement@ocobo.co

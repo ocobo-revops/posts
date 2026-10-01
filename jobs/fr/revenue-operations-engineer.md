@@ -3,7 +3,7 @@ title: Revenue Operations Engineer
 icon: "🧑‍🔬"
 contractType: CDI
 seniority: 3-5 ans
-location: Paris (On site)
+location: Paris, Bordeaux et Marseille (On site)
 startDate: 2026-09-01
 hiringContact: aude-cadiot
 applyEmail: recrutement@ocobo.co
