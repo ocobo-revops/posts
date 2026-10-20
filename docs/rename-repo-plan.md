@@ -57,7 +57,7 @@ PR sur le website :
 | Vercel sert un 404 entre le rename et le redeploy | Prod down quelques minutes | Faire rename + update env var + redeploy dans la même fenêtre. GitHub renvoie 301 que `fetch` suit, mais ne pas s'y fier longtemps. |
 | Quelqu'un recrée un repo `ocobo-revops/posts` plus tard | Casse le redirect GitHub | Faible (org privée). Optionnel : placeholder (cf. section 5). |
 | Vercel deploy-hook / GitHub App liés au repo | Aucun en pratique — GitHub conserve l'ID interne | Vérifier que l'intégration Vercel "Git repo" affiche bien le nouveau nom après rename (#13). |
-| PRs / branches GitButler ouvertes au moment du rename | Auto-redirigées | Vérifier les lanes actives, refaire `but pull` après rename. |
+| PRs et branches ouvertes au moment du rename | Auto-redirigées | Vérifier les branches actives, refaire `git fetch` après rename. |
 
 ## Chemin critique
 
