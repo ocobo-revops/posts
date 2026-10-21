@@ -78,7 +78,7 @@ describe('team-member schema', () => {
 describe('team-member expert fields', () => {
   const expert = {
     ...validMember,
-    enjeu: 'sc',
+    challenge: 'sc',
     contribution: { fr: 'Contribution', en: 'Contribution EN' },
     tools: ['hubspot', 'qobra'],
     previousCompanies: ['Qonto'],
@@ -94,35 +94,35 @@ describe('team-member expert fields', () => {
     expect(validateTeamMember(expert).success).toBe(true);
   });
 
-  it('accepts every enjeu key', () => {
-    for (const enjeu of ['rp', 'se', 'sc', 'cx', 'sy', 'ai']) {
-      expect(validateTeamMember({ ...expert, enjeu }).success).toBe(true);
+  it('accepts every challenge key', () => {
+    for (const challenge of ['rp', 'se', 'sc', 'cx', 'sy', 'ai']) {
+      expect(validateTeamMember({ ...expert, challenge }).success).toBe(true);
     }
   });
 
-  it('rejects an unknown enjeu key', () => {
-    expect(fails({ ...expert, enjeu: 'xx' })).toBe(true);
+  it('rejects an unknown challenge key', () => {
+    expect(fails({ ...expert, challenge: 'xx' })).toBe(true);
   });
 
-  it('rejects enjeu without contribution', () => {
+  it('rejects challenge without contribution', () => {
     const { contribution, ...rest } = expert;
     expect(fails(rest)).toBe(true);
-    expect(messages(rest)).toContain('contribution is required when enjeu is set');
+    expect(messages(rest)).toContain('contribution is required when challenge is set');
   });
 
-  it('rejects enjeu without tools', () => {
+  it('rejects challenge without tools', () => {
     const { tools, ...rest } = expert;
     expect(fails(rest)).toBe(true);
-    expect(messages(rest)).toContain('tools is required when enjeu is set');
+    expect(messages(rest)).toContain('tools is required when challenge is set');
   });
 
-  it('accepts enjeu without previousCompanies', () => {
+  it('accepts challenge without previousCompanies', () => {
     const { previousCompanies, ...rest } = expert;
     expect(validateTeamMember(rest).success).toBe(true);
   });
 
-  it('accepts contribution, tools and previousCompanies without enjeu', () => {
-    const { enjeu, ...rest } = expert;
+  it('accepts contribution, tools and previousCompanies without challenge', () => {
+    const { challenge, ...rest } = expert;
     expect(validateTeamMember(rest).success).toBe(true);
   });
 

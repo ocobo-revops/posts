@@ -99,7 +99,7 @@ describe('validateRepository', () => {
   });
 
   it('reports a team member citing a missing tool slug', () => {
-    write('team/bob.md', `${TEAM_MEMBER.replace(/---\n$/, '')}enjeu: sc
+    write('team/bob.md', `${TEAM_MEMBER.replace(/---\n$/, '')}challenge: sc
 contribution:
   fr: Contribution
   en: Contribution
@@ -123,7 +123,7 @@ tools:
   });
 
   it('accepts a team member whose tools are all existing tool slugs', () => {
-    write('team/bob.md', `${TEAM_MEMBER.replace(/---\n$/, '')}enjeu: sc
+    write('team/bob.md', `${TEAM_MEMBER.replace(/---\n$/, '')}challenge: sc
 contribution:
   fr: Contribution
   en: Contribution

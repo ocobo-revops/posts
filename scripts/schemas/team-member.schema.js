@@ -2,10 +2,10 @@ import { z } from 'zod';
 
 const bilingualString = z.object({ fr: z.string().min(1), en: z.string().min(1) });
 
-// The six enjeu keys, as defined by the enjeu spec (ADR 0002). Kept inline so
-// this type does not depend on the enjeu schema; whether the key names an
-// existing enjeu file is a cross-reference check, not a schema rule.
-export const ENJEU_KEYS = ['rp', 'se', 'sc', 'cx', 'sy', 'ai'];
+// The six challenge keys, as defined by the challenge spec (ADR 0002). Kept
+// inline so this type does not depend on the challenge schema; whether the key
+// names an existing challenge file is a cross-reference check, not a schema rule.
+export const CHALLENGE_KEYS = ['rp', 'se', 'sc', 'cx', 'sy', 'ai'];
 
 export const teamMemberSchema = z.object({
   name: z.string().min(1),
@@ -22,8 +22,8 @@ export const teamMemberSchema = z.object({
   active: z.boolean().optional(),
   featuredOnAboutUs: z.boolean().optional(),
   color: z.enum(['yellow', 'coral', 'sky']).optional(),
-  // Expert fields: all optional, absent for people who are not enjeu experts.
-  enjeu: z.enum(ENJEU_KEYS).optional(),
+  // Expert fields: all optional, absent for people who are not challenge experts.
+  challenge: z.enum(CHALLENGE_KEYS).optional(),
   // Caps apply to the raw text, as published, so no .trim(); \S rejects blanks.
   contribution: z.object({
     fr: z.string().regex(/\S/).max(100),
@@ -35,13 +35,13 @@ export const teamMemberSchema = z.object({
   ).optional(),
   previousCompanies: z.array(z.string().regex(/\S/).max(30)).min(1).max(3).optional(),
 }).superRefine((member, ctx) => {
-  if (member.enjeu === undefined) return;
+  if (member.challenge === undefined) return;
   for (const field of ['contribution', 'tools']) {
     if (member[field] === undefined) {
       ctx.addIssue({
         code: 'custom',
         path: [field],
-        message: `${field} is required when enjeu is set`,
+        message: `${field} is required when challenge is set`,
       });
     }
   }
