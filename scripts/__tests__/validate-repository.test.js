@@ -98,6 +98,56 @@ describe('validateRepository', () => {
     expect(assetErrors).toEqual([expect.stringContaining('assets/clients/acme-avatar.jpeg')]);
     expect(assetWarnings).toEqual([]);
   });
+
+  it('reports a team member citing a missing tool slug', () => {
+    write('team/bob.md', `${TEAM_MEMBER.replace(/---\n$/, '')}challenge: sc
+contribution:
+  fr: Contribution
+  en: Contribution
+tools:
+  - hubspot
+  - ghost-tool
+---
+`);
+
+    const { failures } = validateRepository(repoRoot);
+
+    expect(failures).toEqual([
+      {
+        file: 'team/bob.md',
+        schemaErrors: [],
+        crossRefErrors: [
+          { path: ['tools'], message: '"ghost-tool" does not match any tool slug' },
+        ],
+      },
+    ]);
+  });
+
+  it('accepts a team member whose tools are all existing tool slugs', () => {
+    write('team/bob.md', `${TEAM_MEMBER.replace(/---\n$/, '')}challenge: sc
+contribution:
+  fr: Contribution
+  en: Contribution
+tools:
+  - hubspot
+---
+`);
+
+    expect(validateRepository(repoRoot).failures).toEqual([]);
+  });
+
+  it('reports a schema error, not a crash, when tools is not an array', () => {
+    write('team/bob.md', `${TEAM_MEMBER.replace(/---\n$/, '')}tools: hubspot
+---
+`);
+
+    const { failures } = validateRepository(repoRoot);
+
+    expect(failures).toHaveLength(1);
+    expect(failures[0].file).toBe('team/bob.md');
+    expect(failures[0].schemaErrors).toEqual([{ path: ['tools'], message: expect.any(String) }]);
+    expect(failures[0].crossRefErrors).toEqual([]);
+  });
 });
 
 describe('validateRepository with challenge files', () => {

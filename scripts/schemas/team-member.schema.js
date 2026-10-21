@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { CHALLENGE_KEYS } from './challenge.schema.js';
 
 const bilingualString = z.object({ fr: z.string().min(1), en: z.string().min(1) });
 
@@ -17,6 +18,29 @@ export const teamMemberSchema = z.object({
   active: z.boolean().optional(),
   featuredOnAboutUs: z.boolean().optional(),
   color: z.enum(['yellow', 'coral', 'sky']).optional(),
+  // Expert fields: all optional, absent for people who are not challenge experts.
+  challenge: z.enum(CHALLENGE_KEYS).optional(),
+  // Caps apply to the raw text, as published, so no .trim(); \S rejects blanks.
+  contribution: z.object({
+    fr: z.string().regex(/\S/).max(100),
+    en: z.string().regex(/\S/).max(100),
+  }).optional(),
+  tools: z.array(z.string().min(1)).min(1).max(8).refine(
+    (slugs) => new Set(slugs).size === slugs.length,
+    { message: 'tools must not contain duplicates' },
+  ).optional(),
+  previousCompanies: z.array(z.string().regex(/\S/).max(30)).min(1).max(3).optional(),
+}).superRefine((member, ctx) => {
+  if (member.challenge === undefined) return;
+  for (const field of ['contribution', 'tools']) {
+    if (member[field] === undefined) {
+      ctx.addIssue({
+        code: 'custom',
+        path: [field],
+        message: `${field} is required when challenge is set`,
+      });
+    }
+  }
 });
 
 export const validateTeamMember = (data) => teamMemberSchema.safeParse(data);

@@ -75,6 +75,104 @@ describe('team-member schema', () => {
   });
 });
 
+describe('team-member expert fields', () => {
+  const expert = {
+    ...validMember,
+    challenge: 'sc',
+    contribution: { fr: 'Contribution', en: 'Contribution EN' },
+    tools: ['hubspot', 'qobra'],
+    previousCompanies: ['Qonto'],
+  };
+  const fails = (data) => validateTeamMember(data).success === false;
+  const messages = (data) => validateTeamMember(data).error.issues.map((i) => i.message);
+
+  it('accepts a member without any expert field', () => {
+    expect(validateTeamMember(validMember).success).toBe(true);
+  });
+
+  it('accepts a member with all four expert fields', () => {
+    expect(validateTeamMember(expert).success).toBe(true);
+  });
+
+  it('accepts every challenge key', () => {
+    for (const challenge of ['rp', 'se', 'sc', 'cx', 'sy', 'ai']) {
+      expect(validateTeamMember({ ...expert, challenge }).success).toBe(true);
+    }
+  });
+
+  it('rejects an unknown challenge key', () => {
+    expect(fails({ ...expert, challenge: 'xx' })).toBe(true);
+  });
+
+  it('rejects challenge without contribution', () => {
+    const { contribution, ...rest } = expert;
+    expect(fails(rest)).toBe(true);
+    expect(messages(rest)).toContain('contribution is required when challenge is set');
+  });
+
+  it('rejects challenge without tools', () => {
+    const { tools, ...rest } = expert;
+    expect(fails(rest)).toBe(true);
+    expect(messages(rest)).toContain('tools is required when challenge is set');
+  });
+
+  it('accepts challenge without previousCompanies', () => {
+    const { previousCompanies, ...rest } = expert;
+    expect(validateTeamMember(rest).success).toBe(true);
+  });
+
+  it('accepts contribution, tools and previousCompanies without challenge', () => {
+    const { challenge, ...rest } = expert;
+    expect(validateTeamMember(rest).success).toBe(true);
+  });
+
+  it('caps contribution at 100 characters per language', () => {
+    const ok = 'x'.repeat(100);
+    const tooLong = 'x'.repeat(101);
+    expect(validateTeamMember({ ...expert, contribution: { fr: ok, en: ok } }).success).toBe(true);
+    expect(fails({ ...expert, contribution: { fr: tooLong, en: ok } })).toBe(true);
+    expect(fails({ ...expert, contribution: { fr: ok, en: tooLong } })).toBe(true);
+  });
+
+  it('rejects a contribution missing a language', () => {
+    expect(fails({ ...expert, contribution: { fr: 'Contribution' } })).toBe(true);
+  });
+
+  it('accepts 1 to 8 tools and rejects 0 or 9', () => {
+    const slugs = (n) => Array.from({ length: n }, (_, i) => `tool-${i}`);
+    expect(validateTeamMember({ ...expert, tools: slugs(1) }).success).toBe(true);
+    expect(validateTeamMember({ ...expert, tools: slugs(8) }).success).toBe(true);
+    expect(fails({ ...expert, tools: [] })).toBe(true);
+    expect(fails({ ...expert, tools: slugs(9) })).toBe(true);
+  });
+
+  it('rejects duplicate tools', () => {
+    const data = { ...expert, tools: ['hubspot', 'hubspot'] };
+    expect(fails(data)).toBe(true);
+    expect(messages(data)).toContain('tools must not contain duplicates');
+  });
+
+  it('rejects a blank contribution or previous company', () => {
+    expect(fails({ ...expert, contribution: { fr: '   ', en: 'Contribution' } })).toBe(true);
+    expect(fails({ ...expert, previousCompanies: ['  '] })).toBe(true);
+  });
+
+  it('applies the contribution cap to the raw text', () => {
+    expect(fails({ ...expert, contribution: { fr: `${'x'.repeat(100)} `, en: 'ok' } })).toBe(true);
+  });
+
+  it('accepts 1 to 3 previous companies and rejects 0 or 4', () => {
+    expect(validateTeamMember({ ...expert, previousCompanies: ['A', 'B', 'C'] }).success).toBe(true);
+    expect(fails({ ...expert, previousCompanies: [] })).toBe(true);
+    expect(fails({ ...expert, previousCompanies: ['A', 'B', 'C', 'D'] })).toBe(true);
+  });
+
+  it('caps a previous company name at 30 characters', () => {
+    expect(validateTeamMember({ ...expert, previousCompanies: ['x'.repeat(30)] }).success).toBe(true);
+    expect(fails({ ...expert, previousCompanies: ['x'.repeat(31)] })).toBe(true);
+  });
+});
+
 // ── blog post ─────────────────────────────────────────────────────────────────
 
 const validPost = {
