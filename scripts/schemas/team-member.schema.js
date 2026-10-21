@@ -1,11 +1,7 @@
 import { z } from 'zod';
+import { CHALLENGE_KEYS } from './challenge.schema.js';
 
 const bilingualString = z.object({ fr: z.string().min(1), en: z.string().min(1) });
-
-// The six challenge keys, as defined by the challenge spec (ADR 0002). Kept
-// inline so this type does not depend on the challenge schema; whether the key
-// names an existing challenge file is a cross-reference check, not a schema rule.
-export const CHALLENGE_KEYS = ['rp', 'se', 'sc', 'cx', 'sy', 'ai'];
 
 export const teamMemberSchema = z.object({
   name: z.string().min(1),
