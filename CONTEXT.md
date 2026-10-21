@@ -1,12 +1,12 @@
 # Ocobo Content Repository
 
-This repo holds the markdown content consumed by the Ocobo website. It replaces a traditional CMS — Ocobo teams edit content here via Claude Code and ship it through GitHub PRs.
+This repo holds the markdown content consumed by the Ocobo website. It replaces a traditional CMS: Ocobo teams edit content here via Claude Code and ship it through GitHub PRs.
 
 ## Language
 
 **Content**:
-The umbrella term for everything published by the website that lives in this repo: blog posts, stories, team members, tools, jobs.
-_Avoid_: posts (overloaded — see "Flagged ambiguities").
+The umbrella term for everything published by the website that lives in this repo: blog posts, stories, team members, tools, jobs, enjeux.
+_Avoid_: posts (overloaded, see "Flagged ambiguities").
 
 **Blog post**:
 A long-form article in `blog/<lang>/`, typically authored by a team member, often tied to the Revenue Echoes podcast.
@@ -26,7 +26,19 @@ _Avoid_: software, vendor, product.
 
 **Job**:
 An open position in `jobs/<lang>/`. References a `hiringContact` (team member slug).
-_Avoid_: role (overloaded — see "Flagged ambiguities"), offer, posting.
+_Avoid_: role (overloaded, see "Flagged ambiguities"), offer, posting.
+
+**Enjeu**:
+One of the six revenue problems Ocobo sells a mission on: Revenue Performance, Sales Experience, Sales Compensation, Customer Experience, Revenue Systems, Revenue AI. Each has one page, one lead expert and one file in `enjeux/<lang>/`.
+_Avoid_: challenge, issue, stake, problem, practice.
+
+**Stage**:
+One of the seven steps of the customer cycle drawn on the bow tie, from first signal to expansion. Each has one KPI.
+_Avoid_: milestone, step, phase.
+
+**Milestone**:
+The state a prospect or customer reaches at the end of a Stage: MQL, SQL, SQO, new customer, active customer, active, upsell or cross-sell.
+_Avoid_: jalon (French label only), stage.
 
 **Slug**:
 The kebab-case filename (without `.md`) that uniquely identifies a piece of content within its type. Cross-references between content types use slugs.
@@ -41,8 +53,12 @@ The YAML block at the top of each markdown file, between `---` fences. Defines s
 - A **Job** has exactly one `hiringContact`, which is a **Team member** slug.
 - A **Team member** can be referenced by many **Blog posts** and **Jobs**.
 - A **Tool** can be referenced by many **Stories**.
+- An **Enjeu** covers one or more **Stages**; several Enjeux can cover the same Stage.
+- A **Stage** ends on exactly one **Milestone**.
+- A **Team member** is an expert on at most one **Enjeu**; an Enjeu has one lead expert among them.
+- An **Enjeu** cites one **Story** as its client case.
 
 ## Flagged ambiguities
 
 - **"post"** was used both as the repo name (`ocobo-posts` = all content) and as a synonym for "blog post" (e.g. `assets/posts/`). Resolved: use **Content** as the umbrella term and **Blog post** for articles. The repo name and `assets/posts/` directory are kept as-is for backward compatibility.
-- **"role"** appears as both a Team member field (job title, e.g. "Partner") and a Story field (the speaker's role at the client). Resolved: both usages are job titles, just for different people — no rename needed, context disambiguates.
+- **"role"** appears as both a Team member field (job title, e.g. "Partner") and a Story field (the speaker's role at the client). Resolved: both usages are job titles, just for different people. No rename needed, context disambiguates.
