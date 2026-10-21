@@ -47,3 +47,7 @@ Enjeu pages are created once and then edited, so experts work in this repo throu
 - An expert must appear on several enjeux with a different contribution on each: move experts back into the enjeu file as `{slug, contribution}`.
 - A third enjeu needs a section of its own, or a section coded for one key needs editing by its expert: the pages have diverged and fixed pages become cheaper.
 - The Vercel plan limits deployments, or merges exceed about twenty a day.
+
+## Note, 2026-10-21
+
+The code term was renamed from enjeu to challenge (posts#110). The content type is `challenge`, its files live in `challenges/<lang>/` and its schema is `scripts/schemas/challenge.schema.js`. The Team member field `enjeu` is now `challenge`, typed by `CHALLENGE_KEYS`. "Enjeu" stays the French UI word. The decision above is unchanged.
