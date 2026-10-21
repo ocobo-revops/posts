@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { glob } from 'glob';
 import matter from 'gray-matter';
 import { validateBlogPost } from './schemas/blog-post.schema.js';
+import { validateEnjeu } from './schemas/enjeu.schema.js';
 import { validateJob } from './schemas/job.schema.js';
 import { validateStory } from './schemas/story.schema.js';
 import { validateTeamMember } from './schemas/team-member.schema.js';
@@ -16,6 +17,12 @@ const VALIDATORS = {
   'blog-post': { patterns: ['blog/fr/*.md', 'blog/en/*.md'], validate: validateBlogPost },
   story: { patterns: ['stories/fr/*.md', 'stories/en/*.md'], validate: validateStory },
   job: { patterns: ['jobs/fr/*.md', 'jobs/en/*.md'], validate: validateJob },
+  // Every enjeu section is a frontmatter field, so a body would never render.
+  enjeu: {
+    patterns: ['enjeux/fr/*.md', 'enjeux/en/*.md'],
+    validate: validateEnjeu,
+    frontmatterOnly: true,
+  },
 };
 
 // Cross-reference errors share the schema error shape ({ path, message }) so
@@ -67,12 +74,12 @@ export const validateRepository = (repoRoot) => {
   const failures = [];
   const storySlugs = new Set();
 
-  for (const [type, { patterns, validate }] of Object.entries(VALIDATORS)) {
+  for (const [type, { patterns, validate, frontmatterOnly }] of Object.entries(VALIDATORS)) {
     for (const pattern of patterns) {
       const files = glob.sync(pattern, { cwd: repoRoot });
       for (const file of files) {
         const raw = readFileSync(join(repoRoot, file), 'utf8');
-        const { data } = matter(raw);
+        const { data, content } = matter(raw);
         const slug = file.replace(/\.md$/, '').split('/').pop();
         if (type === 'story') storySlugs.add(slug);
 
@@ -80,6 +87,9 @@ export const validateRepository = (repoRoot) => {
         const schemaErrors = result.success ? [] : result.error.issues.map((i) => ({
           path: i.path, message: i.message,
         }));
+        if (frontmatterOnly && content.trim() !== '') {
+          schemaErrors.push({ path: [], message: 'markdown body must be empty, content lives in frontmatter' });
+        }
         const crossRefErrors = validateCrossRefs(type, data, resolver);
 
         if (schemaErrors.length > 0 || crossRefErrors.length > 0) {

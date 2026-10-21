@@ -1,6 +1,7 @@
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { validateRepository } from '../validate-repository.js';
 
@@ -96,5 +97,42 @@ describe('validateRepository', () => {
     expect(failures).toEqual([]);
     expect(assetErrors).toEqual([expect.stringContaining('assets/clients/acme-avatar.jpeg')]);
     expect(assetWarnings).toEqual([]);
+  });
+});
+
+describe('validateRepository with enjeu files', () => {
+  const ENJEU = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), 'fixtures/enjeux/previsibilite.md'),
+    'utf8',
+  );
+
+  it('accepts a French enjeu file', () => {
+    write('enjeux/fr/previsibilite.md', ENJEU);
+
+    expect(validateRepository(repoRoot).failures).toEqual([]);
+  });
+
+  it('rejects an enjeu file with a markdown body', () => {
+    write('enjeux/fr/previsibilite.md', `${ENJEU}\nUn paragraphe.\n`);
+
+    expect(validateRepository(repoRoot).failures).toEqual([
+      {
+        file: 'enjeux/fr/previsibilite.md',
+        schemaErrors: [{ path: [], message: expect.stringContaining('body must be empty') }],
+        crossRefErrors: [],
+      },
+    ]);
+  });
+
+  it('reports a cap error with the field, its length, the cap and the overage', () => {
+    write('enjeux/en/previsibilite.md', ENJEU.replace(/^ {2}lead: .*$/m, `  lead: ${'a'.repeat(263)}`));
+
+    expect(validateRepository(repoRoot).failures).toEqual([
+      {
+        file: 'enjeux/en/previsibilite.md',
+        schemaErrors: [{ path: ['hero', 'lead'], message: '263 characters, cap 240 (23 over)' }],
+        crossRefErrors: [],
+      },
+    ]);
   });
 });
