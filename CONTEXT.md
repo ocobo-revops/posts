@@ -5,7 +5,7 @@ This repo holds the markdown content consumed by the Ocobo website. It replaces 
 ## Language
 
 **Content**:
-The umbrella term for everything published by the website that lives in this repo: blog posts, stories, team members, tools, jobs, enjeux.
+The umbrella term for everything published by the website that lives in this repo: blog posts, stories, team members, tools, jobs, challenges.
 _Avoid_: posts (overloaded, see "Flagged ambiguities").
 
 **Blog post**:
@@ -28,9 +28,9 @@ _Avoid_: software, vendor, product.
 An open position in `jobs/<lang>/`. References a `hiringContact` (team member slug).
 _Avoid_: role (overloaded, see "Flagged ambiguities"), offer, posting.
 
-**Enjeu**:
-One of the six revenue problems Ocobo sells a mission on: Revenue Performance, Sales Experience, Sales Compensation, Customer Experience, Revenue Systems, Revenue AI. Each has one page, one lead expert and one file in `enjeux/<lang>/`.
-_Avoid_: challenge, issue, stake, problem, practice.
+**Challenge**:
+One of the six revenue problems Ocobo sells a mission on: Revenue Performance, Sales Experience, Sales Compensation, Customer Experience, Revenue Systems, Revenue AI. Each has one page, one lead expert and one file in `challenges/<lang>/`. "Enjeu" is the French UI word for it; the code says challenge (posts#110).
+_Avoid_: enjeu (in code), issue, stake, problem, practice.
 
 **Stage**:
 One of the seven steps of the customer cycle drawn on the bow tie, from first signal to expansion. Each has one KPI.
@@ -53,10 +53,10 @@ The YAML block at the top of each markdown file, between `---` fences. Defines s
 - A **Job** has exactly one `hiringContact`, which is a **Team member** slug.
 - A **Team member** can be referenced by many **Blog posts** and **Jobs**.
 - A **Tool** can be referenced by many **Stories**.
-- An **Enjeu** covers one or more **Stages**; several Enjeux can cover the same Stage.
+- A **Challenge** covers one or more **Stages**; several Challenges can cover the same Stage.
 - A **Stage** ends on exactly one **Milestone**.
-- A **Team member** is an expert on at most one **Enjeu**; an Enjeu has one lead expert among them.
-- An **Enjeu** cites one **Story** as its client case.
+- A **Team member** is an expert on at most one **Challenge**; a Challenge has one lead expert among them.
+- A **Challenge** cites one **Story** as its client case.
 
 ## Flagged ambiguities
 
