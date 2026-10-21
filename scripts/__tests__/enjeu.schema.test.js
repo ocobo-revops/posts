@@ -46,7 +46,7 @@ describe('enjeu golden fixtures', () => {
     expect(issuesOf(loadFixture(file))).toEqual([]);
   });
 
-  it('Revenue AI overrides the method and workstreams headings', () => {
+  it('the Revenue AI fixture sets the heading overrides', () => {
     const ai = loadFixture('ia.md');
     expect(ai.method.title).toBeDefined();
     expect(ai.method.steps.every((s) => s.title)).toBe(true);
@@ -130,7 +130,7 @@ describe('enjeu strings', () => {
     [['audience', 3, 'benefit']],
     [['method', 'tools', 0]],
   ])('rejects a blank string at %j', (path) => {
-    expect(issuesOf(withValue(path, '   '))).toEqual([{ path, message: expect.any(String) }]);
+    expect(issuesOf(withValue(path, '   '))).toEqual([{ path, message: 'must not be empty' }]);
   });
 });
 
@@ -160,10 +160,11 @@ describe('enjeu array counts', () => {
   });
 
   it.each(COUNTS)('%j rejects fewer than %i or more than %i items', (path, min, max) => {
+    const error = [{ path, message: expect.any(String) }];
     if (min > 0) {
-      expect(issuesOf(withValue(path, resize(path, min - 1)))).not.toEqual([]);
+      expect(issuesOf(withValue(path, resize(path, min - 1)))).toEqual(error);
     }
-    expect(issuesOf(withValue(path, resize(path, max + 1)))).not.toEqual([]);
+    expect(issuesOf(withValue(path, resize(path, max + 1)))).toEqual(error);
   });
 });
 
@@ -192,7 +193,9 @@ describe('enjeu Stage ids', () => {
   });
 
   it('rejects no Stage', () => {
-    expect(issuesOf(withValue(['bowtie', 'activeStages'], []))).not.toEqual([]);
+    expect(issuesOf(withValue(['bowtie', 'activeStages'], []))).toEqual([
+      { path: ['bowtie', 'activeStages'], message: expect.any(String) },
+    ]);
   });
 
   it('rejects an unknown Stage id', () => {
@@ -216,7 +219,7 @@ describe('enjeu key, order and step', () => {
   });
 
   it('rejects an unknown key', () => {
-    expect(issuesOf(withValue(['key'], 'ops'))).not.toEqual([]);
+    expect(issuesOf(withValue(['key'], 'ops'))).toEqual([{ path: ['key'], message: expect.any(String) }]);
   });
 
   it.each([1, 6])('accepts order %i', (order) => {
@@ -224,7 +227,7 @@ describe('enjeu key, order and step', () => {
   });
 
   it.each([0, 7, 2.5, '3'])('rejects order %j', (order) => {
-    expect(issuesOf(withValue(['order'], order))).not.toEqual([]);
+    expect(issuesOf(withValue(['order'], order))).toEqual([{ path: ['order'], message: expect.any(String) }]);
   });
 
   it.each([1, 6])('accepts workstream step %i', (step) => {
@@ -232,7 +235,9 @@ describe('enjeu key, order and step', () => {
   });
 
   it.each([0, 7, 1.5])('rejects workstream step %j', (step) => {
-    expect(issuesOf(withValue(['workstreams', 'items', 0, 'step'], step))).not.toEqual([]);
+    expect(issuesOf(withValue(['workstreams', 'items', 0, 'step'], step))).toEqual([
+      { path: ['workstreams', 'items', 0, 'step'], message: expect.any(String) },
+    ]);
   });
 });
 
@@ -255,7 +260,7 @@ describe('enjeu optional fields', () => {
     [['method', 'tools']],
     [['diagnostic']],
   ])('rejects a missing %j', (path) => {
-    expect(issuesOf(without(path))).not.toEqual([]);
+    expect(issuesOf(without(path))).toEqual([{ path, message: expect.any(String) }]);
   });
 });
 
@@ -270,6 +275,13 @@ describe('enjeu unknown keys', () => {
 
   it.each([
     [['hero', 'subtitle']],
+    [['bowtie', 'legend']],
+    [['symptoms', 'intro']],
+    [['workstreams', 'cta']],
+    [['aiBridge', 'demo']],
+    [['method', 'cta']],
+    [['case', 'quote']],
+    [['diagnostic', 'cta']],
     [['audience', 0, 'icon']],
     [['workstreams', 'items', 0, 'image']],
     [['method', 'steps', 1, 'icon']],

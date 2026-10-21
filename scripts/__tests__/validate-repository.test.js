@@ -107,6 +107,7 @@ describe('validateRepository with enjeu files', () => {
   );
 
   it('accepts a French enjeu file', () => {
+    ['salesforce', 'modjo', 'notion'].forEach((tool) => write(`tools/${tool}.md`, TOOL));
     write('enjeux/fr/previsibilite.md', ENJEU);
 
     expect(validateRepository(repoRoot).failures).toEqual([]);
@@ -125,11 +126,11 @@ describe('validateRepository with enjeu files', () => {
   });
 
   it('reports a cap error with the field, its length, the cap and the overage', () => {
-    write('enjeux/en/previsibilite.md', ENJEU.replace(/^ {2}lead: .*$/m, `  lead: ${'a'.repeat(263)}`));
+    write('enjeux/fr/previsibilite.md', ENJEU.replace(/^ {2}lead: .*$/m, `  lead: ${'a'.repeat(263)}`));
 
     expect(validateRepository(repoRoot).failures).toEqual([
       {
-        file: 'enjeux/en/previsibilite.md',
+        file: 'enjeux/fr/previsibilite.md',
         schemaErrors: [{ path: ['hero', 'lead'], message: '263 characters, cap 240 (23 over)' }],
         crossRefErrors: [],
       },
