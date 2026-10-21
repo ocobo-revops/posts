@@ -1,6 +1,7 @@
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { validateRepository } from '../validate-repository.js';
 
@@ -96,5 +97,43 @@ describe('validateRepository', () => {
     expect(failures).toEqual([]);
     expect(assetErrors).toEqual([expect.stringContaining('assets/clients/acme-avatar.jpeg')]);
     expect(assetWarnings).toEqual([]);
+  });
+});
+
+describe('validateRepository with challenge files', () => {
+  const CHALLENGE = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), 'fixtures/challenges/revenue-performance.md'),
+    'utf8',
+  );
+
+  it('accepts a French challenge file', () => {
+    ['salesforce', 'modjo', 'notion'].forEach((tool) => write(`tools/${tool}.md`, TOOL));
+    write('challenges/fr/revenue-performance.md', CHALLENGE);
+
+    expect(validateRepository(repoRoot).failures).toEqual([]);
+  });
+
+  it('rejects a challenge file with a markdown body', () => {
+    write('challenges/fr/revenue-performance.md', `${CHALLENGE}\nUn paragraphe.\n`);
+
+    expect(validateRepository(repoRoot).failures).toEqual([
+      {
+        file: 'challenges/fr/revenue-performance.md',
+        schemaErrors: [{ path: [], message: expect.stringContaining('body must be empty') }],
+        crossRefErrors: [],
+      },
+    ]);
+  });
+
+  it('reports a cap error with the field, its length, the cap and the overage', () => {
+    write('challenges/fr/revenue-performance.md', CHALLENGE.replace(/^ {2}lead: .*$/m, `  lead: ${'a'.repeat(263)}`));
+
+    expect(validateRepository(repoRoot).failures).toEqual([
+      {
+        file: 'challenges/fr/revenue-performance.md',
+        schemaErrors: [{ path: ['hero', 'lead'], message: '263 characters, cap 240 (23 over)' }],
+        crossRefErrors: [],
+      },
+    ]);
   });
 });
