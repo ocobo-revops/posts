@@ -39,7 +39,9 @@ const validateCrossRefs = (type, data, resolver) => {
     }
   }
   if (type === 'team-member') {
-    (data.tools ?? []).forEach((t) => {
+    // A non-array `tools` is already a schema error; skip the cross-reference.
+    const tools = Array.isArray(data.tools) ? data.tools.filter((t) => typeof t === 'string') : [];
+    tools.forEach((t) => {
       if (!resolver.isValidToolSlug(t)) {
         errors.push({ path: ['tools'], message: `"${t}" does not match any tool slug` });
       }

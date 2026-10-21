@@ -24,15 +24,16 @@ export const teamMemberSchema = z.object({
   color: z.enum(['yellow', 'coral', 'sky']).optional(),
   // Expert fields: all optional, absent for people who are not enjeu experts.
   enjeu: z.enum(ENJEU_KEYS).optional(),
+  // Caps apply to the raw text, as published, so no .trim(); \S rejects blanks.
   contribution: z.object({
-    fr: z.string().trim().min(1).max(100),
-    en: z.string().trim().min(1).max(100),
+    fr: z.string().regex(/\S/).max(100),
+    en: z.string().regex(/\S/).max(100),
   }).optional(),
   tools: z.array(z.string().min(1)).min(1).max(8).refine(
     (slugs) => new Set(slugs).size === slugs.length,
     { message: 'tools must not contain duplicates' },
   ).optional(),
-  previousCompanies: z.array(z.string().trim().min(1).max(30)).min(1).max(3).optional(),
+  previousCompanies: z.array(z.string().regex(/\S/).max(30)).min(1).max(3).optional(),
 }).superRefine((member, ctx) => {
   if (member.enjeu === undefined) return;
   for (const field of ['contribution', 'tools']) {

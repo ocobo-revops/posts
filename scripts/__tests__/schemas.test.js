@@ -147,7 +147,18 @@ describe('team-member expert fields', () => {
   });
 
   it('rejects duplicate tools', () => {
-    expect(fails({ ...expert, tools: ['hubspot', 'hubspot'] })).toBe(true);
+    const data = { ...expert, tools: ['hubspot', 'hubspot'] };
+    expect(fails(data)).toBe(true);
+    expect(messages(data)).toContain('tools must not contain duplicates');
+  });
+
+  it('rejects a blank contribution or previous company', () => {
+    expect(fails({ ...expert, contribution: { fr: '   ', en: 'Contribution' } })).toBe(true);
+    expect(fails({ ...expert, previousCompanies: ['  '] })).toBe(true);
+  });
+
+  it('applies the contribution cap to the raw text', () => {
+    expect(fails({ ...expert, contribution: { fr: `${'x'.repeat(100)} `, en: 'ok' } })).toBe(true);
   });
 
   it('accepts 1 to 3 previous companies and rejects 0 or 4', () => {
