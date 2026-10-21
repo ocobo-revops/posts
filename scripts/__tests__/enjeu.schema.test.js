@@ -12,7 +12,7 @@ import { STAGE_IDS } from '../schemas/stage-ids.js';
 const FIXTURES_DIR = join(dirname(fileURLToPath(import.meta.url)), 'fixtures/enjeux');
 const loadFixture = (file) => matter(readFileSync(join(FIXTURES_DIR, file), 'utf8')).data;
 
-const base = loadFixture('previsibilite.md');
+const base = loadFixture('revenue-performance.md');
 
 const withValue = (path, value) => {
   const data = structuredClone(base);
@@ -42,12 +42,17 @@ describe('enjeu golden fixtures', () => {
     expect(files.map((f) => loadFixture(f).key).sort()).toEqual(['ai', 'cx', 'rp', 'sc', 'se', 'sy']);
   });
 
+  // The slug is the English kebab-case of the name, the same in both languages.
+  it.each(files)('%s is named after its enjeu', (file) => {
+    expect(file).toBe(`${loadFixture(file).name.toLowerCase().replaceAll(' ', '-')}.md`);
+  });
+
   it.each(files)('%s passes', (file) => {
     expect(issuesOf(loadFixture(file))).toEqual([]);
   });
 
   it('the Revenue AI fixture sets the heading overrides', () => {
-    const ai = loadFixture('ia.md');
+    const ai = loadFixture('revenue-ai.md');
     expect(ai.method.title).toBeDefined();
     expect(ai.method.steps.every((s) => s.title)).toBe(true);
     expect(ai.workstreams.title).toBeDefined();

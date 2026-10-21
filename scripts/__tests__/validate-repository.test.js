@@ -102,23 +102,23 @@ describe('validateRepository', () => {
 
 describe('validateRepository with enjeu files', () => {
   const ENJEU = readFileSync(
-    join(dirname(fileURLToPath(import.meta.url)), 'fixtures/enjeux/previsibilite.md'),
+    join(dirname(fileURLToPath(import.meta.url)), 'fixtures/enjeux/revenue-performance.md'),
     'utf8',
   );
 
   it('accepts a French enjeu file', () => {
     ['salesforce', 'modjo', 'notion'].forEach((tool) => write(`tools/${tool}.md`, TOOL));
-    write('enjeux/fr/previsibilite.md', ENJEU);
+    write('enjeux/fr/revenue-performance.md', ENJEU);
 
     expect(validateRepository(repoRoot).failures).toEqual([]);
   });
 
   it('rejects an enjeu file with a markdown body', () => {
-    write('enjeux/fr/previsibilite.md', `${ENJEU}\nUn paragraphe.\n`);
+    write('enjeux/fr/revenue-performance.md', `${ENJEU}\nUn paragraphe.\n`);
 
     expect(validateRepository(repoRoot).failures).toEqual([
       {
-        file: 'enjeux/fr/previsibilite.md',
+        file: 'enjeux/fr/revenue-performance.md',
         schemaErrors: [{ path: [], message: expect.stringContaining('body must be empty') }],
         crossRefErrors: [],
       },
@@ -126,11 +126,11 @@ describe('validateRepository with enjeu files', () => {
   });
 
   it('reports a cap error with the field, its length, the cap and the overage', () => {
-    write('enjeux/fr/previsibilite.md', ENJEU.replace(/^ {2}lead: .*$/m, `  lead: ${'a'.repeat(263)}`));
+    write('enjeux/fr/revenue-performance.md', ENJEU.replace(/^ {2}lead: .*$/m, `  lead: ${'a'.repeat(263)}`));
 
     expect(validateRepository(repoRoot).failures).toEqual([
       {
-        file: 'enjeux/fr/previsibilite.md',
+        file: 'enjeux/fr/revenue-performance.md',
         schemaErrors: [{ path: ['hero', 'lead'], message: '263 characters, cap 240 (23 over)' }],
         crossRefErrors: [],
       },
