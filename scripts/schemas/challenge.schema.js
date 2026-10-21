@@ -20,7 +20,7 @@ const cappedText = (cap) =>
 // Slugs carry no cap: they never render as text.
 const slug = z.string().trim().min(1, { error: 'must not be empty' });
 
-export const ENJEU_KEYS = ['rp', 'se', 'sc', 'cx', 'sy', 'ai'];
+export const CHALLENGE_KEYS = ['rp', 'se', 'sc', 'cx', 'sy', 'ai'];
 
 const activeStages = z
   .array(z.enum(STAGE_IDS))
@@ -39,8 +39,8 @@ const workstream = z.strictObject({
   note: cappedText(100).optional(),
 });
 
-export const enjeuSchema = z.strictObject({
-  key: z.enum(ENJEU_KEYS),
+export const challengeSchema = z.strictObject({
+  key: z.enum(CHALLENGE_KEYS),
   order: z.number().int().min(1).max(6),
   name: cappedText(30),
   tagline: cappedText(60),
@@ -117,4 +117,4 @@ export const enjeuSchema = z.strictObject({
   }),
 });
 
-export const validateEnjeu = (data) => enjeuSchema.safeParse(data);
+export const validateChallenge = (data) => challengeSchema.safeParse(data);

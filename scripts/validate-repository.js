@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { glob } from 'glob';
 import matter from 'gray-matter';
 import { validateBlogPost } from './schemas/blog-post.schema.js';
-import { validateEnjeu } from './schemas/enjeu.schema.js';
+import { validateChallenge } from './schemas/challenge.schema.js';
 import { validateJob } from './schemas/job.schema.js';
 import { validateStory } from './schemas/story.schema.js';
 import { validateTeamMember } from './schemas/team-member.schema.js';
@@ -17,10 +17,10 @@ const VALIDATORS = {
   'blog-post': { patterns: ['blog/fr/*.md', 'blog/en/*.md'], validate: validateBlogPost },
   story: { patterns: ['stories/fr/*.md', 'stories/en/*.md'], validate: validateStory },
   job: { patterns: ['jobs/fr/*.md', 'jobs/en/*.md'], validate: validateJob },
-  // Every enjeu section is a frontmatter field, so a body would never render.
-  enjeu: {
-    patterns: ['enjeux/fr/*.md', 'enjeux/en/*.md'],
-    validate: validateEnjeu,
+  // Every challenge section is a frontmatter field, so a body would never render.
+  challenge: {
+    patterns: ['challenges/fr/*.md', 'challenges/en/*.md'],
+    validate: validateChallenge,
     frontmatterOnly: true,
   },
 };

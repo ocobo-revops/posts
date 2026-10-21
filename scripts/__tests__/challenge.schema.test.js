@@ -3,13 +3,13 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import matter from 'gray-matter';
 import { describe, expect, it } from 'vitest';
-import { validateEnjeu } from '../schemas/enjeu.schema.js';
+import { validateChallenge } from '../schemas/challenge.schema.js';
 import { STAGE_IDS } from '../schemas/stage-ids.js';
 
-// One golden fixture per enjeu, built from the text of the six enjeux-*.html
+// One golden fixture per challenge, built from the text of the six enjeux-*.html
 // mockups in ocobo-revops/prototype, without the partner block and the agent
 // window.
-const FIXTURES_DIR = join(dirname(fileURLToPath(import.meta.url)), 'fixtures/enjeux');
+const FIXTURES_DIR = join(dirname(fileURLToPath(import.meta.url)), 'fixtures/challenges');
 const loadFixture = (file) => matter(readFileSync(join(FIXTURES_DIR, file), 'utf8')).data;
 
 const base = loadFixture('revenue-performance.md');
@@ -29,21 +29,21 @@ const without = (path) => {
 };
 
 const issuesOf = (data) => {
-  const result = validateEnjeu(data);
+  const result = validateChallenge(data);
   return result.success ? [] : result.error.issues.map((i) => ({ path: i.path, message: i.message }));
 };
 
 // ── golden fixtures ───────────────────────────────────────────────────────────
 
-describe('enjeu golden fixtures', () => {
+describe('challenge golden fixtures', () => {
   const files = readdirSync(FIXTURES_DIR).filter((f) => f.endsWith('.md'));
 
-  it('has one fixture per enjeu key', () => {
+  it('has one fixture per challenge key', () => {
     expect(files.map((f) => loadFixture(f).key).sort()).toEqual(['ai', 'cx', 'rp', 'sc', 'se', 'sy']);
   });
 
   // The slug is the English kebab-case of the name, the same in both languages.
-  it.each(files)('%s is named after its enjeu', (file) => {
+  it.each(files)('%s is named after its challenge', (file) => {
     expect(file).toBe(`${loadFixture(file).name.toLowerCase().replaceAll(' ', '-')}.md`);
   });
 
@@ -99,7 +99,7 @@ const CAPS = [
   [['diagnostic', 'subtitle'], 125],
 ];
 
-describe('enjeu caps', () => {
+describe('challenge caps', () => {
   it.each(CAPS)('%j accepts %i characters', (path, cap) => {
     expect(issuesOf(withValue(path, 'a'.repeat(cap)))).toEqual([]);
   });
@@ -123,9 +123,9 @@ describe('enjeu caps', () => {
 
 // ── strings ───────────────────────────────────────────────────────────────────
 
-describe('enjeu strings', () => {
+describe('challenge strings', () => {
   it('trims every string', () => {
-    const result = validateEnjeu(withValue(['hero', 'quote'], '  Une citation.  '));
+    const result = validateChallenge(withValue(['hero', 'quote'], '  Une citation.  '));
     expect(result.data.hero.quote).toBe('Une citation.');
   });
 
@@ -158,7 +158,7 @@ const resize = (path, count) => {
   return Array.from({ length: count }, (_, i) => structuredClone(items[i % items.length]));
 };
 
-describe('enjeu array counts', () => {
+describe('challenge array counts', () => {
   it.each(COUNTS)('%j accepts %i to %i items', (path, min, max) => {
     expect(issuesOf(withValue(path, resize(path, min)))).toEqual([]);
     expect(issuesOf(withValue(path, resize(path, max)))).toEqual([]);
@@ -175,7 +175,7 @@ describe('enjeu array counts', () => {
 
 // ── Stage ids ─────────────────────────────────────────────────────────────────
 
-describe('enjeu Stage ids', () => {
+describe('challenge Stage ids', () => {
   it('lists the seven Stages in bow tie order', () => {
     expect(STAGE_IDS).toEqual([
       'demand-generation',
@@ -218,7 +218,7 @@ describe('enjeu Stage ids', () => {
 
 // ── key, order, step ──────────────────────────────────────────────────────────
 
-describe('enjeu key, order and step', () => {
+describe('challenge key, order and step', () => {
   it.each(['rp', 'se', 'sc', 'cx', 'sy', 'ai'])('accepts key %s', (key) => {
     expect(issuesOf(withValue(['key'], key))).toEqual([]);
   });
@@ -248,7 +248,7 @@ describe('enjeu key, order and step', () => {
 
 // ── optional and required fields ──────────────────────────────────────────────
 
-describe('enjeu optional fields', () => {
+describe('challenge optional fields', () => {
   it('accepts a case without a Story', () => {
     expect(base.case.story).toBeUndefined();
     expect(issuesOf(base)).toEqual([]);
@@ -271,7 +271,7 @@ describe('enjeu optional fields', () => {
 
 // ── unknown keys ──────────────────────────────────────────────────────────────
 
-describe('enjeu unknown keys', () => {
+describe('challenge unknown keys', () => {
   it('rejects extraSections', () => {
     expect(issuesOf({ ...base, extraSections: [{ type: 'stack' }] })).toEqual([
       { path: [], message: 'Unrecognized key: "extraSections"' },

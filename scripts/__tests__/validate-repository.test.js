@@ -100,25 +100,25 @@ describe('validateRepository', () => {
   });
 });
 
-describe('validateRepository with enjeu files', () => {
-  const ENJEU = readFileSync(
-    join(dirname(fileURLToPath(import.meta.url)), 'fixtures/enjeux/revenue-performance.md'),
+describe('validateRepository with challenge files', () => {
+  const CHALLENGE = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), 'fixtures/challenges/revenue-performance.md'),
     'utf8',
   );
 
-  it('accepts a French enjeu file', () => {
+  it('accepts a French challenge file', () => {
     ['salesforce', 'modjo', 'notion'].forEach((tool) => write(`tools/${tool}.md`, TOOL));
-    write('enjeux/fr/revenue-performance.md', ENJEU);
+    write('challenges/fr/revenue-performance.md', CHALLENGE);
 
     expect(validateRepository(repoRoot).failures).toEqual([]);
   });
 
-  it('rejects an enjeu file with a markdown body', () => {
-    write('enjeux/fr/revenue-performance.md', `${ENJEU}\nUn paragraphe.\n`);
+  it('rejects a challenge file with a markdown body', () => {
+    write('challenges/fr/revenue-performance.md', `${CHALLENGE}\nUn paragraphe.\n`);
 
     expect(validateRepository(repoRoot).failures).toEqual([
       {
-        file: 'enjeux/fr/revenue-performance.md',
+        file: 'challenges/fr/revenue-performance.md',
         schemaErrors: [{ path: [], message: expect.stringContaining('body must be empty') }],
         crossRefErrors: [],
       },
@@ -126,11 +126,11 @@ describe('validateRepository with enjeu files', () => {
   });
 
   it('reports a cap error with the field, its length, the cap and the overage', () => {
-    write('enjeux/fr/revenue-performance.md', ENJEU.replace(/^ {2}lead: .*$/m, `  lead: ${'a'.repeat(263)}`));
+    write('challenges/fr/revenue-performance.md', CHALLENGE.replace(/^ {2}lead: .*$/m, `  lead: ${'a'.repeat(263)}`));
 
     expect(validateRepository(repoRoot).failures).toEqual([
       {
-        file: 'enjeux/fr/revenue-performance.md',
+        file: 'challenges/fr/revenue-performance.md',
         schemaErrors: [{ path: ['hero', 'lead'], message: '263 characters, cap 240 (23 over)' }],
         crossRefErrors: [],
       },
