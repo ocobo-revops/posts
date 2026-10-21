@@ -38,6 +38,13 @@ const validateCrossRefs = (type, data, resolver) => {
       });
     }
   }
+  if (type === 'team-member') {
+    (data.tools ?? []).forEach((t) => {
+      if (!resolver.isValidToolSlug(t)) {
+        errors.push({ path: ['tools'], message: `"${t}" does not match any tool slug` });
+      }
+    });
+  }
   if (type === 'job' && data.hiringContact && !resolver.isValidTeamSlug(data.hiringContact)) {
     errors.push({
       path: ['hiringContact'],
