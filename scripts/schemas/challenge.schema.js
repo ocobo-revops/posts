@@ -80,7 +80,9 @@ const demoElement = z.discriminatedUnion('type', [
 const demo = z.strictObject({
   channel: cappedText(28),
   agent: cappedText(24),
-  // YAML reads an unquoted 14:32 as the base 60 number 872.
+  // YAML reads an unquoted 14:32 as the base 60 number 872. Not trimmed,
+  // unlike the text fields: it is a fixed-format value, and #99 compares it
+  // exactly between the French and English files, so a stray space fails here.
   time: z
     .string({
       error: (iss) => (typeof iss.input === 'number' ? 'quote the time, e.g. "14:32"' : undefined),
