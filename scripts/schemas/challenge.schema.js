@@ -39,6 +39,66 @@ const workstream = z.strictObject({
   note: cappedText(100).optional(),
 });
 
+// Agent window (spec #91, section "aiBridge.demo"): a frame and up to four
+// typed body elements, rendered in order. Every mockup window has four.
+const percentage = z.number().int().min(0).max(100);
+
+const demoElement = z.discriminatedUnion('type', [
+  z.strictObject({
+    type: z.literal('kpis'),
+    items: z
+      .array(
+        z.strictObject({
+          value: cappedText(10),
+          label: cappedText(16),
+        }),
+      )
+      .length(3),
+  }),
+  z.strictObject({
+    type: z.literal('figure'),
+    value: cappedText(12),
+    caption: cappedText(48),
+  }),
+  z.strictObject({
+    type: z.literal('progress'),
+    percent: percentage,
+    target: percentage.optional(),
+  }),
+  z.strictObject({
+    type: z.literal('status'),
+    label: cappedText(24),
+    value: cappedText(32),
+    state: z.enum(['ok', 'alert']),
+  }),
+  z.strictObject({
+    type: z.literal('buttons'),
+    labels: z.array(cappedText(20)).min(1).max(2),
+  }),
+]);
+
+const demo = z.strictObject({
+  channel: cappedText(28),
+  agent: cappedText(24),
+  // YAML reads an unquoted 14:32 as the base 60 number 872. Not trimmed,
+  // unlike the text fields: it is a fixed-format value, and #99 compares it
+  // exactly between the French and English files, so a stray space fails here.
+  time: z
+    .string({
+      error: (iss) => (typeof iss.input === 'number' ? 'quote the time, e.g. "14:32"' : undefined),
+    })
+    .regex(/^([01]\d|2[0-3]):[0-5]\d$/, { error: 'must be a 24-hour time, HH:MM' }),
+  opening: z.strictObject({
+    // A question renders in quotes, a statement as plain agent text.
+    kind: z.enum(['question', 'statement']),
+    text: cappedText(70),
+  }),
+  elements: z.array(demoElement).min(1).max(4),
+  footer: cappedText(60),
+  // Shown under the window (assumption A3 in spec #91: fictional accounts).
+  note: cappedText(90).optional(),
+});
+
 export const challengeSchema = z.strictObject({
   key: z.enum(CHALLENGE_KEYS),
   order: z.number().int().min(1).max(6),
@@ -94,6 +154,8 @@ export const challengeSchema = z.strictObject({
   aiBridge: z.strictObject({
     title: cappedText(92),
     bullets: z.array(cappedText(125)).length(3),
+    // Revenue AI has no agent window.
+    demo: demo.optional(),
   }),
   method: z.strictObject({
     title: cappedText(30).optional(),

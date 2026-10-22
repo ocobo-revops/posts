@@ -7,8 +7,8 @@ import { validateChallenge } from '../schemas/challenge.schema.js';
 import { STAGE_IDS } from '../schemas/stage-ids.js';
 
 // One golden fixture per challenge, built from the text of the six enjeux-*.html
-// mockups in ocobo-revops/prototype, without the agent window. Only the Sales
-// Compensation mockup has a partner block.
+// mockups in ocobo-revops/prototype. Only the Sales Compensation mockup has a
+// partner block, and the Revenue AI mockup has no agent window.
 const FIXTURES_DIR = join(dirname(fileURLToPath(import.meta.url)), 'fixtures/challenges');
 const loadFixture = (file) => matter(readFileSync(join(FIXTURES_DIR, file), 'utf8')).data;
 
@@ -57,6 +57,15 @@ describe('challenge golden fixtures', () => {
     expect(ai.method.steps.every((s) => s.title)).toBe(true);
     expect(ai.workstreams.title).toBeDefined();
   });
+
+  it('the Revenue AI fixture has no agent window', () => {
+    expect(loadFixture('revenue-ai.md').aiBridge.demo).toBeUndefined();
+  });
+
+  // Spec #91 measured four body elements in every mockup window.
+  it.each(files.filter((f) => f !== 'revenue-ai.md'))('%s carries an agent window of four elements', (file) => {
+    expect(loadFixture(file).aiBridge.demo.elements).toHaveLength(4);
+  });
 });
 
 // ── caps ──────────────────────────────────────────────────────────────────────
@@ -86,6 +95,11 @@ const CAPS = [
   [['workstreams', 'items', 0, 'note'], 100],
   [['aiBridge', 'title'], 92],
   [['aiBridge', 'bullets', 0], 125],
+  [['aiBridge', 'demo', 'channel'], 28],
+  [['aiBridge', 'demo', 'agent'], 24],
+  [['aiBridge', 'demo', 'opening', 'text'], 70],
+  [['aiBridge', 'demo', 'footer'], 60],
+  [['aiBridge', 'demo', 'note'], 90],
   [['method', 'title'], 30],
   [['method', 'subtitle'], 75],
   [['method', 'steps', 0, 'title'], 28],
@@ -148,6 +162,7 @@ const COUNTS = [
   [['audience'], 4, 4],
   [['workstreams', 'items'], 4, 6],
   [['aiBridge', 'bullets'], 3, 3],
+  [['aiBridge', 'demo', 'elements'], 1, 4],
   [['method', 'steps'], 3, 3],
   [['method', 'tools'], 0, 9],
   [['case', 'metrics'], 2, 2],
@@ -338,6 +353,219 @@ describe('challenge partner block', () => {
   });
 });
 
+// ── agent window ──────────────────────────────────────────────────────────────
+
+const DEMO = ['aiBridge', 'demo'];
+
+// One valid element of each type, from the mockup windows.
+const ELEMENTS = {
+  kpis: {
+    type: 'kpis',
+    items: [
+      { value: '1,24 M€', label: 'commit' },
+      { value: '82 %', label: "de l'objectif" },
+      { value: '+6 pts', label: 'vs. S-1' },
+    ],
+  },
+  figure: { type: 'figure', value: '3 840 €', caption: 'de commission si signé ce mois-ci' },
+  progress: { type: 'progress', percent: 82, target: 100 },
+  status: { type: 'status', label: 'Contrôle', value: '1 deal compté deux fois', state: 'alert' },
+  buttons: { type: 'buttons', labels: ['Ouvrir le compte', 'Préparer le RDV'] },
+};
+
+const withElement = (element) => withValue([...DEMO, 'elements'], [element]);
+
+const ELEMENT_CAPS = [
+  ['kpis', ['items', 0, 'value'], 10],
+  ['kpis', ['items', 2, 'label'], 16],
+  ['figure', ['value'], 12],
+  ['figure', ['caption'], 48],
+  ['status', ['label'], 24],
+  ['status', ['value'], 32],
+  ['buttons', ['labels', 1], 20],
+];
+
+// Every required field of each element type.
+const ELEMENT_FIELDS = [
+  ['kpis', 'items'],
+  ['figure', 'value'],
+  ['figure', 'caption'],
+  ['progress', 'percent'],
+  ['status', 'label'],
+  ['status', 'value'],
+  ['status', 'state'],
+  ['buttons', 'labels'],
+];
+
+const elementWith = (type, path, value) => {
+  const element = structuredClone(ELEMENTS[type]);
+  const parent = path.slice(0, -1).reduce((node, key) => node[key], element);
+  parent[path.at(-1)] = value;
+  return element;
+};
+
+describe('challenge agent window', () => {
+  it('is optional', () => {
+    expect(issuesOf(without(DEMO))).toEqual([]);
+  });
+
+  it.each(Object.keys(ELEMENTS))('accepts a %s element', (type) => {
+    expect(issuesOf(withElement(ELEMENTS[type]))).toEqual([]);
+  });
+
+  it('accepts four elements of mixed types', () => {
+    const { figure, progress, status, buttons } = ELEMENTS;
+    expect(issuesOf(withValue([...DEMO, 'elements'], [figure, progress, status, buttons]))).toEqual([]);
+  });
+
+  it('rejects a fifth element', () => {
+    const { kpis, figure, progress, status, buttons } = ELEMENTS;
+    expect(issuesOf(withValue([...DEMO, 'elements'], [kpis, figure, progress, status, buttons]))).toEqual([
+      { path: [...DEMO, 'elements'], message: expect.any(String) },
+    ]);
+  });
+
+  it('rejects an unknown element type', () => {
+    expect(issuesOf(withElement({ type: 'chart', value: '12' }))).toEqual([
+      { path: [...DEMO, 'elements', 0, 'type'], message: expect.any(String) },
+    ]);
+  });
+
+  it('rejects an element without a type', () => {
+    const { type, ...figure } = ELEMENTS.figure;
+    expect(issuesOf(withElement(figure))).toEqual([
+      { path: [...DEMO, 'elements', 0, 'type'], message: expect.any(String) },
+    ]);
+  });
+
+  it.each(ELEMENT_CAPS)('%s %j accepts %i characters', (type, path, cap) => {
+    expect(issuesOf(withElement(elementWith(type, path, 'a'.repeat(cap))))).toEqual([]);
+  });
+
+  it.each(ELEMENT_CAPS)('%s %j rejects one character over cap %i', (type, path, cap) => {
+    expect(issuesOf(withElement(elementWith(type, path, 'a'.repeat(cap + 1))))).toEqual([
+      { path: [...DEMO, 'elements', 0, ...path], message: `${cap + 1} characters, cap ${cap} (1 over)` },
+    ]);
+  });
+
+  it.each(ELEMENT_FIELDS)('rejects a %s element without %s', (type, field) => {
+    const { [field]: omitted, ...element } = ELEMENTS[type];
+    expect(issuesOf(withElement(element))).toEqual([
+      { path: [...DEMO, 'elements', 0, field], message: expect.any(String) },
+    ]);
+  });
+
+  it.each(Object.keys(ELEMENTS))('rejects an unknown key in a %s element', (type) => {
+    expect(issuesOf(withElement({ ...ELEMENTS[type], icon: 'x' }))).toEqual([
+      { path: [...DEMO, 'elements', 0], message: 'Unrecognized key: "icon"' },
+    ]);
+  });
+
+  it('rejects an unknown key in a KPI', () => {
+    expect(issuesOf(withElement(elementWith('kpis', ['items', 0, 'trend'], 'x')))).toEqual([
+      { path: [...DEMO, 'elements', 0, 'items', 0], message: 'Unrecognized key: "trend"' },
+    ]);
+  });
+
+  it.each([2, 4])('rejects %i KPIs', (count) => {
+    const items = Array.from({ length: count }, (_, i) => ELEMENTS.kpis.items[i % 3]);
+    expect(issuesOf(withElement({ type: 'kpis', items }))).toEqual([
+      { path: [...DEMO, 'elements', 0, 'items'], message: expect.any(String) },
+    ]);
+  });
+
+  it.each([[[]], [['Un', 'Deux', 'Trois']]])('rejects buttons with %j labels', (labels) => {
+    expect(issuesOf(withElement({ type: 'buttons', labels }))).toEqual([
+      { path: [...DEMO, 'elements', 0, 'labels'], message: expect.any(String) },
+    ]);
+  });
+
+  it('accepts a single button', () => {
+    expect(issuesOf(withElement({ type: 'buttons', labels: ['Ouvrir le compte'] }))).toEqual([]);
+  });
+
+  it('accepts a progress bar without a target', () => {
+    expect(issuesOf(withElement({ type: 'progress', percent: 82 }))).toEqual([]);
+  });
+
+  it.each([
+    ['percent', 0],
+    ['percent', 100],
+    ['target', 0],
+    ['target', 100],
+  ])('accepts progress %s %i', (field, value) => {
+    expect(issuesOf(withElement(elementWith('progress', [field], value)))).toEqual([]);
+  });
+
+  it.each([
+    ['percent', -1],
+    ['percent', 101],
+    ['percent', 82.5],
+    ['percent', '82'],
+    ['target', 101],
+    ['target', 99.5],
+  ])('rejects progress %s %j', (field, value) => {
+    expect(issuesOf(withElement(elementWith('progress', [field], value)))).toEqual([
+      { path: [...DEMO, 'elements', 0, field], message: expect.any(String) },
+    ]);
+  });
+
+  it.each(['ok', 'alert'])('accepts status state %s', (state) => {
+    expect(issuesOf(withElement(elementWith('status', ['state'], state)))).toEqual([]);
+  });
+
+  it('rejects an unknown status state', () => {
+    expect(issuesOf(withElement(elementWith('status', ['state'], 'warning')))).toEqual([
+      { path: [...DEMO, 'elements', 0, 'state'], message: expect.any(String) },
+    ]);
+  });
+
+  it.each(['question', 'statement'])('accepts opening kind %s', (kind) => {
+    expect(issuesOf(withValue([...DEMO, 'opening', 'kind'], kind))).toEqual([]);
+  });
+
+  it('rejects an unknown opening kind', () => {
+    expect(issuesOf(withValue([...DEMO, 'opening', 'kind'], 'answer'))).toEqual([
+      { path: [...DEMO, 'opening', 'kind'], message: expect.any(String) },
+    ]);
+  });
+
+  it.each(['00:00', '09:12', '23:59'])('accepts time %s', (time) => {
+    expect(issuesOf(withValue([...DEMO, 'time'], time))).toEqual([]);
+  });
+
+  it.each(['24:00', '8:05', '08:60', '08h05', '08:05:00', ' 08:05'])('rejects time %j', (time) => {
+    expect(issuesOf(withValue([...DEMO, 'time'], time))).toEqual([
+      { path: [...DEMO, 'time'], message: 'must be a 24-hour time, HH:MM' },
+    ]);
+  });
+
+  it('asks to quote a time YAML read as a number', () => {
+    const { time } = matter('---\ntime: 14:32\n---\n').data;
+    expect(time).toBe(872);
+    expect(issuesOf(withValue([...DEMO, 'time'], time))).toEqual([
+      { path: [...DEMO, 'time'], message: 'quote the time, e.g. "14:32"' },
+    ]);
+  });
+
+  it.each([
+    [['channel']],
+    [['agent']],
+    [['time']],
+    [['opening']],
+    [['opening', 'kind']],
+    [['opening', 'text']],
+    [['elements']],
+    [['footer']],
+  ])('rejects a missing %j', (path) => {
+    expect(issuesOf(without([...DEMO, ...path]))).toEqual([{ path: [...DEMO, ...path], message: expect.any(String) }]);
+  });
+
+  it('accepts a note under the window', () => {
+    expect(issuesOf(withValue([...DEMO, 'note'], 'Comptes et montants fictifs.'))).toEqual([]);
+  });
+});
+
 // ── unknown keys ──────────────────────────────────────────────────────────────
 
 describe('challenge unknown keys', () => {
@@ -352,7 +580,8 @@ describe('challenge unknown keys', () => {
     [['bowtie', 'legend']],
     [['symptoms', 'intro']],
     [['workstreams', 'cta']],
-    [['aiBridge', 'demo']],
+    [['aiBridge', 'demo', 'avatar']],
+    [['aiBridge', 'demo', 'opening', 'emoji']],
     [['method', 'cta']],
     [['case', 'quote']],
     [['diagnostic', 'cta']],
