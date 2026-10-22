@@ -68,6 +68,17 @@ workstreams:
       title: Un plan qui s'ajuste sur des faits
       description: Mesure de l'effet du plan sur les comportements, traitement des cas particuliers, revue annuelle avec vos RH.
       deliverable: Un rituel de revue et des règles de gestion des exceptions.
+partner:
+  tool: qobra
+  sentence: "Qobra automatise le calcul. Ocobo conçoit le plan qu'il calcule, et s'assure qu'il produit les comportements attendus."
+  metrics:
+    - before: 7 jours
+      after: "1"
+      label: "Clôture mensuelle des commissions chez Doctolib (source : Qobra)"
+    - before: 3 jours
+      after: ½
+      label: "Clôture mensuelle des commissions chez Pennylane (source : Qobra)"
+  source: Chiffres publiés par Qobra sur ses clients.
 aiBridge:
   title: Chaque commercial sait ce que lui rapporte le deal sur lequel il travaille.
   bullets:

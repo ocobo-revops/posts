@@ -54,6 +54,13 @@ const validateCrossRefs = (type, data, resolver) => {
       }
     });
   }
+  if (type === 'challenge') {
+    // A malformed partner block is already a schema error; skip the cross-reference.
+    const tool = data.partner?.tool;
+    if (typeof tool === 'string' && !resolver.isValidToolSlug(tool)) {
+      errors.push({ path: ['partner', 'tool'], message: `"${tool}" does not match any tool slug` });
+    }
+  }
   if (type === 'job' && data.hiringContact && !resolver.isValidTeamSlug(data.hiringContact)) {
     errors.push({
       path: ['hiringContact'],

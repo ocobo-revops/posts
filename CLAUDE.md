@@ -33,4 +33,4 @@ Traps to respect when editing content directly:
 - **Slugs are identity** - kebab-case, and the cross-reference key for authors, tools, hiringContacts. Renaming a slug breaks references.
 - **Blob URLs** - image fields (`avatar`, `image`, `iconUrl`) must resolve to Vercel Blob URLs; CI rewrites local paths on PR. `pnpm validate` fails on local paths until then - expected pre-sync.
 - **Multi-language paradigm** - blog/story/job/challenge live under `<type>/<lang>/<slug>.md` (`fr` default). Challenge files sit in `challenges/<lang>/` with the same slug in both languages, and carry frontmatter only: a body fails validation. Team members carry both languages inline (`role.fr/en`, `bio.fr/en`); tools are language-agnostic (`name`, `category`, no translatable copy). Neither has a per-lang directory.
-- **Cross-refs are strict** - `author`, `tools`, `featuredTool`, `hiringContact` must point to existing slugs; validation rejects dangling references.
+- **Cross-refs are strict** - `author`, `tools`, `featuredTool`, `hiringContact`, `partner.tool` must point to existing slugs; validation rejects dangling references.
