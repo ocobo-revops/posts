@@ -169,8 +169,15 @@ describe('validateRepository with challenge files', () => {
       'utf8',
     );
 
+    // Throws when the fixture line is missing, so a test never runs on an unedited file.
+    const withPartnerTool = (line) => {
+      const pattern = /^ {2}tool: qobra$/m;
+      if (!pattern.test(SALES_COMPENSATION)) throw new Error('partner tool line not found in fixture');
+      return SALES_COMPENSATION.replace(pattern, `  tool: ${line}`);
+    };
+
     beforeEach(() => {
-      ['qobra', 'salesforce'].forEach((tool) => write(`tools/${tool}.md`, TOOL));
+      write('tools/qobra.md', TOOL);
     });
 
     it('accepts a partner citing an existing tool slug', () => {
@@ -180,7 +187,7 @@ describe('validateRepository with challenge files', () => {
     });
 
     it('reports a partner tool that is not a tool slug, naming the slug', () => {
-      write('challenges/fr/sales-compensation.md', SALES_COMPENSATION.replace(/^ {2}tool: qobra$/m, '  tool: ghost-tool'));
+      write('challenges/fr/sales-compensation.md', withPartnerTool('ghost-tool'));
 
       expect(validateRepository(repoRoot).failures).toEqual([
         {
@@ -193,20 +200,16 @@ describe('validateRepository with challenge files', () => {
       ]);
     });
 
-    it('resolves a padded partner tool slug, as the schema trims it', () => {
-      write('challenges/fr/sales-compensation.md', SALES_COMPENSATION.replace(/^ {2}tool: qobra$/m, '  tool: " qobra "'));
-
-      expect(validateRepository(repoRoot).failures).toEqual([]);
-    });
-
-    it('reports a blank partner tool once, as a schema error', () => {
-      write('challenges/fr/sales-compensation.md', SALES_COMPENSATION.replace(/^ {2}tool: qobra$/m, '  tool: "  "'));
+    it('reports a padded partner tool slug, like the other tool references', () => {
+      write('challenges/fr/sales-compensation.md', withPartnerTool('" qobra "'));
 
       expect(validateRepository(repoRoot).failures).toEqual([
         {
           file: 'challenges/fr/sales-compensation.md',
-          schemaErrors: [{ path: ['partner', 'tool'], message: 'must not be empty' }],
-          crossRefErrors: [],
+          schemaErrors: [],
+          crossRefErrors: [
+            { path: ['partner', 'tool'], message: '" qobra " does not match any tool slug' },
+          ],
         },
       ]);
     });

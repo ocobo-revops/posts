@@ -278,6 +278,9 @@ const PARTNER_CAPS = [
   [['partner', 'metrics', 0, 'before'], 12],
   [['partner', 'metrics', 0, 'after'], 12],
   [['partner', 'metrics', 0, 'label'], 90],
+  [['partner', 'metrics', 1, 'before'], 12],
+  [['partner', 'metrics', 1, 'after'], 12],
+  [['partner', 'metrics', 1, 'label'], 90],
   [['partner', 'source'], 90],
 ];
 
