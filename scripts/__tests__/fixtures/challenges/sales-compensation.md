@@ -85,6 +85,30 @@ aiBridge:
     - Le commercial pose sa question en français et obtient le détail de sa commission.
     - Les scénarios de plan se simulent en quelques minutes, sur vos vraies données.
     - Les anomalies de calcul sont repérées avant la paie.
+  demo:
+    channel: Assistant variable
+    agent: Assistant variable
+    time: "10:18"
+    opening:
+      kind: question
+      text: Combien me rapporte le deal Brightlane ?
+    elements:
+      - type: figure
+        value: 3 840 €
+        caption: de commission si signé ce mois-ci
+      - type: status
+        label: Taux de base
+        value: 8 % × 48 k€
+        state: ok
+      - type: status
+        label: Accélérateur
+        value: Palier 110 % atteint
+        state: ok
+      - type: status
+        label: Contrôle
+        value: 1 deal compté deux fois
+        state: alert
+    footer: Calcul vérifié avant la paie
 method:
   subtitle: De l'analyse du plan actuel à un variable qui se pilote seul.
   steps:
