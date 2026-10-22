@@ -7,22 +7,22 @@ import { validateChallenge } from '../schemas/challenge.schema.js';
 import { STAGE_IDS } from '../schemas/stage-ids.js';
 
 // One golden fixture per challenge, built from the text of the six enjeux-*.html
-// mockups in ocobo-revops/prototype, without the partner block and the agent
-// window.
+// mockups in ocobo-revops/prototype, without the agent window. Only the Sales
+// Compensation mockup has a partner block.
 const FIXTURES_DIR = join(dirname(fileURLToPath(import.meta.url)), 'fixtures/challenges');
 const loadFixture = (file) => matter(readFileSync(join(FIXTURES_DIR, file), 'utf8')).data;
 
 const base = loadFixture('revenue-performance.md');
 
-const withValue = (path, value) => {
-  const data = structuredClone(base);
+const withValue = (path, value, from = base) => {
+  const data = structuredClone(from);
   const parent = path.slice(0, -1).reduce((node, key) => node[key], data);
   parent[path.at(-1)] = value;
   return data;
 };
 
-const without = (path) => {
-  const data = structuredClone(base);
+const without = (path, from = base) => {
+  const data = structuredClone(from);
   const parent = path.slice(0, -1).reduce((node, key) => node[key], data);
   delete parent[path.at(-1)];
   return data;
@@ -266,6 +266,72 @@ describe('challenge optional fields', () => {
     [['diagnostic']],
   ])('rejects a missing %j', (path) => {
     expect(issuesOf(without(path))).toEqual([{ path, message: expect.any(String) }]);
+  });
+});
+
+// ── partner block ─────────────────────────────────────────────────────────────
+
+const partnered = structuredClone({ ...base, partner: loadFixture('sales-compensation.md').partner });
+
+const PARTNER_CAPS = [
+  [['partner', 'sentence'], 140],
+  [['partner', 'metrics', 0, 'before'], 12],
+  [['partner', 'metrics', 0, 'after'], 12],
+  [['partner', 'metrics', 0, 'label'], 90],
+  [['partner', 'source'], 90],
+];
+
+describe('challenge partner block', () => {
+  it('is optional', () => {
+    expect(base.partner).toBeUndefined();
+    expect(issuesOf(base)).toEqual([]);
+  });
+
+  it('is open to any challenge', () => {
+    expect(base.key).not.toBe('sc');
+    expect(issuesOf(partnered)).toEqual([]);
+  });
+
+  it.each(PARTNER_CAPS)('%j accepts %i characters', (path, cap) => {
+    expect(issuesOf(withValue(path, 'a'.repeat(cap), partnered))).toEqual([]);
+  });
+
+  it.each(PARTNER_CAPS)('%j rejects one character over cap %i, stating length, cap and overage', (path, cap) => {
+    expect(issuesOf(withValue(path, 'a'.repeat(cap + 1), partnered))).toEqual([
+      { path, message: `${cap + 1} characters, cap ${cap} (1 over)` },
+    ]);
+  });
+
+  it.each([1, 3])('rejects %i metrics', (count) => {
+    const metrics = Array.from({ length: count }, () => structuredClone(partnered.partner.metrics[0]));
+    expect(issuesOf(withValue(['partner', 'metrics'], metrics, partnered))).toEqual([
+      { path: ['partner', 'metrics'], message: expect.any(String) },
+    ]);
+  });
+
+  it.each([
+    [['partner', 'tool']],
+    [['partner', 'sentence']],
+    [['partner', 'metrics']],
+    [['partner', 'source']],
+    [['partner', 'metrics', 1, 'after']],
+  ])('rejects a missing %j', (path) => {
+    expect(issuesOf(without(path, partnered))).toEqual([{ path, message: expect.any(String) }]);
+  });
+
+  it('rejects a blank Tool slug', () => {
+    expect(issuesOf(withValue(['partner', 'tool'], '   ', partnered))).toEqual([
+      { path: ['partner', 'tool'], message: 'must not be empty' },
+    ]);
+  });
+
+  it.each([
+    [['partner', 'logo']],
+    [['partner', 'metrics', 0, 'trend']],
+  ])('rejects the unknown key %j', (path) => {
+    expect(issuesOf(withValue(path, 'x', partnered))).toEqual([
+      { path: path.slice(0, -1), message: `Unrecognized key: "${path.at(-1)}"` },
+    ]);
   });
 });
 

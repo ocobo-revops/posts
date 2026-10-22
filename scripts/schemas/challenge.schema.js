@@ -73,6 +73,24 @@ export const challengeSchema = z.strictObject({
     intro: cappedText(120),
     items: z.array(workstream).min(4).max(6),
   }),
+  // Open to every challenge (ADR 0002). The logo comes from the Tool file, and
+  // the figures belong to the partner, so their source is required.
+  partner: z
+    .strictObject({
+      tool: slug,
+      sentence: cappedText(140),
+      metrics: z
+        .array(
+          z.strictObject({
+            before: cappedText(12),
+            after: cappedText(12),
+            label: cappedText(90),
+          }),
+        )
+        .length(2),
+      source: cappedText(90),
+    })
+    .optional(),
   aiBridge: z.strictObject({
     title: cappedText(92),
     bullets: z.array(cappedText(125)).length(3),

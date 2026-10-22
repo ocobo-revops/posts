@@ -163,6 +163,55 @@ describe('validateRepository with challenge files', () => {
     expect(validateRepository(repoRoot).failures).toEqual([]);
   });
 
+  describe('partner block', () => {
+    const SALES_COMPENSATION = readFileSync(
+      join(dirname(fileURLToPath(import.meta.url)), 'fixtures/challenges/sales-compensation.md'),
+      'utf8',
+    );
+
+    beforeEach(() => {
+      ['qobra', 'salesforce'].forEach((tool) => write(`tools/${tool}.md`, TOOL));
+    });
+
+    it('accepts a partner citing an existing tool slug', () => {
+      write('challenges/fr/sales-compensation.md', SALES_COMPENSATION);
+
+      expect(validateRepository(repoRoot).failures).toEqual([]);
+    });
+
+    it('reports a partner tool that is not a tool slug, naming the slug', () => {
+      write('challenges/fr/sales-compensation.md', SALES_COMPENSATION.replace(/^ {2}tool: qobra$/m, '  tool: ghost-tool'));
+
+      expect(validateRepository(repoRoot).failures).toEqual([
+        {
+          file: 'challenges/fr/sales-compensation.md',
+          schemaErrors: [],
+          crossRefErrors: [
+            { path: ['partner', 'tool'], message: '"ghost-tool" does not match any tool slug' },
+          ],
+        },
+      ]);
+    });
+
+    it('resolves a padded partner tool slug, as the schema trims it', () => {
+      write('challenges/fr/sales-compensation.md', SALES_COMPENSATION.replace(/^ {2}tool: qobra$/m, '  tool: " qobra "'));
+
+      expect(validateRepository(repoRoot).failures).toEqual([]);
+    });
+
+    it('reports a blank partner tool once, as a schema error', () => {
+      write('challenges/fr/sales-compensation.md', SALES_COMPENSATION.replace(/^ {2}tool: qobra$/m, '  tool: "  "'));
+
+      expect(validateRepository(repoRoot).failures).toEqual([
+        {
+          file: 'challenges/fr/sales-compensation.md',
+          schemaErrors: [{ path: ['partner', 'tool'], message: 'must not be empty' }],
+          crossRefErrors: [],
+        },
+      ]);
+    });
+  });
+
   it('rejects a challenge file with a markdown body', () => {
     write('challenges/fr/revenue-performance.md', `${CHALLENGE}\nUn paragraphe.\n`);
 
