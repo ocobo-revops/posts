@@ -243,6 +243,11 @@ describe('story schema', () => {
     expect(validateStory({ ...validStory, featuredTool: 'salesforce' }).success).toBe(false);
   });
 
+  it('accepts a story with no tools and no featuredTool', () => {
+    const { featuredTool: _, ...noFeatured } = validStory;
+    expect(validateStory({ ...noFeatured, tools: [] }).success).toBe(true);
+  });
+
   it('coerces JS Date in date field', () => {
     expect(validateStory({ ...validStory, date: new Date('2024-03-01') }).success).toBe(true);
   });

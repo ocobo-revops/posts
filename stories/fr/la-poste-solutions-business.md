@@ -1,7 +1,7 @@
 ---
 name: La Poste Solutions Business
 date: 2026-11-02
-title: La Poste Solutions Business dispose d'un diagnostic partagé de son dispositif de commissionnement et d'un plan d'action à 12 mois pour le faire évoluer.
+title: "La Poste Solutions Business objective son commissionnement : un diagnostic partagé et un plan d’action à 12 mois"
 subtitle: La Poste Solutions Business est la branche du Groupe La Poste dédiée aux entreprises.
 description: La Poste Solutions Business accompagne les entreprises de toutes tailles, des TPE aux grands comptes, avec une offre de solutions courrier, colis, marketing et numériques portée par des équipes commerciales présentes sur tout le territoire.
 speaker: Flora Seggar
@@ -9,9 +9,7 @@ role: Directrice de la transformation
 duration: 6 semaines
 scopes:
   - Acquisition
-tools:
-  - gsheet
-featuredTool: gsheet
+tools: []
 quotes:
   - "Ocobo nous a apporté de la clarté et de quoi décider sereinement : un diagnostic partagé, des ajustements actionnables à court terme et une vision d'évolution à plus long terme. L'équipe a su embarquer nos interlocuteurs internes et remettre de la sérénité sur un sujet à fort enjeu."
 deliverables:
