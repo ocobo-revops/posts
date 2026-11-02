@@ -3,7 +3,7 @@ title: Revenue Operations Associate
 icon: "🧘"
 contractType: CDI
 seniority: 1-3 ans
-location: Paris, Bordeaux et Marseille (On site)
+location: Paris, Bordeaux et Marseille, France (On site)
 startDate: 2026-06-01
 hiringContact: aude-cadiot
 applyEmail: recrutement@ocobo.co

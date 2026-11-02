@@ -3,7 +3,7 @@ title: Marketing - Brand & Communication
 icon: "🏃"
 contractType: CDI
 seniority: 1-3 ans
-location: Paris (On site)
+location: Paris, France (On site)
 startDate: 2026-05-04
 hiringContact: benjamin-boileux
 applyEmail: recrutement@ocobo.co
