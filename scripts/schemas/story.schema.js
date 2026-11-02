@@ -13,11 +13,12 @@ export const storySchema = z
     duration: z.string().min(1),
     scopes: z.array(z.string()),
     tools: z.array(z.string()),
-    featuredTool: z.string().min(1),
+    // Optional, as on the website: a story may show no tech stack at all.
+    featuredTool: z.string().min(1).optional(),
     quotes: z.array(z.string()).optional(),
     deliverables: z.array(z.string()).optional(),
   })
-  .refine((d) => d.tools.includes(d.featuredTool), {
+  .refine((d) => d.featuredTool === undefined || d.tools.includes(d.featuredTool), {
     message: 'featuredTool must be one of the values in tools[]',
     path: ['featuredTool'],
   });
