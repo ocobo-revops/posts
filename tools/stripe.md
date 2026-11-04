@@ -1,0 +1,4 @@
+---
+name: Stripe
+category: Facturation
+---
