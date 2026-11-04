@@ -12,4 +12,13 @@ featuredOnAboutUs: false
 bio:
   fr: Spécialiste de l'expérience utilisateur et de l'optimisation des parcours de vente complexes.
   en: Specialist in user experience and optimising complex sales journeys.
+challenge: cx
+contribution:
+  fr: "Santé client, renouvellements et expansion pilotés depuis un seul outil."
+  en: "Customer health, renewals and expansion run from a single tool."
+tools:
+  - planhat
+  - vitally
+  - hubspot
+  - segment
 ---

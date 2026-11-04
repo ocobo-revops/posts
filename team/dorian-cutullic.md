@@ -11,4 +11,13 @@ featuredOnAboutUs: false
 bio:
   fr: Accompagne les scale-ups dans la structuration de leur stack et l'adoption des rituels RevOps.
   en: Supports scale-ups in structuring their stack and adopting RevOps rituals.
+challenge: ai
+contribution:
+  fr: "Branche les assistants IA sur le CRM et les conversations clients."
+  en: "Connects AI assistants to the CRM and to customer conversations."
+tools:
+  - modjo
+  - aircall
+  - notion
+  - hubspot
 ---

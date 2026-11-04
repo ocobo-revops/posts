@@ -13,4 +13,13 @@ color: yellow
 bio:
   fr: 12+ ans en Ops, CRM, Product et Revenue Operations (TheFork, Tripadvisor, Yousign). Spécialiste des systèmes et du pilotage opérationnel.
   en: 12+ years in Ops, CRM, Product and Revenue Operations (TheFork, Tripadvisor, Yousign). Systems and operational management specialist.
+challenge: ai
+contribution:
+  fr: "Pilote la transformation IA chez Ocobo et chez nos clients, du cas d'usage à l'impact."
+  en: "Leads the AI transformation at Ocobo and at our clients, from use case to impact."
+tools:
+  - claude
+  - dust
+  - notion
+  - hubspot
 ---

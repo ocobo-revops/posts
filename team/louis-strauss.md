@@ -12,4 +12,13 @@ featuredOnAboutUs: false
 bio:
   fr: Le cerveau technique derrière nos intégrations les plus poussées et nos outils propriétaires.
   en: The technical brain behind our most advanced integrations and proprietary tools.
+challenge: sy
+contribution:
+  fr: "Architecture CRM, intégrations et modèle de données propre."
+  en: "CRM architecture, integrations and a clean data model."
+tools:
+  - salesforce
+  - hubspot
+  - segment
+  - apollo
 ---
