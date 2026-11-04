@@ -129,7 +129,7 @@ export const challengeSchema = z.strictObject({
     )
     .length(4),
   workstreams: z.strictObject({
-    title: cappedText(50).optional(),
+    title: cappedText(71).optional(),
     intro: cappedText(120),
     items: z.array(workstream).min(4).max(6),
   }),
@@ -159,7 +159,7 @@ export const challengeSchema = z.strictObject({
   }),
   method: z.strictObject({
     title: cappedText(30).optional(),
-    subtitle: cappedText(75),
+    subtitle: cappedText(91),
     steps: z
       .array(
         z.strictObject({
@@ -193,7 +193,7 @@ export const challengeSchema = z.strictObject({
   }),
   diagnostic: z.strictObject({
     question: cappedText(88),
-    subtitle: cappedText(125),
+    subtitle: cappedText(155),
   }),
 });
 
