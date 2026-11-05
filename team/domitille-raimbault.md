@@ -14,8 +14,8 @@ bio:
   en: Masters the most complex CRM architectures to turn data into a growth lever.
 challenge: rp
 contribution:
-  fr: "Prévisionnel, revues de pipe et tableaux de bord que la direction utilise vraiment."
-  en: "Forecasting, pipeline reviews and dashboards that leadership actually uses."
+  fr: Prévisionnel, revues de pipe et tableaux de bord que la direction utilise vraiment.
+  en: Forecasting, pipeline reviews and dashboards that leadership actually uses.
 tools:
   - salesforce
   - tableau

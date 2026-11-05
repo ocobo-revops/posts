@@ -117,5 +117,4 @@ case:
 diagnostic:
   question: Quel est l'écart entre votre prévisionnel et votre réalisé ?
   subtitle: En 30 minutes, un architecte du revenu le mesure avec vous. Vous repartez en sachant par où commencer.
-
 ---

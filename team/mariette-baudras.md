@@ -14,8 +14,8 @@ bio:
   en: Expert in Customer Success Operations and client retention optimisation.
 challenge: sc
 contribution:
-  fr: "Conçoit des plans de variable lisibles et les fait tourner sans tableur."
-  en: "Designs clear variable pay plans and runs them without spreadsheets."
+  fr: Conçoit des plans de variable lisibles et les fait tourner sans tableur.
+  en: Designs clear variable pay plans and runs them without spreadsheets.
 tools:
   - qobra
   - notion

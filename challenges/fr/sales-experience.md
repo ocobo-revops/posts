@@ -129,5 +129,4 @@ case:
 diagnostic:
   question: À quelle étape de votre cycle perdez-vous vos deals ?
   subtitle: En 30 minutes, un architecte du revenu le mesure avec vous. Vous repartez en sachant par où commencer.
-
 ---

@@ -131,5 +131,4 @@ case:
 diagnostic:
   question: Votre plan récompense-t-il ce que vous voulez vraiment vendre ?
   subtitle: En 30 minutes, un architecte du revenu le vérifie avec vous. Vous repartez en sachant par où commencer.
-
 ---

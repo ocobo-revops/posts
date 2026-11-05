@@ -125,5 +125,4 @@ case:
 diagnostic:
   question: Et si votre prochaine croissance était déjà chez vos clients ?
   subtitle: En 30 minutes, un architecte du revenu fait le point avec vous sur votre base clients. Vous repartez en sachant par où commencer.
-
 ---

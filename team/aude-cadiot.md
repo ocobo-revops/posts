@@ -15,8 +15,8 @@ bio:
   en: France's Revenue Operations reference (TheFork, Spendesk). Expert in customer journey, GTM organisations, and scaling RevOps teams.
 challenge: sc
 contribution:
-  fr: "Aligne le plan sur la stratégie et en modélise le coût avec la finance."
-  en: "Aligns the plan with strategy and models its cost with finance."
+  fr: Aligne le plan sur la stratégie et en modélise le coût avec la finance.
+  en: Aligns the plan with strategy and models its cost with finance.
 tools:
   - qobra
   - salesforce

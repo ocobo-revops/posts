@@ -130,5 +130,4 @@ case:
 diagnostic:
   question: Combien payez-vous pour des outils que vos équipes n'utilisent pas ?
   subtitle: En 30 minutes, un architecte du revenu fait le point avec vous sur votre stack. Vous repartez en sachant par où commencer.
-
 ---

@@ -15,8 +15,8 @@ bio:
   en: Finance, Deloitte, Business Ops (TheFork). Forecasting, performance, variable compensation and pricing specialist.
 challenge: rp
 contribution:
-  fr: "Aligne le prévisionnel commercial sur le budget et la trésorerie."
-  en: "Aligns the sales forecast with budget and cash flow."
+  fr: Aligne le prévisionnel commercial sur le budget et la trésorerie.
+  en: Aligns the sales forecast with budget and cash flow.
 tools:
   - salesforce
   - hubspot

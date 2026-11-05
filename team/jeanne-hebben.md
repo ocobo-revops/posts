@@ -15,8 +15,8 @@ featuredOnAboutUs: false
 displayOrder: 15
 challenge: se
 contribution:
-  fr: "Process de vente, quote-to-cash et enablement, du devis à la signature."
-  en: "Sales process, quote-to-cash and enablement, from quote to signature."
+  fr: Process de vente, quote-to-cash et enablement, du devis à la signature.
+  en: Sales process, quote-to-cash and enablement, from quote to signature.
 tools:
   - salesforce
   - pandadoc

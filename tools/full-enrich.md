@@ -1,4 +1,4 @@
 ---
-name: Full Enrich
+name: FullEnrich
 category: Prospection
 ---

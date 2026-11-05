@@ -15,8 +15,8 @@ featuredOnAboutUs: false
 displayOrder: 16
 challenge: cx
 contribution:
-  fr: "Passation vente vers CS et parcours d'onboarding qui tiennent dans le temps."
-  en: "Sales-to-CS handover and onboarding journeys that hold up over time."
+  fr: Passation vente vers CS et parcours d'onboarding qui tiennent dans le temps.
+  en: Sales-to-CS handover and onboarding journeys that hold up over time.
 tools:
   - planhat
   - hubspot

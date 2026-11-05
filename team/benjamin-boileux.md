@@ -15,8 +15,8 @@ bio:
   en: 12+ years in Ops, CRM, Product and Revenue Operations (TheFork, Tripadvisor, Yousign). Systems and operational management specialist.
 challenge: ai
 contribution:
-  fr: "Pilote la transformation IA chez Ocobo et chez nos clients, du cas d'usage à l'impact."
-  en: "Leads the AI transformation at Ocobo and at our clients, from use case to impact."
+  fr: Pilote la transformation IA chez Ocobo et chez nos clients, du cas d'usage à l'impact.
+  en: Leads the AI transformation across Ocobo and our clients, from use case to impact.
 tools:
   - claude
   - dust

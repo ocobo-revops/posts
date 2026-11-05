@@ -15,8 +15,8 @@ featuredOnAboutUs: false
 displayOrder: 14
 challenge: se
 contribution:
-  fr: "Ciblage, outbound et assignation des leads au bon commercial."
-  en: "Targeting, outbound and routing leads to the right sales rep."
+  fr: Ciblage, outbound et assignation des leads au bon commercial.
+  en: Targeting, outbound and lead routing to the right sales rep.
 tools:
   - hubspot
   - clay

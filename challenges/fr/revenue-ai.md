@@ -113,5 +113,4 @@ case:
 diagnostic:
   question: Votre organisation Revenue est-elle prête pour l'IA ?
   subtitle: En 30 minutes, un architecte du revenu évalue avec vous la maturité IA de vos équipes. Vous repartez en sachant par où commencer.
-
 ---
