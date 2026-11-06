@@ -13,4 +13,13 @@ linkedin: "https://www.linkedin.com/in/hugo-moulon-44b4a613b/"
 active: true
 featuredOnAboutUs: false
 displayOrder: 14
+challenge: se
+contribution:
+  fr: Ciblage, outbound et assignation des leads au bon commercial.
+  en: Targeting, outbound and lead routing to the right sales rep.
+tools:
+  - hubspot
+  - clay
+  - lemlist
+  - make
 ---

@@ -129,7 +129,7 @@ export const challengeSchema = z.strictObject({
     )
     .length(4),
   workstreams: z.strictObject({
-    title: cappedText(50).optional(),
+    title: cappedText(71).optional(),
     intro: cappedText(120),
     items: z.array(workstream).min(4).max(6),
   }),
@@ -159,7 +159,7 @@ export const challengeSchema = z.strictObject({
   }),
   method: z.strictObject({
     title: cappedText(30).optional(),
-    subtitle: cappedText(75),
+    subtitle: cappedText(91),
     steps: z
       .array(
         z.strictObject({
@@ -169,8 +169,7 @@ export const challengeSchema = z.strictObject({
       )
       .length(3),
     // Tool slugs. Their cross-reference check comes in a later ticket.
-    // Spec #91 says 0 to 6. Two mockups exceed it, logos included (Sales
-    // Experience 9, Revenue Systems 7), so the cap is the largest mockup count.
+    // The cap is the largest mockup count, logos included (Sales Experience).
     tools: z.array(slug).max(9),
     note: cappedText(170),
   }),
@@ -178,8 +177,6 @@ export const challengeSchema = z.strictObject({
     // Optional until Ocobo confirms a Story for the Revenue AI client case
     // (assumption A5 in spec #91).
     story: slug.optional(),
-    // Spec #91 says 90. The Revenue AI headline is 98 characters, so the cap
-    // follows the spec's own rule: longest mockup value plus about 20%.
     headline: cappedText(120),
     summary: cappedText(220),
     metrics: z
@@ -193,7 +190,7 @@ export const challengeSchema = z.strictObject({
   }),
   diagnostic: z.strictObject({
     question: cappedText(88),
-    subtitle: cappedText(125),
+    subtitle: cappedText(155),
   }),
 });
 

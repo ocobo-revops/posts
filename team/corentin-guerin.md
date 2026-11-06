@@ -13,4 +13,12 @@ color: sky
 bio:
   fr: Finance, Deloitte, Business Ops (TheFork). Spécialiste du forecasting, de la performance, des rémunérations variables et du pricing.
   en: Finance, Deloitte, Business Ops (TheFork). Forecasting, performance, variable compensation and pricing specialist.
+challenge: rp
+contribution:
+  fr: Aligne le prévisionnel commercial sur le budget et la trésorerie.
+  en: Aligns the sales forecast with budget and cash flow.
+tools:
+  - salesforce
+  - hubspot
+  - metabase
 ---

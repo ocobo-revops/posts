@@ -12,4 +12,11 @@ featuredOnAboutUs: false
 bio:
   fr: Spécialiste de la performance commerciale et du pilotage par la donnée fiable.
   en: Specialist in commercial performance and data-driven management.
+challenge: sy
+contribution:
+  fr: Implémentations Salesforce et billing, de la spécification à l'adoption.
+  en: Salesforce and billing implementations, from specification to adoption.
+tools:
+  - salesforce
+  - chargebee
 ---
