@@ -13,13 +13,12 @@ linkedin: "https://www.linkedin.com/in/thomas-revops/"
 active: true
 featuredOnAboutUs: false
 displayOrder: 16
-challenge: cx
+challenge: rp
 contribution:
-  fr: Passation vente vers CS et parcours d'onboarding qui tiennent dans le temps.
-  en: Sales-to-CS handover and onboarding journeys that hold up over time.
+  fr: Aligne le prévisionnel commercial sur le budget et la trésorerie.
+  en: Aligns the sales forecast with budget and cash flow.
 tools:
-  - planhat
+  - salesforce
   - hubspot
-  - stripe
-  - n8n
+  - metabase
 ---

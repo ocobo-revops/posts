@@ -13,12 +13,13 @@ color: coral
 bio:
   fr: Référence française du Revenue Operations (TheFork, Spendesk). Experte du customer journey, des organisations GTM, du scaling d'équipes RevOps.
   en: France's Revenue Operations reference (TheFork, Spendesk). Expert in customer journey, GTM organisations, and scaling RevOps teams.
-challenge: sc
+challenge: cx
 contribution:
-  fr: Aligne le plan sur la stratégie et en modélise le coût avec la finance.
-  en: Aligns the plan with strategy and models its cost with finance.
+  fr: Passation vente vers CS et parcours d'onboarding qui tiennent dans le temps.
+  en: Sales-to-CS handover and onboarding journeys that hold up over time.
 tools:
-  - qobra
-  - salesforce
-  - looker
+  - planhat
+  - hubspot
+  - stripe
+  - n8n
 ---

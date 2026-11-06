@@ -13,4 +13,11 @@ linkedin: "https://www.linkedin.com/in/victor-lajri-a8a993115/"
 active: true
 featuredOnAboutUs: false
 displayOrder: 19
+challenge: sy
+contribution:
+  fr: Implémentations Salesforce et billing, de la spécification à l'adoption.
+  en: Salesforce and billing implementations, from specification to adoption.
+tools:
+  - salesforce
+  - chargebee
 ---
