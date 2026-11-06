@@ -13,13 +13,13 @@ linkedin: "https://www.linkedin.com/in/jeanne-hebben/"
 active: true
 featuredOnAboutUs: false
 displayOrder: 15
-challenge: se
+challenge: rp
 contribution:
-  fr: Process de vente, quote-to-cash et enablement, du devis à la signature.
-  en: Sales process, quote-to-cash and enablement, from quote to signature.
+  fr: Prévisionnel, revues de pipe et tableaux de bord que la direction utilise vraiment.
+  en: Forecasting, pipeline reviews and dashboards that leadership actually uses.
 tools:
   - salesforce
-  - pandadoc
-  - oneflow
-  - storylane
+  - tableau
+  - metabase
+  - outreach
 ---

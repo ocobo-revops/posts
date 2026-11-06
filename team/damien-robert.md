@@ -12,11 +12,13 @@ featuredOnAboutUs: false
 bio:
   fr: Spécialiste de la performance commerciale et du pilotage par la donnée fiable.
   en: Specialist in commercial performance and data-driven management.
-challenge: sy
+challenge: ai
 contribution:
-  fr: Implémentations Salesforce et billing, de la spécification à l'adoption.
-  en: Salesforce and billing implementations, from specification to adoption.
+  fr: Branche les assistants IA sur le CRM et les conversations clients.
+  en: Connects AI assistants to the CRM and to customer conversations.
 tools:
-  - salesforce
-  - chargebee
+  - modjo
+  - aircall
+  - notion
+  - hubspot
 ---

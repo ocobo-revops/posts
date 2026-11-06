@@ -12,13 +12,13 @@ featuredOnAboutUs: false
 bio:
   fr: Maîtrise les architectures CRM les plus complexes pour transformer la donnée en levier de croissance.
   en: Masters the most complex CRM architectures to turn data into a growth lever.
-challenge: rp
+challenge: cx
 contribution:
-  fr: Prévisionnel, revues de pipe et tableaux de bord que la direction utilise vraiment.
-  en: Forecasting, pipeline reviews and dashboards that leadership actually uses.
+  fr: Santé client, renouvellements et expansion pilotés depuis un seul outil.
+  en: Customer health, renewals and expansion run from a single tool.
 tools:
-  - salesforce
-  - tableau
-  - metabase
-  - outreach
+  - planhat
+  - vitally
+  - hubspot
+  - segment
 ---
