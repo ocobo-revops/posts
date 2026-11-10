@@ -7,7 +7,7 @@ hero:
   title:
     - Variable pay
     - that pulls in the right direction.
-  quote: My reps optimise their commission, not my revenue.
+  quote: My reps optimise their commissions, not my revenue.
   lead: "Your commission plan is the document your reps read most closely. If it contradicts your strategy, the plan wins. We design, model, equip and run"
   highlight: variable pay aligned with what you really want to sell.
   cta: Talk to an architect

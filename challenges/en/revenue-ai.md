@@ -7,7 +7,7 @@ hero:
   title:
     - Your teams and your AI agents,
     - finally in the same system.
-  quote: Everyone uses ChatGPT, nobody sells better.
+  quote: Everyone uses Claude or ChatGPT, nobody sells better.
   lead: "An AI agent does not know what a qualified opportunity is. Someone has to teach it. We pick the use cases that matter for your sales, we make reliable"
   highlight: the data and processes they run on, and we measure what they bring in.
   cta: Assess my AI maturity

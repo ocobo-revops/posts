@@ -7,7 +7,7 @@ hero:
   title:
     - Des outils que vos équipes
     - utilisent vraiment.
-  quote: On paie un CRM que personne ne remplit.
+  quote: On paie plein d'outils, aucun ne nous fait vendre plus.
   lead: "Votre stack s'est empilée au fil des besoins, et personne n'en a la vue d'ensemble. Nous dessinons l'architecture d'abord, puis nous implémentons, connectons et faisons adopter"
   highlight: des outils au service de votre organisation Revenue.
   cta: Échanger avec un architecte
