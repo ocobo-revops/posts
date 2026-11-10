@@ -8,7 +8,7 @@ startDate: 2026-09-01
 hiringContact: benjamin-boileux
 applyEmail: recrutement@ocobo.co
 tallyFormId: 2EVoOb
-status: published
+status: unlisted
 publishedAt: 2026-06-22
 intro: >
   La mission du Founding Sales | Business Development Manager est de prendre en

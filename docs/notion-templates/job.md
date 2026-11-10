@@ -32,7 +32,7 @@
 - Lang → `Language`, `Langue`
 - Icon → `Icône`
 
-**Status** — one of `published`, `draft`, `closed`.
+**Status** — one of `published`, `unlisted`, `draft`, `closed`. `published` is listed on the jobs page; `unlisted` is hidden from the list but its page stays reachable by direct link (not indexed by search engines); `draft` and `closed` redirect to the jobs page.
 
 **Hiring contact** — must match an active team member slug.
 
@@ -56,7 +56,7 @@
 > - Start date (date)
 > - Hiring contact (select) — add team member slugs as options
 > - Tally form ID (text)
-> - Status (select) — options: published, draft, closed
+> - Status (select) — options: published, unlisted, draft, closed
 > - Published at (date)
 > - Lang (select) — options: fr, en
 > - Icon (text) — a single emoji
