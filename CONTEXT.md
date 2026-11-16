@@ -25,7 +25,7 @@ A third-party software product Ocobo deploys or recommends to clients (e.g. HubS
 _Avoid_: software, vendor, product.
 
 **Job**:
-An open position in `jobs/<lang>/`. References a `hiringContact` (team member slug).
+An open position in `jobs/<lang>/`. References a `hiringContact` (team member slug). Its `status` sets visibility: `published` (listed), `unlisted` (off the list, page reachable by direct link, not indexed), `draft` and `closed` (page redirects to the jobs list).
 _Avoid_: role (overloaded, see "Flagged ambiguities"), offer, posting.
 
 **Challenge**:

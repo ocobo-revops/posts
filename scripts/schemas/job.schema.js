@@ -11,7 +11,7 @@ export const jobSchema = z.object({
   hiringContact: z.string().min(1),
   applyEmail: z.email().optional(),
   tallyFormId: z.string().min(1),
-  status: z.enum(['published', 'draft', 'closed']),
+  status: z.enum(['published', 'unlisted', 'draft', 'closed']),
   publishedAt: isoDate,
   intro: z.string().optional(),
 });

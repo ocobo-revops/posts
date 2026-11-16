@@ -289,6 +289,10 @@ describe('job schema', () => {
     ).toBe(true);
   });
 
+  it.each(['published', 'unlisted', 'draft', 'closed'])('accepts status %s', (status) => {
+    expect(validateJob({ ...validJob, status }).success).toBe(true);
+  });
+
   it('rejects invalid status', () => {
     expect(validateJob({ ...validJob, status: 'active' }).success).toBe(false);
   });

@@ -226,7 +226,7 @@ No body for team members.
 9. **hiringContact** — show active team slugs, ask to pick.
 10. **applyEmail (optional)** — email address for applications.
 11. **tallyFormId** — Tally form ID string (e.g. `mK0Q4g`).
-12. **status** — `published | draft | closed` (default `published`).
+12. **status** — `published | unlisted | draft | closed` (default `published`). `unlisted` = hidden from the jobs list, page still reachable by direct link.
 13. **publishedAt** — `YYYY-MM-DD` (default today).
 14. **intro (optional)** — introductory paragraph (multi-line OK).
 15. **body** — ask for each of the three required sections separately, then assemble:
