@@ -7,7 +7,7 @@ hero:
   title:
     - A sales organisation
     - that grows with you.
-  quote: Two reps bring in most of the revenue.
+  quote: We doubled the sales team, not the revenue.
   lead: "When performance depends on a few talented people, hiring more reps is not enough. We build the organisation, processes, tools and metrics that run"
   highlight: the whole cycle, from first lead to cash collected.
   cta: Talk to an architect

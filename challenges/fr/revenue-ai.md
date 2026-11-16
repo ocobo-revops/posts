@@ -7,7 +7,7 @@ hero:
   title:
     - Vos équipes et vos agents IA,
     - enfin dans le même système.
-  quote: Tout le monde utilise ChatGPT, personne ne vend mieux.
+  quote: Tout le monde utilise Claude ou ChatGPT, personne ne vend mieux.
   lead: "Un agent IA ne sait pas ce qu'est une opportunité qualifiée. Quelqu'un doit le lui apprendre. Nous choisissons les usages qui comptent pour vos ventes, nous fiabilisons"
   highlight: les données et les processus sur lesquels ils tournent, et nous mesurons ce qu'ils rapportent.
   cta: Évaluer ma maturité IA

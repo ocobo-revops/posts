@@ -7,7 +7,7 @@ hero:
   title:
     - Une rémunération variable
     - qui tire dans le bon sens.
-  quote: Mes commerciaux optimisent leur commission, pas mon chiffre.
+  quote: Mes commerciaux optimisent leurs commissions, pas mon chiffre.
   lead: "Votre plan de commissionnement est le document que vos commerciaux lisent le plus attentivement. S'il contredit votre stratégie, c'est lui qui l'emporte. Nous concevons, modélisons, outillons et pilotons"
   highlight: une rémunération variable alignée sur ce que vous voulez vraiment vendre.
   cta: Échanger avec un architecte

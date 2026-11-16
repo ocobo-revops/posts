@@ -7,7 +7,7 @@ hero:
   title:
     - Une organisation commerciale
     - qui grandit avec vous.
-  quote: Deux commerciaux font l'essentiel du chiffre.
+  quote: On a doublé l'équipe commerciale, pas le chiffre.
   lead: "Quand la performance tient à quelques talents, ajouter des commerciaux ne suffit pas. Nous construisons l'organisation, les processus, les outils et les indicateurs qui font tourner"
   highlight: tout le cycle, du premier lead à l'argent encaissé.
   cta: Échanger avec un architecte

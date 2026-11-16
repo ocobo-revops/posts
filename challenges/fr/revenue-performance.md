@@ -7,7 +7,7 @@ hero:
   title:
     - Un chiffre
     - que vous voyez venir.
-  quote: Je découvre mon trimestre à la fin du trimestre.
+  quote: Je découvre mon chiffre le dernier jour du trimestre.
   lead: "Votre board, votre fonds ou votre banque vous demandent un prévisionnel. Vos équipes vous donnent une intuition. Nous construisons le système qui transforme"
   highlight: votre pipe en chiffre fiable, mois après mois.
   cta: Échanger avec un architecte

@@ -7,7 +7,7 @@ hero:
   title:
     - Tools your teams
     - actually use.
-  quote: We pay for a CRM nobody fills in.
+  quote: We pay for plenty of tools, none of them helps us sell more.
   lead: "Your stack has piled up need after need, and nobody has the full picture. We design the architecture first, then we implement, connect and drive adoption of"
   highlight: tools that serve your Revenue organisation.
   cta: Talk to an architect

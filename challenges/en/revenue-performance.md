@@ -7,7 +7,7 @@ hero:
   title:
     - Revenue
     - you can see coming.
-  quote: I find out how my quarter went at the end of the quarter.
+  quote: I find out my revenue on the last day of the quarter.
   lead: "Your board, your investors or your bank ask you for a forecast. Your teams give you a gut feeling. We build the system that turns"
   highlight: your pipeline into reliable numbers, month after month.
   cta: Talk to an architect
