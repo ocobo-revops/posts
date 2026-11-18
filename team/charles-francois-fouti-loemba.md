@@ -2,7 +2,7 @@
 slug: charles-francois-fouti-loemba
 name: Charles-François Fouti-Loemba
 track: builder
-avatar: assets/team/charles-francois-fouti-loemba.jpg
+avatar: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/team/charles-francois-fouti-loemba.jpg
 role:
   fr: Revenue Operations Associate
   en: Revenue Operations Associate
