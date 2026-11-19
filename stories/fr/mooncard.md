@@ -5,7 +5,7 @@ title: Mooncard génère +30 % d'ARPA en réorganisant ses équipes autour de la
 subtitle: Réorganisation CS/AM par potentiel et refonte du pricing pour aller chercher la croissance dans la base existante.
 description: Mooncard est une fintech française qui simplifie la gestion des dépenses professionnelles, en combinant carte de paiement et logiciel de gestion.
 speaker: Matthieu Bagur
-role: Chief Business Officer
+role: Chief Revenue Officer
 duration: 12 mois
 scopes:
   - Expansion
