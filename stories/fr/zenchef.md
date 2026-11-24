@@ -1,7 +1,7 @@
 ---
 name: Zenchef
 date: 2026-11-24
-title: Zenchef transforme son reporting Customer Success en un vrai système de décision
+title: "Zenchef passe de la donnée au pilotage : un reporting churn et upsell fiable, aligné entre finance et Ops"
 subtitle: Fiabilisation des KPIs de revenus dans Salesforce et alignement finance / Ops pour piloter le churn, l'upsell et la performance CSM.
 description: Zenchef est une solution française qui accompagne les restaurateurs dans la gestion de leurs réservations, de leur relation client et de leurs revenus.
 speaker: Pierre-Antoine Canova
