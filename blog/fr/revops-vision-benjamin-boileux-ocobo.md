@@ -7,7 +7,7 @@ exerpt: |
 
   Dans ce hors-série Ocobo Insights de Revenue Echoes, Benjamin Boileux, CEO d'Ocobo, défend une autre vision : une discipline transverse dont l'impact se mesure moins dans les outils que dans l'expérience des prospects, des clients et des équipes.
 read: 7 min
-image: assets/posts/revops-vision-benjamin-boileux-ocobo/revops-vision-benjamin-boileux-ocobo.png
+image: https://ipjmp3k0z0p479cb.public.blob.vercel-storage.com/content/posts/revops-vision-benjamin-boileux-ocobo/revops-vision-benjamin-boileux-ocobo.png
 date: 2026-11-24
 podcastId: YKl7ltxXqx4J
 tags:
